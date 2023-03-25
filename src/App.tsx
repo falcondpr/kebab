@@ -1,7 +1,12 @@
 import { Box } from "@chakra-ui/react";
+import Layout from "./components";
 
 function App() {
-  return <Box color="suvap.darkGray">Hello world from vitejs</Box>;
+  return (
+    <Layout>
+      <Box color="suvap.darkGray"></Box>;
+    </Layout>
+  );
 }
 
 export default App;
