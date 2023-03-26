@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -7,11 +8,22 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Layout from "../components/Layout";
+
 import { CATEGORIES } from "../../data/categories";
 import { PRODUCTS } from "../../data/products";
 import ProductCard from "../components/ProductCard";
 
 export default function Home() {
+  const [productSelect, setProductSelect] = useState<{
+    status: boolean;
+    id: string | null;
+  }>({
+    status: false,
+    id: null,
+  });
+
+  console.log(productSelect);
+
   return (
     <Layout>
       {/* Header */}
@@ -77,10 +89,15 @@ export default function Home() {
       </Box>
 
       {/* List of products */}
-      <Box p="20px">
+      <Box p="20px" pb="32px">
         <Grid gridTemplateColumns="repeat(2, 1fr)" gap="28px 15px">
           {PRODUCTS.map((product) => (
-            <ProductCard product={product} key={product.id} />
+            <ProductCard
+              productSelect={productSelect}
+              setProductSelect={setProductSelect}
+              product={product}
+              key={product.id}
+            />
           ))}
         </Grid>
       </Box>
