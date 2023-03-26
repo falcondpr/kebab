@@ -1,6 +1,4 @@
 import { Box, Image, Text } from "@chakra-ui/react";
-import { useSelector, useDispatch } from "react-redux/es/exports";
-
 import TagUser from "./TagUser";
 
 interface IProductSelect {
