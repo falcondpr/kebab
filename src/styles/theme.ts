@@ -7,4 +7,8 @@ const colors = {
   },
 };
 
-export const theme = extendTheme({ colors });
+const fonts = {
+  body: `'Poppins', sans-serif`,
+};
+
+export const theme = extendTheme({ colors, fonts });
