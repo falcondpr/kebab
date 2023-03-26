@@ -8,6 +8,8 @@ import {
 } from "@chakra-ui/react";
 import Layout from "../components/Layout";
 import { CATEGORIES } from "../../data/categories";
+import { PRODUCTS } from "../../data/products";
+import ProductCard from "../components/ProductCard";
 
 export default function Home() {
   return (
@@ -41,6 +43,7 @@ export default function Home() {
         />
       </Box>
 
+      {/* Categories */}
       <Box pt="20px">
         <Grid
           px="20px"
@@ -53,6 +56,7 @@ export default function Home() {
         >
           {CATEGORIES.map((category) => (
             <Button
+              key={category.id}
               color="suvap.darkGray"
               rounded="3px"
               bgColor="white"
@@ -68,6 +72,15 @@ export default function Home() {
             >
               {category.name}
             </Button>
+          ))}
+        </Grid>
+      </Box>
+
+      {/* List of products */}
+      <Box p="20px">
+        <Grid gridTemplateColumns="repeat(2, 1fr)" gap="28px 15px">
+          {PRODUCTS.map((product) => (
+            <ProductCard product={product} key={product.id} />
           ))}
         </Grid>
       </Box>
