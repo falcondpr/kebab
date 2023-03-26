@@ -1,11 +1,17 @@
 import { Box } from "@chakra-ui/react";
-import Layout from "./components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Home from "./screens/Home";
 
 function App() {
   return (
-    <Layout>
-      <Box color="suvap.darkGray"></Box>;
-    </Layout>
+    <Box>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
+    </Box>
   );
 }
 
