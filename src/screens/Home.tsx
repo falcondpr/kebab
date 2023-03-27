@@ -8,8 +8,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 
-import { CATEGORIES } from "../../data/categories";
-import { PRODUCTS } from "../../data/products";
+import { CATEGORIES, PRODUCTS } from "@/data";
 import { Layout, ProductCard} from "@/components";
 import { Text } from "@/ui"
 
