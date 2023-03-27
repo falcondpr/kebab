@@ -20,20 +20,13 @@ export default function ProductCard({
   return (
     <Box
       position="relative"
-      onClick={() => {
-        if (productSelect.id) {
-          setProductSelect({ status: false, id: null });
-        } else {
-          setProductSelect({ status: true, id: product.id });
-        }
-      }}
-      opacity={
-        productSelect.status
-          ? product.id === productSelect.id
-            ? "1"
-            : "0.3"
-          : "1"
-      }
+      // opacity={
+      //   productSelect.status
+      //     ? product.id === productSelect.id
+      //       ? "1"
+      //       : "0.3"
+      //     : "1"
+      // }
     >
       <Box
         display={
@@ -50,11 +43,42 @@ export default function ProductCard({
         w="full"
         h="60px"
         bgColor="red.400"
-        zIndex="20"
+        onClick={() => console.log("hi")}
+        zIndex="10000"
       ></Box>
 
-      <Box>
-        <Box rounded="4px" overflow="hidden">
+      <Box
+        display={productSelect.status ? "block" : "none"}
+        position="fixed"
+        bgColor="rgba(255,255,255,0.35)"
+        w="full"
+        h="full"
+        top="0"
+        left="0"
+        onClick={() => setProductSelect({ status: false, id: null })}
+      />
+
+      <Box
+        position="relative"
+        zIndex={
+          productSelect.status
+            ? product.id === productSelect.id
+              ? "2000"
+              : "-1"
+            : "50"
+        }
+      >
+        <Box
+          rounded="4px"
+          overflow="hidden"
+          onClick={() => {
+            if (productSelect.id) {
+              setProductSelect({ status: false, id: null });
+            } else {
+              setProductSelect({ status: true, id: product.id });
+            }
+          }}
+        >
           <Image
             h="205px"
             src={product.image}
