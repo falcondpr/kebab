@@ -1,4 +1,4 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme, type ThemeConfig } from "@chakra-ui/react";
 
 const colors = {
   suvap: {
@@ -10,5 +10,10 @@ const colors = {
 const fonts = {
   body: `'Poppins', sans-serif`,
 };
+
+const config: ThemeConfig = {
+  initialColorMode: 'light',
+  useSystemColorMode: false
+}
 
 export const theme = extendTheme({ colors, fonts });

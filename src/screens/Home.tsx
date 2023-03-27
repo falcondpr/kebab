@@ -5,12 +5,12 @@ import {
   Flex,
   Grid,
   Image,
-  Text,
+  useColorMode,
 } from "@chakra-ui/react";
 
-import { CATEGORIES } from "../../data/categories";
-import { PRODUCTS } from "../../data/products";
+import { CATEGORIES, PRODUCTS } from "@/data";
 import { Layout, ProductCard} from "@/components";
+import { Text } from "@/ui"
 
 export default function Home() {
   const [productSelect, setProductSelect] = useState<{
@@ -20,6 +20,8 @@ export default function Home() {
     status: false,
     id: null,
   });
+
+  const { colorMode, toggleColorMode } = useColorMode()
 
   return (
     <Layout>
@@ -33,12 +35,20 @@ export default function Home() {
           fontWeight="medium"
           fontSize="24px"
           textTransform="uppercase"
-          color="suvap.darkGray"
+          color={colorMode === "light" ? "suvap.darkGray" : "white"}
         >
           Suvap
         </Text>
         <Button bgColor="transparent">
-          <Image w="28px" src="/icons/bar.svg" alt="" />
+          <Image
+            w="28px"
+            src={
+              colorMode === "light"
+                ? "/icons/bar.svg"
+                : "/icons/bar-light.svg"
+            }
+            alt=""
+          />
         </Button>
       </Flex>
 
@@ -68,7 +78,7 @@ export default function Home() {
               key={category.id}
               color="suvap.darkGray"
               rounded="3px"
-              bgColor="white"
+              bgColor={colorMode === "light" ? "white" : "gray.300"}
               _focusWithin={{}}
               _hover={{}}
               fontWeight="regular"
@@ -97,6 +107,12 @@ export default function Home() {
             />
           ))}
         </Grid>
+      </Box>
+
+      <Box position="fixed" top="0" left="50%" zIndex="40">
+        <Button onClick={toggleColorMode}>
+          {colorMode === "light" ? "dark" : "light"}
+        </Button>
       </Box>
     </Layout>
   );

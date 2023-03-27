@@ -1,6 +1,9 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, useColorMode } from "@chakra-ui/react";
+import { Text } from "@/ui";
 
 export default function TagUser() {
+  const { colorMode } = useColorMode()
+  
   return (
     <Flex alignItems="center" mt="2px">
       <Box>
@@ -16,7 +19,7 @@ export default function TagUser() {
         />
       </Box>
       <Box ml="8px">
-        <Text color="gray.500">Stefan Bass</Text>
+        <Text color={colorMode === "light" ? "gray.500" : "white"}>Stefan Bass</Text>
       </Box>
     </Flex>
   );
