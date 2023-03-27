@@ -1,5 +1,5 @@
 import { Box, Image, Text } from "@chakra-ui/react";
-import TagUser from "./TagUser";
+import { TagUser } from "@/components";
 
 interface IProductSelect {
   status: boolean;
@@ -19,15 +19,7 @@ export default function ProductCard({
 }: IProductCard) {
   return (
     <Box
-      position="relative"
-      // opacity={
-      //   productSelect.status
-      //     ? product.id === productSelect.id
-      //       ? "1"
-      //       : "0.3"
-      //     : "1"
-      // }
-    >
+      position="relative">
       <Box
         display={
           productSelect.status

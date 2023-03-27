@@ -7,11 +7,10 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
-import Layout from "../components/Layout";
 
 import { CATEGORIES } from "../../data/categories";
 import { PRODUCTS } from "../../data/products";
-import ProductCard from "../components/ProductCard";
+import { Layout, ProductCard} from "@/components";
 
 export default function Home() {
   const [productSelect, setProductSelect] = useState<{
