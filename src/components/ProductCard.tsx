@@ -26,7 +26,11 @@ export default function ProductCard({
       <Box
         display={productSelect.status ? "block" : "none"}
         position="fixed"
-        bgColor="rgba(255,255,255,0.35)"
+        bgColor={
+          colorMode === "light"
+            ? "rgba(255,255,255,0.35)"
+            : "rgba(0,0,0,0.3)"
+        }
         w="full"
         h="full"
         top="0"
