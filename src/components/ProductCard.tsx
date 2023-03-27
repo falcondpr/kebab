@@ -1,5 +1,7 @@
-import { Box, Image, Text } from "@chakra-ui/react";
+import { Box, Image, useColorMode } from "@chakra-ui/react";
+
 import { TagUser } from "@/components";
+import { Text } from "@/ui";
 
 interface IProductSelect {
   status: boolean;
@@ -17,6 +19,8 @@ export default function ProductCard({
   productSelect,
   setProductSelect,
 }: IProductCard) {
+  const { colorMode } = useColorMode()
+  
   return (
     <Box position="relative">
       <Box
@@ -82,7 +86,7 @@ export default function ProductCard({
           <Text
             fontSize="18px"
             fontWeight="semibold"
-            color="suvap.darkGray"
+            color={colorMode === "light" ? "suvap.darkGray" : "white"}
           >
             Brown Blazer
           </Text>
