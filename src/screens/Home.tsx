@@ -21,8 +21,6 @@ export default function Home() {
     id: null,
   });
 
-  console.log(productSelect);
-
   return (
     <Layout>
       {/* Header */}

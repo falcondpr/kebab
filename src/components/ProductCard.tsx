@@ -18,27 +18,7 @@ export default function ProductCard({
   setProductSelect,
 }: IProductCard) {
   return (
-    <Box
-      position="relative">
-      <Box
-        display={
-          productSelect.status
-            ? product.id === productSelect.id
-              ? "block"
-              : "none"
-            : "none"
-        }
-        position="absolute"
-        top="50%"
-        left="0"
-        transform="translateY(-50%)"
-        w="full"
-        h="60px"
-        bgColor="red.400"
-        onClick={() => console.log("hi")}
-        zIndex="10000"
-      ></Box>
-
+    <Box position="relative">
       <Box
         display={productSelect.status ? "block" : "none"}
         position="fixed"
@@ -49,6 +29,24 @@ export default function ProductCard({
         left="0"
         onClick={() => setProductSelect({ status: false, id: null })}
       />
+
+      <Box
+        display={
+          productSelect.status
+            ? product.id === productSelect.id
+              ? "block"
+              : "none"
+            : "none"
+        }
+        position="absolute"
+        bottom="calc(100% - 205px)"
+        left="0"
+        w="full"
+        h="60px"
+        bgColor="red.400"
+        onClick={() => console.log("hi")}
+        zIndex="10000"
+      ></Box>
 
       <Box
         position="relative"
