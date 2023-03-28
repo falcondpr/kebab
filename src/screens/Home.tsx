@@ -7,12 +7,18 @@ import {
   Image,
   useColorMode,
 } from "@chakra-ui/react";
+import { useSelector, useDispatch } from "react-redux";
 
 import { CATEGORIES, PRODUCTS } from "@/data";
 import { Layout, ProductCard } from "@/components";
 import { Text } from "@/ui";
+import { hideMenu, showMenu } from "@/features/menuSlice";
+import { RootState } from "@/app/store";
 
 export default function Home() {
+  const menuState = useSelector((state: RootState) => state.menu.value);
+  
+  const dispatch = useDispatch()
   const [productSelect, setProductSelect] = useState<{
     status: boolean;
     id: string | null;
@@ -20,6 +26,9 @@ export default function Home() {
     status: false,
     id: null,
   });
+
+  const handleOpenMenu = () =>
+    menuState ? dispatch(hideMenu()) : dispatch(showMenu());
 
   const { colorMode, toggleColorMode } = useColorMode();
 
@@ -43,6 +52,7 @@ export default function Home() {
           bgColor="transparent"
           position="relative"
           zIndex="150"
+          onClick={handleOpenMenu}
         >
           <Image
             w="28px"
@@ -113,7 +123,7 @@ export default function Home() {
         </Grid>
       </Box>
 
-      <Box position="fixed" top="0" left="50%" zIndex="40">
+      <Box position="fixed" top="0" left="50%" zIndex="4000">
         <Button onClick={toggleColorMode}>
           {colorMode === "light" ? "dark" : "light"}
         </Button>

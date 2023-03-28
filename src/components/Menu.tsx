@@ -1,15 +1,21 @@
-import { Box, Button, Flex, Image } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, useColorMode } from "@chakra-ui/react";
 
 import { Text } from "@/ui";
 import { LINKS } from "@/data";
 
-export default function Menu() {
+interface IMenu {
+  show: boolean;
+}
+
+export default function Menu({ show }: IMenu) {
+  const { colorMode } = useColorMode()
+  
   return (
     <Box
+      display={show ? "block" : "none"}
       position="fixed"
-      pb="48px"
       top="0"
-      bgColor="white"
+      bgColor={colorMode === "light" ? "white" : "suvap.darkGray"}
       zIndex="150"
       left="0"
       w="100vw"
@@ -37,8 +43,21 @@ export default function Menu() {
             />
           </Box>
           <Flex flexDir="column" ml="15px">
-            <Text fontWeight="semibold">Lucas Lamas</Text>
-            <Text mt="2px" fontSize="14px">
+            <Text
+              fontWeight="semibold"
+              color={
+                colorMode === "light" ? "suvap.darkGray" : "white"
+              }
+            >
+              Lucas Lamas
+            </Text>
+            <Text
+              mt="2px"
+              fontSize="14px"
+              color={
+                colorMode === "light" ? "suvap.darkGray" : "white"
+              }
+            >
               @lucas_lamas
             </Text>
           </Flex>
@@ -60,9 +79,24 @@ export default function Menu() {
             _hover={{}}
           >
             <Box w="28px">
-              <Image h="24px" src={`/icons/${link.icon}`} alt="" />
+              <Image
+                h="24px"
+                src={`/icons/${
+                  colorMode === "light"
+                    ? `${link.icon}.svg`
+                    : `${link.icon}-white.svg`
+                }`}
+                alt=""
+              />
             </Box>
-            <Text ml="16px" fontSize="20px" fontWeight="medium">
+            <Text
+              color={
+                colorMode === "light" ? "suvap.darkGray" : "white"
+              }
+              ml="16px"
+              fontSize="20px"
+              fontWeight="medium"
+            >
               {link.name}
             </Text>
           </Button>
@@ -71,49 +105,55 @@ export default function Menu() {
 
       {/* Sub */}
       <Box
-        mt="72px"
-        px="20px"
-        rounded="lg"
-        bgColor="suvap.darkGray"
-        py="20px"
         mx="20px"
-        position="relative"
+        my="48px"
+        mt="84px"
+        bgColor={colorMode === "light" ? "suvap.darkGray" : "white"}
+        rounded="lg"
+        pb="32px"
       >
-        <Box h="4.6rem">
-          <Box
-            position="absolute"
-            top="-3rem"
-            left="50%"
-            transform="translateX(-50%)"
-            border="6px solid"
-            rounded="full"
-            borderColor="white"
-          >
-            <Image
-              src="https://bit.ly/42OQbcL"
-              w="120px"
-              h="120px"
+        <Box mt="72px">
+          <Box h="4rem" position="relative">
+            <Box
+              position="absolute"
+              top="-4rem"
+              left="50%"
+              transform="translateX(-50%)"
+              border="6px solid"
               rounded="full"
-              objectFit="cover"
-              alt=""
-            />
+              borderColor={
+                colorMode === "light" ? "white" : "suvap.darkGray"
+              }
+            >
+              <Image
+                src="https://bit.ly/42OQbcL"
+                w="120px"
+                h="120px"
+                rounded="full"
+                objectFit="cover"
+                alt=""
+              />
+            </Box>
           </Box>
         </Box>
 
-        <Box mt="5px">
+        <Box mt="20px">
           <Text
-            color="white"
             fontSize="20px"
             textAlign="center"
             fontWeight="semibold"
+            color={colorMode === "light" ? "white" : "suvap.darkGray"}
           >
             Obtene premium
           </Text>
-          <Text color="white" textAlign="center">
+          <Text
+            color={colorMode === "light" ? "white" : "suvap.darkGray"}
+            textAlign="center"
+          >
             Precio de la suscripcion
           </Text>
           <Text
-            color="white"
+            color={colorMode === "light" ? "white" : "suvap.darkGray"}
             textAlign="center"
             fontSize="24px"
             fontWeight="semibold"
