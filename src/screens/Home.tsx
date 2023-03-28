@@ -9,8 +9,8 @@ import {
 } from "@chakra-ui/react";
 
 import { CATEGORIES, PRODUCTS } from "@/data";
-import { Layout, ProductCard} from "@/components";
-import { Text } from "@/ui"
+import { Layout, ProductCard } from "@/components";
+import { Text } from "@/ui";
 
 export default function Home() {
   const [productSelect, setProductSelect] = useState<{
@@ -21,7 +21,7 @@ export default function Home() {
     id: null,
   });
 
-  const { colorMode, toggleColorMode } = useColorMode()
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <Layout>
@@ -39,7 +39,11 @@ export default function Home() {
         >
           Suvap
         </Text>
-        <Button bgColor="transparent">
+        <Button
+          bgColor="transparent"
+          position="relative"
+          zIndex="150"
+        >
           <Image
             w="28px"
             src={
