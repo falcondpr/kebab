@@ -16,9 +16,11 @@ import { hideMenu, showMenu } from "@/features/menuSlice";
 import { RootState } from "@/app/store";
 
 export default function Home() {
-  const menuState = useSelector((state: RootState) => state.menu.value);
-  
-  const dispatch = useDispatch()
+  const menuState = useSelector(
+    (state: RootState) => state.menu.value
+  );
+
+  const dispatch = useDispatch();
   const [productSelect, setProductSelect] = useState<{
     status: boolean;
     id: string | null;
