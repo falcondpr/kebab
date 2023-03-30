@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Box, type BoxProps } from "@chakra-ui/react";
 
 import Menu from "./Menu";
