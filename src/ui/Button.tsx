@@ -1,10 +1,12 @@
-import { Button as ButtonChakraUI, ButtonProps } from "@chakra-ui/react";
+import { Button as ButtonChakraUI, ButtonProps, useColorMode } from "@chakra-ui/react";
 
 export default function Button({ children, ...rest }: ButtonProps) {
+  const { colorMode } = useColorMode();
+
   return (
     <ButtonChakraUI
-      bgColor="suvap.darkGray"
-      color="white"
+      bgColor={colorMode === "light" ? "suvap.darkGray" : "#fff"}
+      color={colorMode === "light" ? "white" : "suvap.darkGray"}
       h="60px"
       w="full"
       rounded="4px"
