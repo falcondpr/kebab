@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   Box,
-  Button,
+  Button as ButtonChakraUI,
   Flex,
   Grid,
   Image,
@@ -50,7 +50,7 @@ export default function Home() {
         >
           Suvap
         </Text>
-        <Button
+        <ButtonChakraUI
           bgColor="transparent"
           position="relative"
           zIndex="150"
@@ -65,7 +65,7 @@ export default function Home() {
             }
             alt=""
           />
-        </Button>
+        </ButtonChakraUI>
       </Flex>
 
       <Box px="20px">
@@ -126,9 +126,9 @@ export default function Home() {
       </Box>
 
       <Box position="fixed" top="0" left="50%" zIndex="4000">
-        <Button onClick={toggleColorMode}>
+        <ButtonChakraUI onClick={toggleColorMode}>
           {colorMode === "light" ? "dark" : "light"}
-        </Button>
+        </ButtonChakraUI>
       </Box>
     </Layout>
   );
