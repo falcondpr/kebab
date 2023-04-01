@@ -4,6 +4,7 @@ const colors = {
   suvap: {
     darkGray: "#333333",
     lightGray: "#F0F0F0",
+    secondaryGray: "#c1c1c1"
   },
 };
 
