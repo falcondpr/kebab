@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { CATEGORIES, PRODUCTS } from "@/data";
 import { Layout, ProductCard } from "@/components";
-import { Text } from "@/ui";
+import { Text, Button } from "@/ui";
 import { hideMenu, showMenu } from "@/features/menuSlice";
 import { RootState } from "@/app/store";
 
