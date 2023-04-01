@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { CATEGORIES, PRODUCTS } from "@/data";
 import { Layout, ProductCard } from "@/components";
-import { Text } from "@/ui";
+import { Text, Button } from "@/ui";
 import { hideMenu, showMenu } from "@/features/menuSlice";
 import { RootState } from "@/app/store";
 
@@ -55,16 +55,37 @@ export default function Home() {
           position="relative"
           zIndex="150"
           onClick={handleOpenMenu}
+          w="50px"
+          p="0"
+          transition="all 300ms ease"
+          _focusVisible={{}}
+          _focusWithin={{}}
+          _hover={{}}
+          border="1px solid"
+          borderColor="suvap.secondaryGray"
         >
-          <Image
-            w="28px"
-            src={
-              colorMode === "light"
-                ? "/icons/bar.svg"
-                : "/icons/bar-light.svg"
-            }
-            alt=""
-          />
+          {!menuState ? (
+            <Image
+              h="16px"
+              src={
+                colorMode === "light"
+                  ? "/icons/bar.svg"
+                  : "/icons/bar-light.svg"
+              }
+              alt=""
+            />
+          ) : (
+            <Image
+              h="16px"
+              objectFit="contain"
+              src={
+                colorMode === "light"
+                  ? "/icons/times.svg"
+                  : "/icons/times-light.svg"
+              }
+              alt=""
+            />
+          )}
         </ButtonChakraUI>
       </Flex>
 
