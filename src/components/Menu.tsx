@@ -1,4 +1,10 @@
-import { Box, Button, Flex, Image, useColorMode } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  useColorMode,
+} from "@chakra-ui/react";
 
 import { Text } from "@/ui";
 import { LINKS } from "@/data";
@@ -8,8 +14,8 @@ interface IMenu {
 }
 
 export default function Menu({ show }: IMenu) {
-  const { colorMode } = useColorMode()
-  
+  const { colorMode } = useColorMode();
+
   return (
     <Box
       display={show ? "block" : "none"}
@@ -68,19 +74,21 @@ export default function Menu({ show }: IMenu) {
       <Box px="20px" pt="24px">
         {LINKS.map((link) => (
           <Button
-            mb="32px"
+            w="full"
+            mb="24px"
             key={link.id}
             bgColor="transparent"
             rounded="0"
             p="10px"
             display="flex"
             alignItems="center"
+            justifyContent="flex-start"
             _focusWithin={{}}
             _hover={{}}
           >
             <Box w="28px">
               <Image
-                h="24px"
+                h="20px"
                 src={`/icons/${
                   colorMode === "light"
                     ? `${link.icon}.svg`
@@ -93,8 +101,8 @@ export default function Menu({ show }: IMenu) {
               color={
                 colorMode === "light" ? "suvap.darkGray" : "white"
               }
-              ml="16px"
-              fontSize="20px"
+              ml="10px"
+              fontSize="18px"
               fontWeight="medium"
             >
               {link.name}
@@ -108,7 +116,11 @@ export default function Menu({ show }: IMenu) {
         mx="20px"
         my="48px"
         mt="84px"
-        bgColor={colorMode === "light" ? "suvap.darkGray" : "white"}
+        bgColor={
+          colorMode === "light"
+            ? "suvap.darkGray"
+            : "suvap.secondaryGray"
+        }
         rounded="lg"
         pb="32px"
       >
