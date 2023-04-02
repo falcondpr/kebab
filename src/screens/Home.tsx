@@ -50,8 +50,8 @@ export default function Home() {
         >
           Suvap
         </Text>
+
         <ButtonChakraUI
-          bgColor="transparent"
           position="relative"
           zIndex="150"
           onClick={handleOpenMenu}
@@ -63,6 +63,7 @@ export default function Home() {
           _hover={{}}
           border="1px solid"
           borderColor="suvap.secondaryGray"
+          bgColor={colorMode === "light" ? "white" : "suvap.darkGray"}
         >
           {!menuState ? (
             <Image
