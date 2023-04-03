@@ -1,4 +1,12 @@
-import { Box, Image, useColorMode } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  Image,
+  useColorMode,
+} from "@chakra-ui/react";
+// import { FaTimes } from "";
 
 import { TagUser } from "@/components";
 import { Text } from "@/ui";
@@ -19,8 +27,8 @@ export default function ProductCard({
   productSelect,
   setProductSelect,
 }: IProductCard) {
-  const { colorMode } = useColorMode()
-  
+  const { colorMode } = useColorMode();
+
   return (
     <Box position="relative">
       <Box
@@ -42,19 +50,71 @@ export default function ProductCard({
         display={
           productSelect.status
             ? product.id === productSelect.id
-              ? "block"
+              ? "flex"
               : "none"
             : "none"
         }
         position="absolute"
         bottom="calc(100% - 205px)"
         left="0"
+        mx="auto"
+        justifyContent="center"
+        alignItems="center"
         w="full"
-        h="60px"
-        bgColor="red.400"
-        onClick={() => console.log("hi")}
+        h="60%"
         zIndex="10000"
-      ></Box>
+      >
+        <Button
+          position="absolute"
+          bottom="10px"
+          left="50%"
+          transform="translateX(-50%)"
+          w="50px"
+          h="50px"
+          rounded="full"
+          bgColor="red.400"
+          onClick={() =>
+            setProductSelect({ status: false, id: null })
+          }
+        >
+          <Image
+            src="/icons/times-close-preview.svg"
+            w="22px"
+            alt=""
+          />
+        </Button>
+
+        <Flex w="full" justifyContent="space-between">
+          <Button
+            display="block"
+            shadow="dark-lg"
+            rounded="full"
+            w="50px"
+            h="50px"
+          >
+            <Image src="/icons/like-card.svg" w="22px" alt="" />
+          </Button>
+          <Button
+            display="block"
+            shadow="dark-lg"
+            rounded="full"
+            w="50px"
+            h="50px"
+            mt="-42px"
+          >
+            <Image src="/icons/view-card.svg" w="26px" alt="" />
+          </Button>
+          <Button
+            display="block"
+            shadow="dark-lg"
+            rounded="full"
+            w="50px"
+            h="50px"
+          >
+            <Image src="/icons/share-card.svg" w="22px" alt="" />
+          </Button>
+        </Flex>
+      </Box>
 
       <Box
         position="relative"
