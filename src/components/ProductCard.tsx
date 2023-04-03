@@ -88,6 +88,7 @@ export default function ProductCard({
           <Button
             display="block"
             shadow="dark-lg"
+            bgColor="white"
             rounded="full"
             w="50px"
             h="50px"
@@ -97,6 +98,7 @@ export default function ProductCard({
           <Button
             display="block"
             shadow="dark-lg"
+            bgColor="white"
             rounded="full"
             w="50px"
             h="50px"
@@ -107,6 +109,7 @@ export default function ProductCard({
           <Button
             display="block"
             shadow="dark-lg"
+            bgColor="white"
             rounded="full"
             w="50px"
             h="50px"
