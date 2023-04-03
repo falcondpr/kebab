@@ -116,7 +116,7 @@ export default function Home() {
               key={category.id}
               color="suvap.darkGray"
               rounded="3px"
-              bgColor={colorMode === "light" ? "white" : "gray.300"}
+              bgColor={colorMode === "light" ? "white" : "white"}
               _focusWithin={{}}
               _hover={{}}
               fontWeight="regular"
