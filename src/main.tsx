@@ -1,6 +1,7 @@
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Toaster } from "react-hot-toast";
 
 import App from "./App";
 import "./styles/index.css";
@@ -20,6 +21,7 @@ ReactDOM.createRoot(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
       <Provider store={store}>
+        <Toaster />
         <ColorModeScript
           initialColorMode={theme.config.initialColorMode}
         />
