@@ -98,7 +98,7 @@ export const ModalPassword = ({
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    if (!password) return toast.success("La contrasena es requerida");
+    if (!password) return toast.error("La contrasena es requerida");
 
     toast.success("Sesion iniciada!");
     navigate("/");
