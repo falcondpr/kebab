@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { Button, Flex, Image } from "@chakra-ui/react";
+import { Button, Flex, Image, useColorMode } from "@chakra-ui/react";
 
 import { Text } from "@/ui";
 import { useEffect } from "react";
 
 export default function BackButton({ title }: { title: string }) {
   const navigate = useNavigate();
+  const { colorMode } = useColorMode();
 
   useEffect(() => {
     scrollTo(0, 0);
@@ -23,7 +24,11 @@ export default function BackButton({ title }: { title: string }) {
       >
         <Image src="/icons/arrow-left.svg" alt="" />
       </Button>
-      <Text ml="15px" color="suvap.darkGray" fontSize="18px">
+      <Text
+        ml="15px"
+        color={colorMode === "light" ? "suvap.darkGray" : "white"}
+        fontSize="18px"
+      >
         {title}
       </Text>
     </Flex>

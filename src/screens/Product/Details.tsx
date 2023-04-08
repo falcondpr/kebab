@@ -1,11 +1,17 @@
 import { BackButton } from "@/components";
-import { Text } from "@/ui";
-import { Box, Flex, Grid, Image } from "@chakra-ui/react";
+import { Button, Text } from "@/ui";
+import {
+  Box,
+  Flex,
+  Grid,
+  Image,
+  useColorMode,
+} from "@chakra-ui/react";
 import { useState } from "react";
 
 const images: string[] = [
-  "https://bit.ly/3zHAFCf",
   "https://bit.ly/3zIDVgL",
+  "https://bit.ly/3zHAFCf",
   "https://bit.ly/3nYoO09",
   "https://bit.ly/3MsGhYB",
   "https://bit.ly/3KLYBLi",
@@ -13,10 +19,11 @@ const images: string[] = [
 ];
 
 export default function Details() {
+  const { colorMode } = useColorMode();
   const [currentImage, setCurrentImage] = useState<string>(images[0]);
 
   return (
-    <Box>
+    <Box mb="140px">
       <BackButton title="Nombre del post" />
 
       {/* Images */}
@@ -47,8 +54,12 @@ export default function Details() {
               outline="2px solid"
               outlineOffset="2px"
               outlineColor={
-                currentImage === image
-                  ? "suvap.darkGray"
+                colorMode === "light"
+                  ? currentImage === image
+                    ? "suvap.darkGray"
+                    : "transparent"
+                  : currentImage === image
+                  ? "white"
                   : "transparent"
               }
               key={image}
@@ -67,7 +78,14 @@ export default function Details() {
       </Box>
 
       <Box p="20px">
-        <Text color="suvap.text" mb="20px">
+        <Text
+          color={
+            colorMode === "light"
+              ? "suvap.text"
+              : "suvap.secondaryGray"
+          }
+          mb="20px"
+        >
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
           Similique adipisci consequuntur praesentium nostrum,
           repellat maiores deleniti sequi alias cum odio repudiandae,
@@ -75,7 +93,13 @@ export default function Details() {
           minima facere.
         </Text>
 
-        <Text color="suvap.text">
+        <Text
+          color={
+            colorMode === "light"
+              ? "suvap.text"
+              : "suvap.secondaryGray"
+          }
+        >
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
           Illum sequi quas, deserunt totam consectetur debitis porro
           animi, at fugit accusamus excepturi aut eos, minus iste
@@ -94,15 +118,33 @@ export default function Details() {
         >
           <Flex alignItems="center">
             <Box>
-              <Image src="/icons/details-security.svg" alt="" />
+              <Image
+                src={
+                  colorMode === "light"
+                    ? "/icons/details-security.svg"
+                    : "/icons/details-security-white.svg"
+                }
+                alt=""
+              />
             </Box>
-            <Text ml="14px" fontWeight="semibold" fontSize="20px">
+            <Text
+              color={
+                colorMode === "light" ? "suvap.darkGray" : "white"
+              }
+              ml="14px"
+              fontWeight="semibold"
+              fontSize="20px"
+            >
               Detalles de seguridad
             </Text>
           </Flex>
 
           <Text
-            color="suvap.text"
+            color={
+              colorMode === "light"
+                ? "suvap.text"
+                : "suvap.secondaryGray"
+            }
             fontSize="14px"
             lineHeight="1.2"
             mt="5px"
@@ -116,11 +158,23 @@ export default function Details() {
                 <Box>
                   <Image src="/icons/status-details.svg" alt="" />
                 </Box>
-                <Text ml="10px" fontWeight="semibold">
+                <Text
+                  color={
+                    colorMode === "light" ? "suvap.darkGray" : "white"
+                  }
+                  ml="10px"
+                  fontWeight="semibold"
+                >
                   Estado
                 </Text>
               </Flex>
-              <Text color="suvap.text">
+              <Text
+                color={
+                  colorMode === "light"
+                    ? "suvap.text"
+                    : "suvap.secondaryGray"
+                }
+              >
                 El producto se encuentra usado.
               </Text>
             </Box>
@@ -130,11 +184,23 @@ export default function Details() {
                 <Box>
                   <Image src="/icons/method-pay-details.svg" alt="" />
                 </Box>
-                <Text ml="10px" fontWeight="semibold">
+                <Text
+                  color={
+                    colorMode === "light" ? "suvap.darkGray" : "white"
+                  }
+                  ml="10px"
+                  fontWeight="semibold"
+                >
                   Metodo de pago
                 </Text>
               </Flex>
-              <Text color="suvap.text">
+              <Text
+                color={
+                  colorMode === "light"
+                    ? "suvap.text"
+                    : "suvap.secondaryGray"
+                }
+              >
                 Transferencia bancaria y efectivo.
               </Text>
             </Box>
@@ -147,16 +213,111 @@ export default function Details() {
                     alt=""
                   />
                 </Box>
-                <Text ml="10px" fontWeight="semibold">
+                <Text
+                  color={
+                    colorMode === "light" ? "suvap.darkGray" : "white"
+                  }
+                  ml="10px"
+                  fontWeight="semibold"
+                >
                   Vendedor
                 </Text>
               </Flex>
-              <Text color="suvap.text">
+              <Text
+                color={
+                  colorMode === "light"
+                    ? "suvap.text"
+                    : "suvap.secondaryGray"
+                }
+              >
                 El vendedor no esta verificado.
               </Text>
             </Box>
           </Box>
         </Box>
+      </Box>
+
+      <Box px="20px" mb="32px">
+        <Text fontWeight="semibold" fontSize="20px" mb="10px">
+          Vendedor
+        </Text>
+
+        <Flex alignItems="center">
+          <Box>
+            <Image
+              src="https://bit.ly/3KeJtFC"
+              alt=""
+              w="60px"
+              h="60px"
+              objectFit="cover"
+              rounded="full"
+            />
+          </Box>
+
+          <Box ml="15px">
+            <Text
+              color={
+                colorMode === "light" ? "suvap.darkGray" : "white"
+              }
+              fontWeight="semibold"
+            >
+              Alberto Pasarella
+            </Text>
+            <Text
+              color={
+                colorMode === "light"
+                  ? "suvap.text"
+                  : "suvap.secondaryGray"
+              }
+            >
+              @alberto_pasarella
+            </Text>
+          </Box>
+        </Flex>
+      </Box>
+
+      <Box
+        position="fixed"
+        bgColor={
+          colorMode === "light"
+            ? "suvap.darkGray"
+            : "suvap.secondaryGray"
+        }
+        h="100px"
+        w="full"
+        bottom="0"
+        left="0"
+        p="20px"
+      >
+        <Flex alignItems="center" h="full">
+          <Box flex="0 0 50%">
+            <Text
+              fontWeight="semibold"
+              color={
+                colorMode === "light" ? "white" : "suvap.darkGray"
+              }
+              fontSize="20px"
+            >
+              Gs. 1.200.000
+            </Text>
+            <Text
+              color={
+                colorMode === "light" ? "suvap.border" : "suvap.text"
+              }
+              fontSize="14px"
+            >
+              San Lorenzo, Central
+            </Text>
+          </Box>
+          <Button
+            bgColor={
+              colorMode === "light" ? "white" : "suvap.darkGray"
+            }
+            color={colorMode === "light" ? "suvap.darkGray" : "white"}
+          >
+            Comprar
+          </Button>
+        </Flex>
       </Box>
     </Box>
   );
