@@ -23,7 +23,7 @@ interface IModalEmail extends IModalIntern {
   setEmail: (value: string) => void;
 }
 
-interface IModalPassword extends IModalIntern {
+interface IModalPassword {
   password: string;
   setPassword: (value: string) => void;
 }
@@ -66,6 +66,7 @@ export const ModalEmail = ({
       >
         <Box>
           <Input
+            autoFocus
             placeholder="Ingrese su email"
             borderColor="suvap.border"
             rounded="6px"
@@ -93,7 +94,6 @@ export const ModalEmail = ({
 export const ModalPassword = ({
   password,
   setPassword,
-  setStep,
 }: IModalPassword) => {
   const navigate = useNavigate();
 
@@ -127,6 +127,7 @@ export const ModalPassword = ({
       >
         <Box>
           <Input
+            autoFocus
             type="password"
             placeholder="Ingrese su contraseña"
             borderColor="suvap.border"
@@ -173,7 +174,6 @@ export default function Login() {
         <ModalPassword
           setPassword={setPassword}
           password={password}
-          setStep={setStep}
         />
       )}
     </Box>
