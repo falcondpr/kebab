@@ -5,7 +5,8 @@ const colors = {
     darkGray: "#333333",
     lightGray: "#F0F0F0",
     secondaryGray: "#c1c1c1",
-    border: '#BEBEBE'
+    border: '#BEBEBE',
+    text: "#777777"
   },
 };
 

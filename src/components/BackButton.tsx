@@ -1,9 +1,15 @@
-import { Button, Flex, Image } from "@chakra-ui/react";
-import { Text } from "@/ui";
 import { useNavigate } from "react-router-dom";
+import { Button, Flex, Image } from "@chakra-ui/react";
+
+import { Text } from "@/ui";
+import { useEffect } from "react";
 
 export default function BackButton({ title }: { title: string }) {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    scrollTo(0, 0);
+  }, []);
 
   return (
     <Flex alignItems="center" p="20px">
