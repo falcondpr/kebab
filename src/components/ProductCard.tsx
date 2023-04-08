@@ -10,6 +10,7 @@ import {
 
 import { TagUser } from "@/components";
 import { Text } from "@/ui";
+import { useNavigate } from "react-router-dom";
 
 interface IProductSelect {
   status: boolean;
@@ -28,6 +29,7 @@ export default function ProductCard({
   setProductSelect,
 }: IProductCard) {
   const { colorMode } = useColorMode();
+  const navigate = useNavigate();
 
   return (
     <Box position="relative">
@@ -103,6 +105,7 @@ export default function ProductCard({
             w="50px"
             h="50px"
             mt="-42px"
+            onClick={() => navigate("/product/1")}
           >
             <Image src="/icons/view-card.svg" w="26px" alt="" />
           </Button>
