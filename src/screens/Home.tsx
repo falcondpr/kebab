@@ -48,7 +48,7 @@ export default function Home() {
           textTransform="uppercase"
           color={colorMode === "light" ? "suvap.darkGray" : "white"}
         >
-          Suvap
+          Sura
         </Text>
 
         <ButtonChakraUI
