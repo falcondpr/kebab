@@ -1,8 +1,17 @@
+import { Box, Button, Flex, Grid, Image } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+
 import { BackButton } from "@/components";
+import { MENU_OPTIONS } from "@/data/menu";
 import { Text } from "@/ui";
-import { Box, Button, Flex, Image } from "@chakra-ui/react";
 
 export default function Profile() {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    navigate("/login");
+  };
+
   return (
     <Box>
       <Box position="relative">
@@ -18,6 +27,7 @@ export default function Profile() {
           bgColor="suvap.darkGray"
           shadow="dark-lg"
           p="0"
+          onClick={handleLogout}
         >
           <Image src="/icons/logout-icon.svg" alt="" />
         </Button>
@@ -58,6 +68,38 @@ export default function Profile() {
         <Text color="suvap.text" fontSize="14px">
           @lucas_lamas
         </Text>
+      </Box>
+
+      <Box px="20px">
+        {MENU_OPTIONS.map((item) => (
+          <Box key={item.id} mb="24px">
+            <Text fontSize="20px" mb="10px" fontWeight="semibold">
+              {item.name}
+            </Text>
+
+            {item.links.map((link) => (
+              <Flex
+                alignItems="center"
+                key={link.id}
+                onClick={() => navigate("/")}
+                mb="16px"
+              >
+                <Grid
+                  placeItems="center"
+                  bgColor="suvap.darkGray"
+                  w="36px"
+                  h="36px"
+                  rounded="3px"
+                >
+                  <Image h="16px" src={link.icon} alt="" />
+                </Grid>
+                <Text ml="10px" color="suvap.text">
+                  {link.name}
+                </Text>
+              </Flex>
+            ))}
+          </Box>
+        ))}
       </Box>
     </Box>
   );
