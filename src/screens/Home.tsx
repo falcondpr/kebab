@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button as ButtonChakraUI,
@@ -33,6 +33,10 @@ export default function Home() {
     menuState ? dispatch(hideMenu()) : dispatch(showMenu());
 
   const { colorMode, toggleColorMode } = useColorMode();
+
+  useEffect(() => {
+    dispatch(hideMenu());
+  }, []);
 
   return (
     <Layout>

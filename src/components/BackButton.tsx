@@ -1,10 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import { Button, Flex, Image, useColorMode } from "@chakra-ui/react";
+import {
+  Button,
+  ButtonProps,
+  Flex,
+  Image,
+  useColorMode,
+} from "@chakra-ui/react";
 
 import { Text } from "@/ui";
 import { useEffect } from "react";
 
-export default function BackButton({ title }: { title: string }) {
+export default function BackButton({ title, ...rest }: ButtonProps) {
   const navigate = useNavigate();
   const { colorMode } = useColorMode();
 
@@ -21,6 +27,7 @@ export default function BackButton({ title }: { title: string }) {
         bgColor="suvap.lightGray"
         p="0"
         onClick={() => navigate(-1)}
+        {...rest}
       >
         <Image src="/icons/arrow-left.svg" alt="" />
       </Button>

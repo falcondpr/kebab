@@ -8,12 +8,14 @@ import {
 
 import { Text } from "@/ui";
 import { LINKS } from "@/data";
+import { useNavigate } from "react-router-dom";
 
 interface IMenu {
   show: boolean;
 }
 
 export default function Menu({ show }: IMenu) {
+  const navigate = useNavigate();
   const { colorMode } = useColorMode();
 
   return (
@@ -29,7 +31,7 @@ export default function Menu({ show }: IMenu) {
       overflowY="auto"
     >
       {/* Profile */}
-      <Box pt="90px" px="20px">
+      <Box onClick={() => navigate("/profile")} pt="90px" px="20px">
         <Flex
           alignItems="center"
           borderBottom="1px solid"
@@ -38,7 +40,7 @@ export default function Menu({ show }: IMenu) {
         >
           <Box>
             <Image
-              src="https://bit.ly/3KeJtFC"
+              src="https://bit.ly/41dF8Ix"
               w="70px"
               h="70px"
               objectFit="cover"

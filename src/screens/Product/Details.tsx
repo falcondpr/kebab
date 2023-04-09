@@ -245,7 +245,7 @@ export default function Details() {
         <Flex alignItems="center">
           <Box>
             <Image
-              src="https://bit.ly/3KeJtFC"
+              src="https://bit.ly/41dF8Ix"
               alt=""
               w="60px"
               h="60px"

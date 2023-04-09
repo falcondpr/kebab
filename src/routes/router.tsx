@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "@/screens/Home";
 import Login from "@/screens/Login";
 import { Details } from "@/screens/Product";
+import Profile from "@/screens/Profile";
 
 export default function Router() {
   return (
@@ -16,6 +17,9 @@ export default function Router() {
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />
+
+          {/* Profile and settings */}
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </Box>
