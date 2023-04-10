@@ -119,7 +119,7 @@ export default function Menu({ show }: IMenu) {
         my="48px"
         mt="84px"
         bgColor={
-          colorMode === "light" ? "suvap.darkGray" : "gray.300"
+          colorMode === "light" ? "suvap.darkGray" : "suvap.border"
         }
         rounded="lg"
         pb="32px"
