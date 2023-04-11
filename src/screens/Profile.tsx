@@ -95,7 +95,7 @@ export default function Profile() {
         </Text>
       </Box>
 
-      <Box px="20px">
+      <Box px="20px" pb="20px">
         {MENU_OPTIONS.map((item) => (
           <Box key={item.id} mb="24px">
             <Text

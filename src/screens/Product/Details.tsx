@@ -23,7 +23,7 @@ export default function Details() {
   const [currentImage, setCurrentImage] = useState<string>(images[0]);
 
   return (
-    <Box mb="140px">
+    <Box mb="130px">
       <BackButton title="Nombre del post" />
 
       {/* Images */}
@@ -237,8 +237,13 @@ export default function Details() {
         </Box>
       </Box>
 
-      <Box px="20px" mb="32px">
-        <Text fontWeight="semibold" fontSize="20px" mb="10px">
+      <Box px="20px">
+        <Text
+          color={colorMode === "light" ? "suvap.darkGray" : "white"}
+          fontWeight="semibold"
+          fontSize="20px"
+          mb="10px"
+        >
           Vendedor
         </Text>
 
