@@ -24,7 +24,7 @@ export default function Details() {
 
   return (
     <Box mb="130px">
-      <BackButton title="Nombre del post" />
+      <BackButton goBackRoute="/" title="Nombre del post" />
 
       {/* Images */}
       <Box>
