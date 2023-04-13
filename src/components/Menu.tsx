@@ -5,10 +5,10 @@ import {
   Image,
   useColorMode,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 import { Text } from "@/ui";
 import { LINKS } from "@/data";
-import { useNavigate } from "react-router-dom";
 
 interface IMenu {
   show: boolean;
@@ -87,6 +87,7 @@ export default function Menu({ show }: IMenu) {
             justifyContent="flex-start"
             _focusWithin={{}}
             _hover={{}}
+            onClick={() => navigate(link.path)}
           >
             <Box w="28px">
               <Image

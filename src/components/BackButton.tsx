@@ -10,7 +10,16 @@ import {
 import { Text } from "@/ui";
 import { useEffect } from "react";
 
-export default function BackButton({ title, ...rest }: ButtonProps) {
+interface IBackButton extends ButtonProps {
+  goBackRoute: string;
+  title: string;
+}
+
+export default function BackButton({
+  title,
+  goBackRoute,
+  ...rest
+}: IBackButton) {
   const navigate = useNavigate();
   const { colorMode } = useColorMode();
 
@@ -26,7 +35,7 @@ export default function BackButton({ title, ...rest }: ButtonProps) {
         h="45px"
         bgColor="suvap.lightGray"
         p="0"
-        onClick={() => navigate(-1)}
+        onClick={() => navigate(goBackRoute, { replace: true })}
         {...rest}
       >
         <Image src="/icons/arrow-left.svg" alt="" />
@@ -35,6 +44,7 @@ export default function BackButton({ title, ...rest }: ButtonProps) {
         ml="15px"
         color={colorMode === "light" ? "suvap.darkGray" : "white"}
         fontSize="18px"
+        fontWeight="medium"
       >
         {title}
       </Text>

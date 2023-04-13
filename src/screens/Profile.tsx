@@ -27,7 +27,7 @@ export default function Profile() {
   return (
     <Box>
       <Box position="relative">
-        <BackButton title="" shadow="dark-lg" />
+        <BackButton goBackRoute="/" title="" shadow="dark-lg" />
 
         <Button
           position="absolute"
