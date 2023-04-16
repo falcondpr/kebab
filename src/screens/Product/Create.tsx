@@ -17,18 +17,22 @@ import {
 } from "formik";
 
 import { BackButton } from "@/components";
-import { Button, Input } from "@/ui";
-import { useRef } from "react";
+import { Button, Input, Select } from "@/ui";
 import { statusProduct } from "@/data/statusProduct";
+import { CATEGORIES } from "@/data";
 
 const CreateProductSchema = Yup.object().shape({
   name: Yup.string().min(5, "Es muy corto!").required("Es requerido"),
   status: Yup.string().required("Es requerido"),
+  category: Yup.string()
+    .required("Es requerido")
+    .min(2, "Es muy corto!"),
 });
 
 const initialValuesCreateProduct = {
   name: "",
   status: "",
+  category: "",
 };
 
 export default function CreateProduct() {
@@ -141,6 +145,49 @@ export default function CreateProduct() {
                         component={() => (
                           <FormErrorMessage>
                             {errors.status}
+                          </FormErrorMessage>
+                        )}
+                      />
+                    </FormControl>
+                  );
+                }}
+              </Field>
+
+              <Field name="category">
+                {({ field }: FieldProps) => {
+                  const { onChange, ...rest } = field;
+
+                  return (
+                    <FormControl
+                      id="category"
+                      mb="20px"
+                      isInvalid={
+                        !!errors.category && !!touched.category
+                      }
+                    >
+                      <Select
+                        name="category"
+                        onChange={onChange}
+                        value={values.category}
+                        onBlur={handleBlur}
+                        id="category"
+                      >
+                        {CATEGORIES.map((category) => (
+                          <option
+                            key={category.id}
+                            value={category.value}
+                            id="category"
+                          >
+                            {category.name}
+                          </option>
+                        ))}
+                      </Select>
+
+                      <ErrorMessage
+                        name="category"
+                        component={() => (
+                          <FormErrorMessage>
+                            {errors.category}
                           </FormErrorMessage>
                         )}
                       />
