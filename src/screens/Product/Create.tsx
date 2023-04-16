@@ -3,9 +3,18 @@ import {
   FormControl,
   FormErrorMessage,
   Input,
+  Radio,
+  RadioGroup,
+  Stack,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
-import { Formik, Form, ErrorMessage } from "formik";
+import {
+  Formik,
+  Form,
+  ErrorMessage,
+  Field,
+  FieldProps,
+} from "formik";
 
 import { BackButton } from "@/components";
 import { Button } from "@/ui";
@@ -16,6 +25,7 @@ const CreateProductSchema = Yup.object().shape({
 
 const initialValuesCreateProduct = {
   name: "",
+  status: "",
 };
 
 export default function CreateProduct() {
@@ -57,6 +67,32 @@ export default function CreateProduct() {
                   )}
                 />
               </FormControl>
+
+              <Field name="status">
+                {({ field, form }: FieldProps) => {
+                  const { onChange, ...rest } = field;
+
+                  return (
+                    <FormControl
+                      id="status"
+                      isInvalid={!!form.status && !!form.status}
+                    >
+                      <RadioGroup id="status" {...rest}>
+                        <Stack>
+                          <Radio onChange={onChange} value="1">
+                            First
+                          </Radio>
+                        </Stack>
+                        <Stack>
+                          <Radio onChange={onChange} value="2">
+                            Second
+                          </Radio>
+                        </Stack>
+                      </RadioGroup>
+                    </FormControl>
+                  );
+                }}
+              </Field>
 
               <Button mt="20px" type="submit">
                 Crear
