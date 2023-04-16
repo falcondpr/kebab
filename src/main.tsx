@@ -18,15 +18,15 @@ import { store } from "./app/store";
 ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 ).render(
-  // <React.StrictMode>
-  <ChakraProvider theme={theme}>
-    <Provider store={store}>
-      <Toaster />
-      <ColorModeScript
-        initialColorMode={theme.config.initialColorMode}
-      />
-      <App />
-    </Provider>
-  </ChakraProvider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <ChakraProvider theme={theme}>
+      <Provider store={store}>
+        <Toaster />
+        <ColorModeScript
+          initialColorMode={theme.config.initialColorMode}
+        />
+        <App />
+      </Provider>
+    </ChakraProvider>
+  </React.StrictMode>
 );

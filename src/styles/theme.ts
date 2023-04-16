@@ -19,4 +19,4 @@ const config: ThemeConfig = {
   useSystemColorMode: false
 }
 
-export const theme = extendTheme({ colors, fonts });
+export const theme = extendTheme({ colors, fonts, config });

@@ -3,8 +3,6 @@ import {
   Flex,
   FormControl,
   FormErrorMessage,
-  HStack,
-  Input,
   Radio,
   RadioGroup,
   Stack,
@@ -19,7 +17,7 @@ import {
 } from "formik";
 
 import { BackButton } from "@/components";
-import { Button } from "@/ui";
+import { Button, Input } from "@/ui";
 import { useRef } from "react";
 import { statusProduct } from "@/data/statusProduct";
 
@@ -57,16 +55,18 @@ export default function CreateProduct() {
         }
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
-          <Box p="20px">
+          <Box px="20px">
             <Form>
               <FormControl
                 isInvalid={!!errors.name && !!touched.name}
+                mb="20px"
               >
                 <Input
                   name="name"
                   value={values.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  placeholder="Introduce el nombre"
                 />
                 <ErrorMessage
                   name="name"
@@ -84,19 +84,22 @@ export default function CreateProduct() {
                     <FormControl
                       id="status"
                       isInvalid={!!errors.status && !!touched.status}
+                      mb="20px"
                     >
                       <RadioGroup
                         display="flex"
-                        gap="20px"
+                        gap="0 20px"
                         id="status"
                         {...rest}
                       >
                         {statusProductResponse.map((status) => (
-                          <Stack flex="1" key={status.id}>
+                          <Box flex="1" key={status.id}>
                             <Radio
                               name="status"
                               ref={status.ref}
                               display="none"
+                              h="0"
+                              w="0"
                               onChange={onChange}
                               value={status.value}
                             >
@@ -106,6 +109,7 @@ export default function CreateProduct() {
                             <Button
                               type="button"
                               name={status.value}
+                              display="block"
                               border="1px solid"
                               borderColor={
                                 values.status === status.value
@@ -128,7 +132,7 @@ export default function CreateProduct() {
                             >
                               {status.name}
                             </Button>
-                          </Stack>
+                          </Box>
                         ))}
                       </RadioGroup>
 
@@ -145,9 +149,7 @@ export default function CreateProduct() {
                 }}
               </Field>
 
-              <Button mt="20px" type="submit">
-                Crear
-              </Button>
+              <Button type="submit">Crear</Button>
             </Form>
           </Box>
         )}
