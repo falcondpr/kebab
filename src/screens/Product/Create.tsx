@@ -21,6 +21,7 @@ import {
 import { BackButton } from "@/components";
 import { Button } from "@/ui";
 import { useRef } from "react";
+import { statusProduct } from "@/data/statusProduct";
 
 const CreateProductSchema = Yup.object().shape({
   name: Yup.string().min(5, "Es muy corto!").required("Es requerido"),
@@ -33,9 +34,6 @@ const initialValuesCreateProduct = {
 };
 
 export default function CreateProduct() {
-  const refFirstButton: any = useRef();
-  const refSecondButton: any = useRef();
-
   const handleCreateProduct = async (
     values: any,
     resetForm: () => void
@@ -44,6 +42,8 @@ export default function CreateProduct() {
     console.log("sending");
     resetForm();
   };
+
+  const statusProductResponse = statusProduct();
 
   return (
     <Box>
@@ -76,41 +76,6 @@ export default function CreateProduct() {
                 />
               </FormControl>
 
-              <Box my="20px">{JSON.stringify(values)}</Box>
-
-              <HStack mt="20px" spacing={5}>
-                <Button
-                  bgColor={
-                    values.status === "1"
-                      ? "suvap.darkGray"
-                      : "suvap.lightGray"
-                  }
-                  color={
-                    values.status === "1"
-                      ? "suvap.lightGray"
-                      : "suvap.darkGray"
-                  }
-                  onClick={() => refFirstButton.current?.click()}
-                >
-                  First
-                </Button>
-                <Button
-                  bgColor={
-                    values.status === "2"
-                      ? "suvap.darkGray"
-                      : "suvap.lightGray"
-                  }
-                  color={
-                    values.status === "2"
-                      ? "suvap.lightGray"
-                      : "suvap.darkGray"
-                  }
-                  onClick={() => refSecondButton.current?.click()}
-                >
-                  Second
-                </Button>
-              </HStack>
-
               <Field name="status">
                 {({ field }: FieldProps) => {
                   const { onChange, ...rest } = field;
@@ -120,6 +85,53 @@ export default function CreateProduct() {
                       id="status"
                       isInvalid={!!errors.status && !!touched.status}
                     >
+                      <RadioGroup
+                        display="flex"
+                        gap="20px"
+                        id="status"
+                        {...rest}
+                      >
+                        {statusProductResponse.map((status) => (
+                          <Stack flex="1" key={status.id}>
+                            <Radio
+                              name="status"
+                              ref={status.ref}
+                              display="none"
+                              onChange={onChange}
+                              value={status.value}
+                            >
+                              {status.name}
+                            </Radio>
+
+                            <Button
+                              type="button"
+                              name={status.value}
+                              border="1px solid"
+                              borderColor={
+                                values.status === status.value
+                                  ? "white"
+                                  : "suvap.darkGray"
+                              }
+                              bgColor={
+                                values.status === status.value
+                                  ? "suvap.darkGray"
+                                  : "white"
+                              }
+                              color={
+                                values.status === status.value
+                                  ? "white"
+                                  : "suvap.darkGray"
+                              }
+                              onClick={() =>
+                                status.ref.current?.click()
+                              }
+                            >
+                              {status.name}
+                            </Button>
+                          </Stack>
+                        ))}
+                      </RadioGroup>
+
                       <ErrorMessage
                         name="status"
                         component={() => (
@@ -128,32 +140,6 @@ export default function CreateProduct() {
                           </FormErrorMessage>
                         )}
                       />
-
-                      <RadioGroup id="status" {...rest}>
-                        <Stack>
-                          <Radio
-                            name="status"
-                            ref={refFirstButton}
-                            display="none"
-                            onChange={onChange}
-                            value="1"
-                          >
-                            First
-                          </Radio>
-                        </Stack>
-                        <Stack>
-                          <Radio
-                            name="status"
-                            // onBlur={handleBlur}
-                            ref={refSecondButton}
-                            display="none"
-                            onChange={onChange}
-                            value="2"
-                          >
-                            Second
-                          </Radio>
-                        </Stack>
-                      </RadioGroup>
                     </FormControl>
                   );
                 }}
