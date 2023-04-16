@@ -3,8 +3,6 @@ import {
   Flex,
   FormControl,
   FormErrorMessage,
-  HStack,
-  Input,
   Radio,
   RadioGroup,
   Stack,
@@ -19,23 +17,25 @@ import {
 } from "formik";
 
 import { BackButton } from "@/components";
-import { Button } from "@/ui";
-import { useRef } from "react";
+import { Button, Input, Select } from "@/ui";
+import { statusProduct } from "@/data/statusProduct";
+import { CATEGORIES } from "@/data";
 
 const CreateProductSchema = Yup.object().shape({
   name: Yup.string().min(5, "Es muy corto!").required("Es requerido"),
   status: Yup.string().required("Es requerido"),
+  category: Yup.string()
+    .required("Es requerido")
+    .min(2, "Es muy corto!"),
 });
 
 const initialValuesCreateProduct = {
   name: "",
   status: "",
+  category: "",
 };
 
 export default function CreateProduct() {
-  const refFirstButton: any = useRef();
-  const refSecondButton: any = useRef();
-
   const handleCreateProduct = async (
     values: any,
     resetForm: () => void
@@ -44,6 +44,8 @@ export default function CreateProduct() {
     console.log("sending");
     resetForm();
   };
+
+  const statusProductResponse = statusProduct();
 
   return (
     <Box>
@@ -57,16 +59,18 @@ export default function CreateProduct() {
         }
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
-          <Box p="20px">
+          <Box px="20px">
             <Form>
               <FormControl
                 isInvalid={!!errors.name && !!touched.name}
+                mb="20px"
               >
                 <Input
                   name="name"
                   value={values.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  placeholder="Introduce el nombre"
                 />
                 <ErrorMessage
                   name="name"
@@ -76,41 +80,6 @@ export default function CreateProduct() {
                 />
               </FormControl>
 
-              <Box my="20px">{JSON.stringify(values)}</Box>
-
-              <HStack mt="20px" spacing={5}>
-                <Button
-                  bgColor={
-                    values.status === "1"
-                      ? "suvap.darkGray"
-                      : "suvap.lightGray"
-                  }
-                  color={
-                    values.status === "1"
-                      ? "suvap.lightGray"
-                      : "suvap.darkGray"
-                  }
-                  onClick={() => refFirstButton.current?.click()}
-                >
-                  First
-                </Button>
-                <Button
-                  bgColor={
-                    values.status === "2"
-                      ? "suvap.darkGray"
-                      : "suvap.lightGray"
-                  }
-                  color={
-                    values.status === "2"
-                      ? "suvap.lightGray"
-                      : "suvap.darkGray"
-                  }
-                  onClick={() => refSecondButton.current?.click()}
-                >
-                  Second
-                </Button>
-              </HStack>
-
               <Field name="status">
                 {({ field }: FieldProps) => {
                   const { onChange, ...rest } = field;
@@ -119,7 +88,58 @@ export default function CreateProduct() {
                     <FormControl
                       id="status"
                       isInvalid={!!errors.status && !!touched.status}
+                      mb="20px"
                     >
+                      <RadioGroup
+                        display="flex"
+                        gap="0 20px"
+                        id="status"
+                        {...rest}
+                      >
+                        {statusProductResponse.map((status) => (
+                          <Box flex="1" key={status.id}>
+                            <Radio
+                              name="status"
+                              ref={status.ref}
+                              display="none"
+                              h="0"
+                              w="0"
+                              onChange={onChange}
+                              value={status.value}
+                            >
+                              {status.name}
+                            </Radio>
+
+                            <Button
+                              type="button"
+                              name={status.value}
+                              display="block"
+                              border="1px solid"
+                              borderColor={
+                                values.status === status.value
+                                  ? "white"
+                                  : "suvap.darkGray"
+                              }
+                              bgColor={
+                                values.status === status.value
+                                  ? "suvap.darkGray"
+                                  : "white"
+                              }
+                              color={
+                                values.status === status.value
+                                  ? "white"
+                                  : "suvap.darkGray"
+                              }
+                              onClick={() =>
+                                status.ref.current?.click()
+                              }
+                            >
+                              {status.name}
+                            </Button>
+                          </Box>
+                        ))}
+                      </RadioGroup>
+
                       <ErrorMessage
                         name="status"
                         component={() => (
@@ -128,40 +148,55 @@ export default function CreateProduct() {
                           </FormErrorMessage>
                         )}
                       />
-
-                      <RadioGroup id="status" {...rest}>
-                        <Stack>
-                          <Radio
-                            name="status"
-                            ref={refFirstButton}
-                            display="none"
-                            onChange={onChange}
-                            value="1"
-                          >
-                            First
-                          </Radio>
-                        </Stack>
-                        <Stack>
-                          <Radio
-                            name="status"
-                            // onBlur={handleBlur}
-                            ref={refSecondButton}
-                            display="none"
-                            onChange={onChange}
-                            value="2"
-                          >
-                            Second
-                          </Radio>
-                        </Stack>
-                      </RadioGroup>
                     </FormControl>
                   );
                 }}
               </Field>
 
-              <Button mt="20px" type="submit">
-                Crear
-              </Button>
+              <Field name="category">
+                {({ field }: FieldProps) => {
+                  const { onChange, ...rest } = field;
+
+                  return (
+                    <FormControl
+                      id="category"
+                      mb="20px"
+                      isInvalid={
+                        !!errors.category && !!touched.category
+                      }
+                    >
+                      <Select
+                        name="category"
+                        onChange={onChange}
+                        value={values.category}
+                        onBlur={handleBlur}
+                        id="category"
+                      >
+                        {CATEGORIES.map((category) => (
+                          <option
+                            key={category.id}
+                            value={category.value}
+                            id="category"
+                          >
+                            {category.name}
+                          </option>
+                        ))}
+                      </Select>
+
+                      <ErrorMessage
+                        name="category"
+                        component={() => (
+                          <FormErrorMessage>
+                            {errors.category}
+                          </FormErrorMessage>
+                        )}
+                      />
+                    </FormControl>
+                  );
+                }}
+              </Field>
+
+              <Button type="submit">Crear</Button>
             </Form>
           </Box>
         )}

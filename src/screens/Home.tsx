@@ -28,6 +28,9 @@ export default function Home() {
     status: false,
     id: null,
   });
+  const categoriesRender = CATEGORIES.filter(
+    (category) => category.value !== "" && category
+  );
 
   const handleOpenMenu = () =>
     menuState ? dispatch(hideMenu()) : dispatch(showMenu());
@@ -115,7 +118,7 @@ export default function Home() {
           gridAutoFlow="column"
           gridAutoColumns="max-content"
         >
-          {CATEGORIES.map((category) => (
+          {categoriesRender.map((category) => (
             <Button
               key={category.id}
               color="suvap.darkGray"
