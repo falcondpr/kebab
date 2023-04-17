@@ -17,13 +17,16 @@ import {
 } from "formik";
 
 import { BackButton } from "@/components";
-import { Button, Input, Select } from "@/ui";
+import { Button, Input, Select, Textarea } from "@/ui";
 import { statusProduct } from "@/data/statusProduct";
 import { CATEGORIES } from "@/data";
 
 const CreateProductSchema = Yup.object().shape({
   name: Yup.string().min(5, "Es muy corto!").required("Es requerido"),
   status: Yup.string().required("Es requerido"),
+  description: Yup.string()
+    .required("Es requerido")
+    .min(20, "La descripcion debe ser mas extensa"),
   category: Yup.string()
     .required("Es requerido")
     .min(2, "Es muy corto!"),
@@ -33,6 +36,7 @@ const initialValuesCreateProduct = {
   name: "",
   status: "",
   category: "",
+  description: "",
 };
 
 export default function CreateProduct() {
@@ -117,8 +121,8 @@ export default function CreateProduct() {
                               border="1px solid"
                               borderColor={
                                 values.status === status.value
-                                  ? "white"
-                                  : "suvap.darkGray"
+                                  ? "transparent"
+                                  : "suvap.border"
                               }
                               bgColor={
                                 values.status === status.value
@@ -195,6 +199,30 @@ export default function CreateProduct() {
                   );
                 }}
               </Field>
+
+              <FormControl
+                mb="20px"
+                isInvalid={
+                  !!errors.description && !!touched.description
+                }
+              >
+                <Textarea
+                  name="description"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.description}
+                  placeholder="Detalles del producto"
+                />
+
+                <ErrorMessage
+                  name="description"
+                  component={() => (
+                    <FormErrorMessage>
+                      {errors.description}
+                    </FormErrorMessage>
+                  )}
+                />
+              </FormControl>
 
               <Button type="submit">Crear</Button>
             </Form>
