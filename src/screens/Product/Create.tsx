@@ -6,6 +6,7 @@ import {
   Radio,
   RadioGroup,
   Stack,
+  useColorMode,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 import {
@@ -40,6 +41,8 @@ const initialValuesCreateProduct = {
 };
 
 export default function CreateProduct() {
+  const { colorMode } = useColorMode();
+
   const handleCreateProduct = async (
     values: any,
     resetForm: () => void
@@ -120,19 +123,31 @@ export default function CreateProduct() {
                               display="block"
                               border="1px solid"
                               borderColor={
-                                values.status === status.value
-                                  ? "transparent"
+                                colorMode === "light"
+                                  ? values.status === status.value
+                                    ? "transparent"
+                                    : "suvap.border"
+                                  : values.status === status.value
+                                  ? "white"
                                   : "suvap.border"
                               }
                               bgColor={
-                                values.status === status.value
-                                  ? "suvap.darkGray"
-                                  : "white"
-                              }
-                              color={
-                                values.status === status.value
+                                colorMode === "light"
+                                  ? values.status === status.value
+                                    ? "suvap.darkGray"
+                                    : "white"
+                                  : values.status === status.value
                                   ? "white"
                                   : "suvap.darkGray"
+                              }
+                              color={
+                                colorMode === "light"
+                                  ? values.status === status.value
+                                    ? "white"
+                                    : "suvap.darkGray"
+                                  : values.status === status.value
+                                  ? "suvap.darkGray"
+                                  : "white"
                               }
                               onClick={() =>
                                 status.ref.current?.click()
