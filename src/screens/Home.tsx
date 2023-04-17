@@ -20,6 +20,9 @@ export default function Home() {
     (state: RootState) => state.menu.value
   );
 
+  const [categorySelected, setCategorySelected] =
+    useState<string>("1");
+
   const dispatch = useDispatch();
   const [productSelect, setProductSelect] = useState<{
     status: boolean;
@@ -121,9 +124,25 @@ export default function Home() {
           {categoriesRender.map((category) => (
             <Button
               key={category.id}
-              color="suvap.darkGray"
+              color={
+                colorMode === "light"
+                  ? category.id === categorySelected
+                    ? "white"
+                    : "suvap.darkGray"
+                  : category.id === categorySelected
+                  ? "suvap.darkGray"
+                  : "white"
+              }
               rounded="3px"
-              bgColor={colorMode === "light" ? "white" : "white"}
+              bgColor={
+                colorMode === "light"
+                  ? category.id === categorySelected
+                    ? "suvap.darkGray"
+                    : "white"
+                  : category.id === categorySelected
+                  ? "white"
+                  : "suvap.darkGray"
+              }
               _focusWithin={{}}
               _hover={{}}
               fontWeight="regular"
@@ -131,8 +150,11 @@ export default function Home() {
               p="11px 15px"
               h="auto"
               minW="initial"
-              borderColor="suvap.darkGray"
+              borderColor={
+                colorMode === "light" ? "suvap.darkGray" : "white"
+              }
               textTransform="uppercase"
+              onClick={() => setCategorySelected(category.id)}
             >
               {category.name}
             </Button>
