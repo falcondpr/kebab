@@ -1,11 +1,10 @@
+import { useState } from "react";
 import {
   Box,
-  Flex,
   FormControl,
   FormErrorMessage,
   Radio,
   RadioGroup,
-  Stack,
   useColorMode,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
@@ -16,6 +15,9 @@ import {
   Field,
   FieldProps,
 } from "formik";
+import CurrencyInput, {
+  CurrencyInputProps,
+} from "react-currency-input-field";
 
 import { BackButton } from "@/components";
 import { Button, Input, Select, Textarea } from "@/ui";
@@ -42,6 +44,7 @@ const initialValuesCreateProduct = {
 
 export default function CreateProduct() {
   const { colorMode } = useColorMode();
+  const [price, setPrice] = useState<string>("");
 
   const handleCreateProduct = async (
     values: any,
@@ -53,9 +56,10 @@ export default function CreateProduct() {
   };
 
   const statusProductResponse = statusProduct();
+  console.log(price);
 
   return (
-    <Box>
+    <Box mb="32px">
       <BackButton goBackRoute="/" title="Crear publicacion" />
 
       <Formik
@@ -237,6 +241,33 @@ export default function CreateProduct() {
                     </FormErrorMessage>
                   )}
                 />
+              </FormControl>
+
+              <FormControl
+                mb="20px"
+                // isInvalid={!!errors.price && !!touched.price}
+              >
+                <CurrencyInput
+                  allowDecimals={false}
+                  step={10}
+                  className="form-input"
+                  id="price"
+                  name="price"
+                  value={price}
+                  prefix="Gs. "
+                  onBlur={handleBlur}
+                  placeholder="Precio del producto"
+                  onValueChange={(value) => setPrice(value as string)}
+                />
+
+                {/* <ErrorMessage
+                  name="price"
+                  component={() => (
+                    <FormErrorMessage>
+                      {errors.price}
+                    </FormErrorMessage>
+                  )}
+                /> */}
               </FormControl>
 
               <Button type="submit">Crear</Button>
