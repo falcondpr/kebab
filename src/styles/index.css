@@ -28,3 +28,17 @@ body.chakra-ui-light {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.form-input {
+  border: 1px solid #bebebe;
+  height: 55px;
+  border-radius: 4px;
+  width: 100%;
+  padding: 8px 16px;
+}
+
+.form-input:focus-visible {
+  border-color: #333 !important;
+  box-shadow: 0 0 0 1px #bebebe !important;
+  outline: none;
+}
