@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+
 import ArrowLeft from "../assets/icons/arrow-left.svg";
 
 const BackButtonContainer = styled.View`
