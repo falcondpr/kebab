@@ -1,0 +1,37 @@
+import React from "react";
+import styled from "styled-components/native";
+import Text from "./Text";
+
+interface IButton {
+  children?: React.ReactNode;
+  marginTop?: string;
+  bgColor?: string;
+  height?: string;
+  color?: string;
+  display?: string;
+  textDecoration?: string;
+  onPress?: () => void;
+}
+
+export default function Button({
+  children,
+  onPress,
+  ...rest
+}: IButton) {
+  return (
+    <ButtonUI {...rest} onPress={onPress}>
+      <Text color={rest.color}>{children}</Text>
+    </ButtonUI>
+  );
+}
+
+const ButtonUI = styled.TouchableOpacity<IButton>`
+  display: ${(props) => props.display || "block"}
+  background-color: ${(props) => props.bgColor || "transparent"};
+  height: ${(props) => props.height || "auto"};
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: ${(props) => props.marginTop || "0px"};
+`;

@@ -8,11 +8,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import TabBarIcon from "./components/TabBarIcon";
 import { routes } from "./data/routes";
-import Login from "./screens/Login";
+import { Login, Register } from "./screens";
 
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { Home } from "./screens";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -56,6 +55,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   const [fontsLoaded] = useFonts({
     "Poppins-Semibold": require("./assets/fonts/Poppins-SemiBold.ttf"),
+    "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -81,6 +81,11 @@ export default function App() {
               options={{ headerShown: false }}
               name="TabNavigator"
               component={TabNavigator}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="Register"
+              component={Register}
             />
             <Stack.Screen
               options={{ headerShown: false }}

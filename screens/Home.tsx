@@ -10,7 +10,7 @@ export default function Home({ navigation }: any) {
     <View>
       <Text>Home</Text>
       <Button>
-        <ButtonText onPress={() => navigation.navigate("Login")}>
+        <ButtonText onPress={() => navigation.navigate("Register")}>
           go to login
         </ButtonText>
       </Button>
