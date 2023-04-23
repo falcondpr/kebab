@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
-import { StatusBar } from "react-native";
+import { useCallback } from "react";
+import { StatusBar, View } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -7,7 +8,13 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import TabBarIcon from "./components/TabBarIcon";
 import { routes } from "./data/routes";
+import Login from "./screens/Login";
+
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 import { Home } from "./screens";
+
+SplashScreen.preventAutoHideAsync();
 
 const SafeAreaView = styled.SafeAreaView``;
 
@@ -47,8 +54,22 @@ function TabNavigator() {
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    "Poppins-Semibold": require("./assets/fonts/Poppins-SemiBold.ttf"),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <>
+    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <NavigationContainer>
         <SafeAreaView style={{ flex: 1 }}>
           <StatusBar
@@ -63,12 +84,12 @@ export default function App() {
             />
             <Stack.Screen
               options={{ headerShown: false }}
-              name="HomeScreen"
-              component={Home}
+              name="Login"
+              component={Login}
             />
           </Stack.Navigator>
         </SafeAreaView>
       </NavigationContainer>
-    </>
+    </View>
   );
 }
