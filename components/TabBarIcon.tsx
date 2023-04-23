@@ -9,10 +9,10 @@ interface ITabBarIcon {
 export default function TabBarIcon({ color, path }: ITabBarIcon) {
   return (
     <Svg
-      width={40}
-      height={40}
+      width={42}
+      height={42}
       scale={2}
-      viewBox="0 0 32 38"
+      viewBox="0 0 38 38"
       fillRule="evenodd"
       clipRule="evenodd"
       strokeLinejoin="round"
