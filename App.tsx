@@ -56,6 +56,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   const [fontsLoaded] = useFonts({
     "Poppins-Semibold": require("./assets/fonts/Poppins-SemiBold.ttf"),
+    "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {
