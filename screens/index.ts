@@ -5,3 +5,4 @@ export { default as Messages } from "./Messages";
 export { default as Profile } from "./Profile";
 export { default as Register } from "./Register";
 export { default as Login } from "./Login";
+export { default as Auth } from "./Auth";
