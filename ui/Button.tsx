@@ -10,6 +10,7 @@ interface IButton {
   color?: string;
   display?: string;
   textDecoration?: string;
+  flex?: string;
   onPress?: () => void;
 }
 
@@ -26,6 +27,7 @@ export default function Button({
 }
 
 const ButtonUI = styled.TouchableOpacity<IButton>`
+  flex: ${(props) => props.flex || "auto"};
   display: ${(props) => props.display || "block"}
   background-color: ${(props) => props.bgColor || "transparent"};
   height: ${(props) => props.height || "auto"};

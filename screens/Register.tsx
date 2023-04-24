@@ -1,32 +1,39 @@
 import React from "react";
+import { View } from "react-native";
 import styled from "styled-components/native";
+
+import { BackButton } from "../components";
 
 import { Heading, Input, Text, Button } from "../ui";
 
 export default function Register({ navigation }: any) {
   return (
     <RegisterContainer>
-      <RegisterForm>
-        <Heading textAlign="center">Bienvenido!</Heading>
-        <Text textAlign="center">Si aun no tienes</Text>
-        <Text textAlign="center">una cuenta debes registrarte</Text>
+      <View>
+        <BackButton onPress={() => navigation.navigate("Auth")} />
 
-        <RegisterContainerForm>
-          <Input label="username" marginBottom="20px" />
-          <Input label="email" marginBottom="20px" />
-          <Input label="contrasena" marginBottom="20px" />
-          <Input label="confirmar contrasena" />
+        <RegisterForm>
+          <Heading textAlign="center">Bienvenido!</Heading>
+          <Text textAlign="center">Si aun no tienes</Text>
+          <Text textAlign="center">una cuenta debes registrarte</Text>
 
-          <Button
-            color="#fff"
-            bgColor="#333"
-            marginTop="20px"
-            height="55px"
-          >
-            Crear cuenta
-          </Button>
-        </RegisterContainerForm>
-      </RegisterForm>
+          <RegisterContainerForm>
+            <Input label="username" marginBottom="20px" />
+            <Input label="email" marginBottom="20px" />
+            <Input label="contrasena" marginBottom="20px" />
+            <Input label="confirmar contrasena" />
+
+            <Button
+              color="#fff"
+              bgColor="#333"
+              marginTop="20px"
+              height="55px"
+            >
+              Crear cuenta
+            </Button>
+          </RegisterContainerForm>
+        </RegisterForm>
+      </View>
 
       <RegisterFooter>
         <Text color="#999" textAlign="center">
@@ -44,8 +51,7 @@ export default function Register({ navigation }: any) {
 }
 
 const RegisterContainer = styled.View`
-  padding: 0 20px;
-  padding-top: 60px;
+  padding: 20px;
   justify-content: space-between;
   flex: 1;
 `;
@@ -54,7 +60,9 @@ const RegisterContainerForm = styled.View`
   margin-top: 20px;
 `;
 
-const RegisterForm = styled.View``;
+const RegisterForm = styled.View`
+  margin-top: 20px;
+`;
 
 const RegisterFooter = styled.View`
   padding: 20px;
