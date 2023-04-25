@@ -19,7 +19,7 @@ export default function UserProvider({ children }: IUserProvider) {
 
   useEffect(() => {
     (async () => {
-      const token = await AsyncStorage.getItem("@auth/sura");
+      const token = (await AsyncStorage.getItem("@auth/sura")) || "";
       setToken(token!);
       tokenToUser();
     })();
