@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
 import { Navigation } from "./navigation";
+import UserProvider from "./context/UserContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -22,11 +23,13 @@ export default function App() {
   if (!fontsLoaded) return null;
 
   return (
-    <View
-      style={{ flex: 1, backgroundColor: "#fff" }}
-      onLayout={onLayoutRootView}
-    >
-      <Navigation />
-    </View>
+    <UserProvider>
+      <View
+        style={{ flex: 1, backgroundColor: "#fff" }}
+        onLayout={onLayoutRootView}
+      >
+        <Navigation />
+      </View>
+    </UserProvider>
   );
 }
