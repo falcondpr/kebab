@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query/build/lib/useMutation";
 import React from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
@@ -5,8 +6,21 @@ import styled from "styled-components/native";
 import { BackButton } from "../components";
 
 import { Heading, Input, Text, Button } from "../ui";
+import { registerUser } from "../utils/auth";
 
 export default function Register({ navigation }: any) {
+  const data = {
+    email: "samu@correo.com",
+    username: "samu",
+    fullname: "Samuel Villalba",
+    password: "123456",
+  };
+
+  const handleRegister = async () => {
+    const response = await registerUser(data);
+    console.log("res", response);
+  };
+
   return (
     <RegisterContainer>
       <View>
@@ -28,6 +42,7 @@ export default function Register({ navigation }: any) {
               bgColor="#333"
               marginTop="20px"
               height="55px"
+              onPress={handleRegister}
             >
               Crear cuenta
             </Button>
