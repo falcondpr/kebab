@@ -1,18 +1,25 @@
 import React from "react";
 import styled from "styled-components/native";
 
-import { Text } from "./";
+import Text from "./Text";
 
 interface IInput {
   label?: string;
   marginBottom?: string;
+  onChangeText: (text: string) => void;
+  value: string;
 }
 
-export default function Input({ label, ...rest }: IInput) {
+export default function Input({
+  label,
+  onChangeText,
+  value,
+  ...rest
+}: IInput) {
   return (
     <InputContainer>
       <Text fontSize="14px">{label}</Text>
-      <InputUI {...rest} />
+      <InputUI onChangeText={onChangeText} value={value} {...rest} />
     </InputContainer>
   );
 }

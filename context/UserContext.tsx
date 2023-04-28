@@ -13,6 +13,7 @@ export default function UserProvider({ children }: IUserProvider) {
   const [token, setToken] = useState<string>("");
 
   const tokenToUser = async () => {
+    if (!token) return;
     const user = await jwtDecode(token);
     setUser(user);
   };
