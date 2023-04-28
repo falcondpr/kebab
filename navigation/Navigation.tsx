@@ -1,11 +1,11 @@
 import React from "react";
+import styled from "styled-components/native";
 import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import styled from "styled-components/native";
 
 import { Login, Register, Auth } from "../screens";
-import { Navigator } from "./";
+import Navigator from "./Navigator";
 
 const SafeAreaView = styled.SafeAreaView``;
 

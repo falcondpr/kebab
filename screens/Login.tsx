@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
 import { BackButton } from "../components";
@@ -6,6 +6,14 @@ import { BackButton } from "../components";
 import { Heading, Input, Text, Button } from "../ui";
 
 export default function Login({ navigation }: any) {
+  const [infoUser, setInfoUser] = useState<{
+    usernameOrEmail: string;
+    password: string;
+  }>({
+    usernameOrEmail: "",
+    password: "",
+  });
+
   return (
     <LoginContainer>
       <View>
@@ -17,8 +25,22 @@ export default function Login({ navigation }: any) {
           <Text textAlign="center">una cuenta ahora ingresa</Text>
 
           <LoginContainerForm>
-            <Input label="username o email" marginBottom="20px" />
-            <Input label="contrasena" marginBottom="20px" />
+            <Input
+              value={infoUser.usernameOrEmail}
+              onChangeText={(text) =>
+                setInfoUser({ ...infoUser, usernameOrEmail: text })
+              }
+              label="username o email"
+              marginBottom="20px"
+            />
+            <Input
+              value={infoUser.password}
+              onChangeText={(text) =>
+                setInfoUser({ ...infoUser, password: text })
+              }
+              label="contrasena"
+              marginBottom="20px"
+            />
 
             <Button
               color="#fff"

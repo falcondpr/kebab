@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query/build/lib/useMutation";
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
 
@@ -16,9 +16,23 @@ export default function Register({ navigation }: any) {
     password: "123456",
   };
 
+  const [infoUser, setInfoUser] = useState<{
+    username: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }>({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
   const handleRegister = async () => {
-    const response = await registerUser(data);
-    console.log("res", response);
+    // const response = await registerUser(data);
+    // console.log("res", response);
+
+    console.log(infoUser);
   };
 
   return (
@@ -32,10 +46,37 @@ export default function Register({ navigation }: any) {
           <Text textAlign="center">una cuenta debes registrarte</Text>
 
           <RegisterContainerForm>
-            <Input label="username" marginBottom="20px" />
-            <Input label="email" marginBottom="20px" />
-            <Input label="contrasena" marginBottom="20px" />
-            <Input label="confirmar contrasena" />
+            <Input
+              value={infoUser.username}
+              onChangeText={(text) =>
+                setInfoUser({ ...infoUser, username: text })
+              }
+              label="username"
+              marginBottom="20px"
+            />
+            <Input
+              value={infoUser.email}
+              onChangeText={(text) =>
+                setInfoUser({ ...infoUser, email: text })
+              }
+              label="email"
+              marginBottom="20px"
+            />
+            <Input
+              value={infoUser.password}
+              onChangeText={(text) =>
+                setInfoUser({ ...infoUser, password: text })
+              }
+              label="contrasena"
+              marginBottom="20px"
+            />
+            <Input
+              value={infoUser.confirmPassword}
+              onChangeText={(text) =>
+                setInfoUser({ ...infoUser, confirmPassword: text })
+              }
+              label="confirmar contrasena"
+            />
 
             <Button
               color="#fff"
