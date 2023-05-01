@@ -8,18 +8,26 @@ interface IInput {
   marginBottom?: string;
   onChangeText: (text: string) => void;
   value: string;
+  autoCapitalize?: string;
+  secureTextEntry?: boolean;
 }
 
 export default function Input({
   label,
   onChangeText,
   value,
+  autoCapitalize,
   ...rest
 }: IInput) {
   return (
     <InputContainer>
       <Text fontSize="14px">{label}</Text>
-      <InputUI onChangeText={onChangeText} value={value} {...rest} />
+      <InputUI
+        autoCapitalize={autoCapitalize ? "none" : "words"}
+        onChangeText={onChangeText}
+        value={value}
+        {...rest}
+      />
     </InputContainer>
   );
 }
@@ -29,6 +37,7 @@ const InputContainer = styled.View``;
 const InputUI = styled.TextInput<IInput>`
   border: 1px solid #bebebe;
   height: 50px;
+  /* text-transform: lowercase; */
   padding-left: 16px;
   border-radius: 6px;
   margin-bottom: ${(props) => props.marginBottom || "0"};

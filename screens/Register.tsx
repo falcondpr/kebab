@@ -1,12 +1,11 @@
-import { useMutation } from "@tanstack/react-query/build/lib/useMutation";
-import React, { useState } from "react";
-import { View } from "react-native";
+import { useMutation } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
+import { Keyboard, View } from "react-native";
 import styled from "styled-components/native";
 
 import { BackButton } from "../components";
-
 import { Heading, Input, Text, Button } from "../ui";
-import { registerUser } from "../utils/auth";
+// import { registerUser } from "../utils/auth";
 
 export default function Register({ navigation }: any) {
   const data = {
@@ -15,6 +14,8 @@ export default function Register({ navigation }: any) {
     fullname: "Samuel Villalba",
     password: "123456",
   };
+
+  const [stepValue, setStepValue] = useState<number>(0);
 
   const [infoUser, setInfoUser] = useState<{
     username: string;
@@ -35,10 +36,20 @@ export default function Register({ navigation }: any) {
     console.log(infoUser);
   };
 
+  useEffect(() => {
+    Keyboard.dismiss();
+  }, [stepValue]);
+
   return (
     <RegisterContainer>
       <View>
-        <BackButton onPress={() => navigation.navigate("Auth")} />
+        <BackButton
+          onPress={() =>
+            stepValue
+              ? setStepValue((v) => v - 1)
+              : navigation.navigate("Auth")
+          }
+        />
 
         <RegisterForm>
           <Heading textAlign="center">Bienvenido!</Heading>
@@ -46,47 +57,74 @@ export default function Register({ navigation }: any) {
           <Text textAlign="center">una cuenta debes registrarte</Text>
 
           <RegisterContainerForm>
-            <Input
-              value={infoUser.username}
-              onChangeText={(text) =>
-                setInfoUser({ ...infoUser, username: text })
-              }
-              label="username"
-              marginBottom="20px"
-            />
-            <Input
-              value={infoUser.email}
-              onChangeText={(text) =>
-                setInfoUser({ ...infoUser, email: text })
-              }
-              label="email"
-              marginBottom="20px"
-            />
-            <Input
-              value={infoUser.password}
-              onChangeText={(text) =>
-                setInfoUser({ ...infoUser, password: text })
-              }
-              label="contrasena"
-              marginBottom="20px"
-            />
-            <Input
-              value={infoUser.confirmPassword}
-              onChangeText={(text) =>
-                setInfoUser({ ...infoUser, confirmPassword: text })
-              }
-              label="confirmar contrasena"
-            />
+            {stepValue === 0 ? (
+              <Input
+                autoCapitalize="none"
+                value={infoUser.email}
+                onChangeText={(text) =>
+                  setInfoUser({ ...infoUser, email: text })
+                }
+                label="email"
+                marginBottom="20px"
+              />
+            ) : stepValue === 1 ? (
+              <Input
+                autoCapitalize="none"
+                value={infoUser.username}
+                onChangeText={(text) =>
+                  setInfoUser({ ...infoUser, username: text })
+                }
+                label="username"
+                marginBottom="20px"
+              />
+            ) : stepValue === 2 ? (
+              <Input
+                autoCapitalize="none"
+                secureTextEntry={true}
+                value={infoUser.password}
+                onChangeText={(text) =>
+                  setInfoUser({ ...infoUser, password: text })
+                }
+                label="contrasena"
+                marginBottom="20px"
+              />
+            ) : (
+              stepValue === 3 && (
+                <Input
+                  autoCapitalize="none"
+                  secureTextEntry={true}
+                  value={infoUser.confirmPassword}
+                  onChangeText={(text) =>
+                    setInfoUser({
+                      ...infoUser,
+                      confirmPassword: text,
+                    })
+                  }
+                  label="confirmar contrasena"
+                />
+              )
+            )}
 
-            <Button
-              color="#fff"
-              bgColor="#333"
-              marginTop="20px"
-              height="55px"
-              onPress={handleRegister}
-            >
-              Crear cuenta
-            </Button>
+            {stepValue !== 3 ? (
+              <Button
+                color="#fff"
+                bgColor="#333"
+                height="55px"
+                onPress={() => setStepValue((v) => v + 1)}
+              >
+                Siguiente
+              </Button>
+            ) : (
+              <Button
+                color="#fff"
+                bgColor="#333"
+                marginTop="20px"
+                height="55px"
+                onPress={handleRegister}
+              >
+                Crear cuenta
+              </Button>
+            )}
           </RegisterContainerForm>
         </RegisterForm>
       </View>
