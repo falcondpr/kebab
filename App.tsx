@@ -1,14 +1,19 @@
 import { useCallback } from "react";
-import { View } from "react-native";
+import { View, Dimensions, Text } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 
 import { Navigation } from "./navigation";
 import UserProvider from "./context/UserContext";
-import { QueryClient } from "@tanstack/react-query";
-import { QueryClientProvider } from "@tanstack/react-query/build/lib/QueryClientProvider";
 
 SplashScreen.preventAutoHideAsync();
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -24,7 +29,13 @@ export default function App() {
     }
   }, [fontsLoaded]);
 
-  if (!fontsLoaded) return null;
+  // TODO: usar luego un componente loader para reutilizar
+  if (!fontsLoaded)
+    return (
+      <View style={{ height: windowHeight, width: windowWidth }}>
+        <Text style={{ fontSize: 24 }}>Cargando..</Text>
+      </View>
+    );
 
   return (
     <QueryClientProvider client={queryClient}>
