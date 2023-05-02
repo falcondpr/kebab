@@ -1,11 +1,13 @@
-import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { Keyboard, View } from "react-native";
 import styled from "styled-components/native";
 
 import { BackButton } from "../components";
 import { Heading, Input, Text, Button } from "../ui";
-// import { registerUser } from "../utils/auth";
+
+interface IDotStep {
+  active: boolean;
+}
 
 export default function Register({ navigation }: any) {
   const data = {
@@ -129,17 +131,33 @@ export default function Register({ navigation }: any) {
         </RegisterForm>
       </View>
 
-      <RegisterFooter>
-        <Text color="#999" textAlign="center">
-          Ya tienes una cuenta?
-        </Text>
-        <Button
-          color="#333"
-          onPress={() => navigation.navigate("Login")}
+      <View>
+        <RegisterFooter>
+          <Text color="#999" textAlign="center">
+            Ya tienes una cuenta?
+          </Text>
+          <Button
+            color="#333"
+            onPress={() => navigation.navigate("Login")}
+          >
+            Inicia sesion
+          </Button>
+        </RegisterFooter>
+
+        <View
+          style={{
+            flexDirection: "row",
+            marginTop: 15,
+            marginBottom: 20,
+            justifyContent: "center",
+          }}
         >
-          Inicia sesion
-        </Button>
-      </RegisterFooter>
+          <DotStep active={stepValue === 0} />
+          <DotStep active={stepValue === 1} />
+          <DotStep active={stepValue === 2} />
+          <DotStep active={stepValue === 3} />
+        </View>
+      </View>
     </RegisterContainer>
   );
 }
@@ -159,9 +177,20 @@ const RegisterForm = styled.View`
 `;
 
 const RegisterFooter = styled.View`
-  padding: 20px;
+  padding: 0 20px;
   justify-content: center;
   flex-direction: row;
   align-items: center;
   gap: 5px;
+`;
+
+const DotStep = styled.View<{ active?: boolean }>`
+  width: 10px
+  height: 10px;
+  background-color: ${(props) => (props.active ? "#333" : "#fff")};
+  border-width: 1px;
+  border-style: solid;
+  border-color: #333;
+  margin: 0 4px;
+  border-radius: 20px;
 `;
