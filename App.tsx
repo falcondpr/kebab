@@ -8,7 +8,6 @@ import {
 } from "@tanstack/react-query";
 
 import { Navigation } from "./navigation";
-import { UserProvider } from "./context";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -39,14 +38,12 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <UserProvider>
-        <View
-          style={{ flex: 1, backgroundColor: "#fff" }}
-          onLayout={onLayoutRootView}
-        >
-          <Navigation />
-        </View>
-      </UserProvider>
+      <View
+        style={{ flex: 1, backgroundColor: "#fff" }}
+        onLayout={onLayoutRootView}
+      >
+        <Navigation />
+      </View>
     </QueryClientProvider>
   );
 }
