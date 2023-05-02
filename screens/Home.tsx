@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { View, Text } from "react-native";
 import styled from "styled-components/native";
-import { UserContext } from "../context/UserContext";
+
+import { useAuthStore } from "../store/auth.store";
 
 export default function Home({ navigation }: any) {
-  const { user } = useContext(UserContext);
+  const user = useAuthStore((state) => state.user);
 
   return (
     <View>

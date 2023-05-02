@@ -5,11 +5,11 @@ import { Keyboard, View } from "react-native";
 import { BackButton } from "../components";
 import { Heading, Input, Text, Button } from "../ui";
 import { registerUser } from "../services";
-import { useAuth } from "../hooks";
+import { useAuthStore } from "../store";
 
 export default function Register({ navigation }: any) {
   const [stepValue, setStepValue] = useState<number>(0);
-  const { _login } = useAuth();
+  const _login = useAuthStore((state) => state.login);
 
   const [infoUser, setInfoUser] = useState<{
     fullname: string;
@@ -28,6 +28,7 @@ export default function Register({ navigation }: any) {
   const handleRegister = async () => {
     delete infoUser.confirmPassword;
     const response = await registerUser(infoUser);
+    console.log(response);
     const token = response?.data.token;
     _login(token);
     navigation.navigate("HomeScreen");
