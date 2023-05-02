@@ -28,7 +28,6 @@ export default function Register({ navigation }: any) {
   const handleRegister = async () => {
     delete infoUser.confirmPassword;
     const response = await registerUser(infoUser);
-    console.log(response);
     const token = response?.data.token;
     _login(token);
     navigation.navigate("HomeScreen");
