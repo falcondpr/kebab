@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text } from "react-native";
 import styled from "styled-components/native";
+import { UserContext } from "../context/UserContext";
 
 export default function Home({ navigation }: any) {
+  const { user } = useContext(UserContext);
+
   return (
     <View>
       <Text>Home</Text>
@@ -16,6 +19,13 @@ export default function Home({ navigation }: any) {
           onPress={() => navigation.navigate("Auth")}
         >
           go to auth
+        </ButtonText>
+
+        <ButtonText
+          style={{ margin: 20, padding: 20, backgroundColor: "#3fd" }}
+          onPress={() => console.log(user)}
+        >
+          obtener usuario logueado
         </ButtonText>
       </Button>
     </View>

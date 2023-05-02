@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-query";
 
 import { Navigation } from "./navigation";
-import UserProvider from "./context/UserContext";
+import { UserProvider } from "./context";
 
 SplashScreen.preventAutoHideAsync();
 

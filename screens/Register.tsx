@@ -1,28 +1,24 @@
-import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
-import { Keyboard, View } from "react-native";
 import styled from "styled-components/native";
+import { Keyboard, View } from "react-native";
 
 import { BackButton } from "../components";
 import { Heading, Input, Text, Button } from "../ui";
-// import { registerUser } from "../utils/auth";
+import { registerUser } from "../services";
+import { useAuth } from "../hooks";
 
 export default function Register({ navigation }: any) {
-  const data = {
-    email: "samu@correo.com",
-    username: "samu",
-    fullname: "Samuel Villalba",
-    password: "123456",
-  };
-
   const [stepValue, setStepValue] = useState<number>(0);
+  const { _login } = useAuth();
 
   const [infoUser, setInfoUser] = useState<{
+    fullname: string;
     username: string;
     email: string;
     password: string;
-    confirmPassword: string;
+    confirmPassword?: string;
   }>({
+    fullname: "",
     username: "",
     email: "",
     password: "",
@@ -30,10 +26,12 @@ export default function Register({ navigation }: any) {
   });
 
   const handleRegister = async () => {
-    // const response = await registerUser(data);
-    // console.log("res", response);
-
-    console.log(infoUser);
+    delete infoUser.confirmPassword;
+    const response = await registerUser(infoUser);
+    console.log(response);
+    const token = response?.data.token;
+    _login(token);
+    navigation.navigate("HomeScreen");
   };
 
   useEffect(() => {
@@ -59,6 +57,15 @@ export default function Register({ navigation }: any) {
           <RegisterContainerForm>
             {stepValue === 0 ? (
               <Input
+                value={infoUser.fullname}
+                onChangeText={(text) =>
+                  setInfoUser({ ...infoUser, fullname: text })
+                }
+                label="nombre"
+                marginBottom="20px"
+              />
+            ) : stepValue === 1 ? (
+              <Input
                 autoCapitalize="none"
                 value={infoUser.email}
                 onChangeText={(text) =>
@@ -67,7 +74,7 @@ export default function Register({ navigation }: any) {
                 label="email"
                 marginBottom="20px"
               />
-            ) : stepValue === 1 ? (
+            ) : stepValue === 2 ? (
               <Input
                 autoCapitalize="none"
                 value={infoUser.username}
@@ -77,7 +84,7 @@ export default function Register({ navigation }: any) {
                 label="username"
                 marginBottom="20px"
               />
-            ) : stepValue === 2 ? (
+            ) : stepValue === 3 ? (
               <Input
                 autoCapitalize="none"
                 secureTextEntry={true}
@@ -89,11 +96,11 @@ export default function Register({ navigation }: any) {
                 marginBottom="20px"
               />
             ) : (
-              stepValue === 3 && (
+              stepValue === 4 && (
                 <Input
                   autoCapitalize="none"
                   secureTextEntry={true}
-                  value={infoUser.confirmPassword}
+                  value={infoUser.confirmPassword!}
                   onChangeText={(text) =>
                     setInfoUser({
                       ...infoUser,
@@ -105,7 +112,7 @@ export default function Register({ navigation }: any) {
               )
             )}
 
-            {stepValue !== 3 ? (
+            {stepValue !== 4 ? (
               <Button
                 color="#fff"
                 bgColor="#333"
@@ -129,17 +136,34 @@ export default function Register({ navigation }: any) {
         </RegisterForm>
       </View>
 
-      <RegisterFooter>
-        <Text color="#999" textAlign="center">
-          Ya tienes una cuenta?
-        </Text>
-        <Button
-          color="#333"
-          onPress={() => navigation.navigate("Login")}
+      <View>
+        <RegisterFooter>
+          <Text color="#999" textAlign="center">
+            Ya tienes una cuenta?
+          </Text>
+          <Button
+            color="#333"
+            onPress={() => navigation.navigate("Login")}
+          >
+            Inicia sesion
+          </Button>
+        </RegisterFooter>
+
+        <View
+          style={{
+            flexDirection: "row",
+            marginTop: 15,
+            marginBottom: 20,
+            justifyContent: "center",
+          }}
         >
-          Inicia sesion
-        </Button>
-      </RegisterFooter>
+          <DotStep active={stepValue === 0} />
+          <DotStep active={stepValue === 1} />
+          <DotStep active={stepValue === 2} />
+          <DotStep active={stepValue === 3} />
+          <DotStep active={stepValue === 4} />
+        </View>
+      </View>
     </RegisterContainer>
   );
 }
@@ -159,9 +183,20 @@ const RegisterForm = styled.View`
 `;
 
 const RegisterFooter = styled.View`
-  padding: 20px;
+  padding: 0 20px;
   justify-content: center;
   flex-direction: row;
   align-items: center;
   gap: 5px;
+`;
+
+const DotStep = styled.View<{ active?: boolean }>`
+  width: 10px
+  height: 10px;
+  background-color: ${(props) => (props.active ? "#333" : "#fff")};
+  border-width: 1px;
+  border-style: solid;
+  border-color: #333;
+  margin: 0 4px;
+  border-radius: 20px;
 `;
