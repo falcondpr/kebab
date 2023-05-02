@@ -1,30 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Keyboard, View } from "react-native";
 import styled from "styled-components/native";
+import { Keyboard, View } from "react-native";
 
 import { BackButton } from "../components";
 import { Heading, Input, Text, Button } from "../ui";
-
-interface IDotStep {
-  active: boolean;
-}
+import { registerUser } from "../services";
+import { useAuth } from "../hooks";
 
 export default function Register({ navigation }: any) {
-  const data = {
-    email: "samu@correo.com",
-    username: "samu",
-    fullname: "Samuel Villalba",
-    password: "123456",
-  };
-
   const [stepValue, setStepValue] = useState<number>(0);
+  const { _login } = useAuth();
 
   const [infoUser, setInfoUser] = useState<{
+    fullname: string;
     username: string;
     email: string;
     password: string;
-    confirmPassword: string;
+    confirmPassword?: string;
   }>({
+    fullname: "",
     username: "",
     email: "",
     password: "",
@@ -32,10 +26,12 @@ export default function Register({ navigation }: any) {
   });
 
   const handleRegister = async () => {
-    // const response = await registerUser(data);
-    // console.log("res", response);
-
-    console.log(infoUser);
+    delete infoUser.confirmPassword;
+    const response = await registerUser(infoUser);
+    console.log(response);
+    const token = response?.data.token;
+    _login(token);
+    navigation.navigate("HomeScreen");
   };
 
   useEffect(() => {
@@ -61,6 +57,15 @@ export default function Register({ navigation }: any) {
           <RegisterContainerForm>
             {stepValue === 0 ? (
               <Input
+                value={infoUser.fullname}
+                onChangeText={(text) =>
+                  setInfoUser({ ...infoUser, fullname: text })
+                }
+                label="nombre"
+                marginBottom="20px"
+              />
+            ) : stepValue === 1 ? (
+              <Input
                 autoCapitalize="none"
                 value={infoUser.email}
                 onChangeText={(text) =>
@@ -69,7 +74,7 @@ export default function Register({ navigation }: any) {
                 label="email"
                 marginBottom="20px"
               />
-            ) : stepValue === 1 ? (
+            ) : stepValue === 2 ? (
               <Input
                 autoCapitalize="none"
                 value={infoUser.username}
@@ -79,7 +84,7 @@ export default function Register({ navigation }: any) {
                 label="username"
                 marginBottom="20px"
               />
-            ) : stepValue === 2 ? (
+            ) : stepValue === 3 ? (
               <Input
                 autoCapitalize="none"
                 secureTextEntry={true}
@@ -91,11 +96,11 @@ export default function Register({ navigation }: any) {
                 marginBottom="20px"
               />
             ) : (
-              stepValue === 3 && (
+              stepValue === 4 && (
                 <Input
                   autoCapitalize="none"
                   secureTextEntry={true}
-                  value={infoUser.confirmPassword}
+                  value={infoUser.confirmPassword!}
                   onChangeText={(text) =>
                     setInfoUser({
                       ...infoUser,
@@ -107,7 +112,7 @@ export default function Register({ navigation }: any) {
               )
             )}
 
-            {stepValue !== 3 ? (
+            {stepValue !== 4 ? (
               <Button
                 color="#fff"
                 bgColor="#333"
@@ -156,6 +161,7 @@ export default function Register({ navigation }: any) {
           <DotStep active={stepValue === 1} />
           <DotStep active={stepValue === 2} />
           <DotStep active={stepValue === 3} />
+          <DotStep active={stepValue === 4} />
         </View>
       </View>
     </RegisterContainer>

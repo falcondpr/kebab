@@ -1,0 +1,1 @@
+export { IRegisterUser } from "./auth";
