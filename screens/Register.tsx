@@ -1,38 +1,45 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { Keyboard, View } from "react-native";
+import { Formik } from "formik";
+import * as yup from "yup";
 
 import { BackButton } from "../components";
 import { Heading, Input, Text, Button } from "../ui";
-import { registerUser } from "../services";
+// import { registerUser } from "../services";
 import { useAuthStore } from "../store";
+
+const registerValidationSchema = yup.object().shape({
+  fullname: yup.string().required("El nombre es requerido"),
+  username: yup
+    .string()
+    .required("El nombre de usuario es requerido"),
+  email: yup
+    .string()
+    .email("El email no es valido")
+    .required("El email es requerido"),
+  password: yup
+    .string()
+    .min(
+      8,
+      ({ min }) =>
+        `La contrasena debe tener al menos ${min} caracteres`
+    )
+    .required("La contrasena es requerida"),
+});
 
 export default function Register({ navigation }: any) {
   const [stepValue, setStepValue] = useState<number>(0);
   const _login = useAuthStore((state) => state.login);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const [infoUser, setInfoUser] = useState<{
-    fullname: string;
-    username: string;
-    email: string;
-    password: string;
-    confirmPassword?: string;
-  }>({
-    fullname: "",
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-
-  const handleRegister = async () => {
-    delete infoUser.confirmPassword;
-    const response = await registerUser(infoUser);
-    console.log(response);
-    const token = response?.data.token;
-    _login(token);
-    navigation.navigate("HomeScreen");
-  };
+  // const handleRegister = async () => {
+  //   const response = await registerUser(infoUser);
+  //   console.log(response);
+  //   const token = response?.data.token;
+  //   _login(token);
+  //   navigation.navigate("HomeScreen");
+  // };
 
   useEffect(() => {
     Keyboard.dismiss();
@@ -49,91 +56,154 @@ export default function Register({ navigation }: any) {
           }
         />
 
-        <RegisterForm>
-          <Heading textAlign="center">Bienvenido!</Heading>
-          <Text textAlign="center">Si aun no tienes</Text>
-          <Text textAlign="center">una cuenta debes registrarte</Text>
+        <Formik
+          validationSchema={registerValidationSchema}
+          initialValues={{
+            fullname: "",
+            username: "",
+            password: "",
+            confirmPassword: "",
+            email: "",
+          }}
+          onSubmit={(values) => console.log("values")}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            isValid,
+          }) => (
+            <RegisterForm>
+              <Heading textAlign="center">Bienvenido!</Heading>
+              <Text textAlign="center">Si aun no tienes</Text>
+              <Text textAlign="center">
+                una cuenta debes registrarte
+              </Text>
 
-          <RegisterContainerForm>
-            {stepValue === 0 ? (
-              <Input
-                value={infoUser.fullname}
-                onChangeText={(text) =>
-                  setInfoUser({ ...infoUser, fullname: text })
-                }
-                label="nombre"
-                marginBottom="20px"
-              />
-            ) : stepValue === 1 ? (
-              <Input
-                autoCapitalize="none"
-                value={infoUser.email}
-                onChangeText={(text) =>
-                  setInfoUser({ ...infoUser, email: text })
-                }
-                label="email"
-                marginBottom="20px"
-              />
-            ) : stepValue === 2 ? (
-              <Input
-                autoCapitalize="none"
-                value={infoUser.username}
-                onChangeText={(text) =>
-                  setInfoUser({ ...infoUser, username: text })
-                }
-                label="username"
-                marginBottom="20px"
-              />
-            ) : stepValue === 3 ? (
-              <Input
-                autoCapitalize="none"
-                secureTextEntry={true}
-                value={infoUser.password}
-                onChangeText={(text) =>
-                  setInfoUser({ ...infoUser, password: text })
-                }
-                label="contrasena"
-                marginBottom="20px"
-              />
-            ) : (
-              stepValue === 4 && (
-                <Input
-                  autoCapitalize="none"
-                  secureTextEntry={true}
-                  value={infoUser.confirmPassword!}
-                  onChangeText={(text) =>
-                    setInfoUser({
-                      ...infoUser,
-                      confirmPassword: text,
-                    })
-                  }
-                  label="confirmar contrasena"
-                />
-              )
-            )}
+              <RegisterContainerForm>
+                {stepValue === 0 ? (
+                  <>
+                    <Input
+                      value={values.fullname}
+                      onChangeText={handleChange("fullname")}
+                      label="nombre"
+                      marginBottom="10px"
+                      onBlur={handleBlur("fullname")}
+                    />
+                    {isSubmitting && errors.fullname && (
+                      <Text color="#f11">{errors.fullname}</Text>
+                    )}
+                  </>
+                ) : stepValue === 1 ? (
+                  <>
+                    <Input
+                      autoCapitalize="none"
+                      value={values.email}
+                      onChangeText={handleChange("email")}
+                      label="email"
+                      marginBottom="10px"
+                      onBlur={handleBlur("email")}
+                    />
+                    {isSubmitting && errors.email && (
+                      <Text color="#f11">{errors.email}</Text>
+                    )}
+                  </>
+                ) : stepValue === 2 ? (
+                  <>
+                    <Input
+                      autoCapitalize="none"
+                      value={values.username}
+                      onChangeText={handleChange("username")}
+                      label="username"
+                      marginBottom="10px"
+                      onBlur={handleBlur("username")}
+                    />
+                    {isSubmitting && errors.username && (
+                      <Text color="#f11">{errors.username}</Text>
+                    )}
+                  </>
+                ) : stepValue === 3 ? (
+                  <>
+                    <Input
+                      autoCapitalize="none"
+                      secureTextEntry={true}
+                      value={values.password}
+                      onChangeText={handleChange("password")}
+                      label="contrasena"
+                      marginBottom="10px"
+                      onBlur={handleBlur("password")}
+                    />
+                    {isSubmitting && errors.password && (
+                      <Text color="#f11">{errors.password}</Text>
+                    )}
+                  </>
+                ) : (
+                  stepValue === 4 && (
+                    <>
+                      <Input
+                        autoCapitalize="none"
+                        secureTextEntry={true}
+                        value={values.confirmPassword!}
+                        onChangeText={handleChange("confirmPassword")}
+                        label="confirmar contrasena"
+                        onBlur={handleBlur("confirmPassword")}
+                      />
+                      {isSubmitting && errors.confirmPassword && (
+                        <Text color="#f11">
+                          {errors.confirmPassword}
+                        </Text>
+                      )}
+                    </>
+                  )
+                )}
 
-            {stepValue !== 4 ? (
-              <Button
-                color="#fff"
-                bgColor="#333"
-                height="55px"
-                onPress={() => setStepValue((v) => v + 1)}
-              >
-                Siguiente
-              </Button>
-            ) : (
-              <Button
-                color="#fff"
-                bgColor="#333"
-                marginTop="20px"
-                height="55px"
-                onPress={handleRegister}
-              >
-                Crear cuenta
-              </Button>
-            )}
-          </RegisterContainerForm>
-        </RegisterForm>
+                {stepValue !== 4 ? (
+                  <Button
+                    color="#fff"
+                    bgColor="#333"
+                    height="55px"
+                    marginTop="10px"
+                    onPress={() => {
+                      if (
+                        isSubmitting &&
+                        !errors.confirmPassword &&
+                        !errors.password &&
+                        !errors.username &&
+                        !errors.fullname &&
+                        !errors.email
+                      )
+                        setStepValue(3);
+                      setStepValue((v) => v + 1);
+                    }}
+                  >
+                    Siguiente
+                  </Button>
+                ) : (
+                  <Button
+                    color="#fff"
+                    bgColor="#333"
+                    marginTop="20px"
+                    height="55px"
+                    onPress={() => {
+                      setIsSubmitting(true);
+                      if (errors.fullname) return setStepValue(0);
+                      if (errors.email) return setStepValue(1);
+                      if (errors.username) return setStepValue(2);
+                      if (errors.password) return setStepValue(3);
+                      if (errors.confirmPassword)
+                        return setStepValue(4);
+                      handleSubmit();
+                    }}
+                  >
+                    Crear cuenta
+                  </Button>
+                )}
+              </RegisterContainerForm>
+            </RegisterForm>
+          )}
+        </Formik>
       </View>
 
       <View>
@@ -188,6 +258,7 @@ const RegisterFooter = styled.View`
   flex-direction: row;
   align-items: center;
   gap: 5px;
+  margin-top: 16px;
 `;
 
 const DotStep = styled.View<{ active?: boolean }>`

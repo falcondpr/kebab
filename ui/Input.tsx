@@ -10,6 +10,7 @@ interface IInput {
   value: string;
   autoCapitalize?: string;
   secureTextEntry?: boolean;
+  onBlur: any;
 }
 
 export default function Input({
@@ -17,12 +18,14 @@ export default function Input({
   onChangeText,
   value,
   autoCapitalize,
+  onBlur,
   ...rest
 }: IInput) {
   return (
     <InputContainer>
       <Text fontSize="14px">{label}</Text>
       <InputUI
+        onBlur={onBlur}
         autoCapitalize={autoCapitalize ? "none" : "words"}
         onChangeText={onChangeText}
         value={value}
@@ -37,7 +40,6 @@ const InputContainer = styled.View``;
 const InputUI = styled.TextInput<IInput>`
   border: 1px solid #bebebe;
   height: 50px;
-  /* text-transform: lowercase; */
   padding-left: 16px;
   border-radius: 6px;
   margin-bottom: ${(props) => props.marginBottom || "0"};
