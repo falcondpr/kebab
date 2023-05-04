@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
+import Toast from "react-native-toast-message";
 import { Keyboard, View } from "react-native";
-import { Formik } from "formik";
 import * as yup from "yup";
+import { Formik } from "formik";
 
 import { BackButton } from "../components";
 import { Heading, Input, Text, Button } from "../ui";
@@ -33,13 +34,20 @@ export default function Register({ navigation }: any) {
   const _login = useAuthStore((state) => state.login);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  // const handleRegister = async () => {
-  //   const response = await registerUser(infoUser);
-  //   console.log(response);
-  //   const token = response?.data.token;
-  //   _login(token);
-  //   navigation.navigate("HomeScreen");
-  // };
+  const handleRegister = async (values: any) => {
+    console.log(values);
+
+    Toast.show({
+      type: "success",
+      text1: "Cuenta creada",
+      text2: "Acabas de iniciar sesion 👋",
+    });
+    // const response = await registerUser(infoUser);
+    // console.log(response);
+    // const token = response?.data.token;
+    // _login(token);
+    // navigation.navigate("HomeScreen");
+  };
 
   useEffect(() => {
     Keyboard.dismiss();
@@ -65,7 +73,7 @@ export default function Register({ navigation }: any) {
             confirmPassword: "",
             email: "",
           }}
-          onSubmit={(values) => console.log("values")}
+          onSubmit={handleRegister}
         >
           {({
             handleChange,
