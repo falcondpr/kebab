@@ -43,7 +43,6 @@ export default function Register({ navigation }: any) {
       text2: "Acabas de iniciar sesion 👋",
     });
     // const response = await registerUser(infoUser);
-    // console.log(response);
     // const token = response?.data.token;
     // _login(token);
     // navigation.navigate("HomeScreen");
