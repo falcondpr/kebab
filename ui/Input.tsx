@@ -11,6 +11,7 @@ interface IInput {
   autoCapitalize?: string;
   secureTextEntry?: boolean;
   onBlur: any;
+  autoFocus?: boolean;
 }
 
 export default function Input({
@@ -19,6 +20,7 @@ export default function Input({
   value,
   autoCapitalize,
   onBlur,
+  autoFocus,
   ...rest
 }: IInput) {
   return (
@@ -29,6 +31,7 @@ export default function Input({
         autoCapitalize={autoCapitalize ? "none" : "words"}
         onChangeText={onChangeText}
         value={value}
+        autoFocus={autoFocus}
         {...rest}
       />
     </InputContainer>
