@@ -7,8 +7,9 @@ import { Formik } from "formik";
 
 import { BackButton } from "../components";
 import { Heading, Input, Text, Button } from "../ui";
-// import { registerUser } from "../services";
+import { registerUser } from "../services";
 import { useAuthStore } from "../store";
+import { IRegisterUser } from "../interfaces";
 
 const registerValidationSchema = yup.object().shape({
   fullname: yup.string().required("El nombre es requerido"),
@@ -34,18 +35,17 @@ export default function Register({ navigation }: any) {
   const _login = useAuthStore((state) => state.login);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const handleRegister = async (values: any) => {
-    console.log(values);
-
+  const handleRegister = async (values: IRegisterUser) => {
+    delete values.confirmPassword;
+    const response = await registerUser(values);
+    const token = await response?.data.token;
+    _login(token);
     Toast.show({
       type: "success",
       text1: "Cuenta creada",
       text2: "Acabas de iniciar sesion 👋",
     });
-    // const response = await registerUser(infoUser);
-    // const token = response?.data.token;
-    // _login(token);
-    // navigation.navigate("HomeScreen");
+    navigation.navigate("HomeScreen");
   };
 
   useEffect(() => {
@@ -70,10 +70,10 @@ export default function Register({ navigation }: any) {
         handleSubmit,
         values,
         errors,
-        isValid,
-        setValues,
       }) => (
         <RegisterContainer>
+          {/* <Text>{JSON.stringify(response)}</Text> */}
+
           <View>
             <BackButton
               onPress={() =>
