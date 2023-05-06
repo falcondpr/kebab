@@ -21,7 +21,10 @@ export const useAuthStore = create<State & Actions>((set) => ({
     );
     set(() => ({ user: tokenToUser(token) }));
   },
-  logout: () => set(() => ({ user: null })),
+  logout: async () => {
+    await AsyncStorage.removeItem('@auth/sura');
+    set(() => ({ user: null }));
+  },
 }));
 
 AsyncStorage.getItem("@auth/sura").then((res) =>
