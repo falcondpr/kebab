@@ -8,7 +8,7 @@ const Tab = createBottomTabNavigator();
 export default function TabNavigator() {
   return (
     <Tab.Navigator
-      initialRouteName="HomeScreen"
+      initialRouteName="AuthScreen"
       screenOptions={{
         tabBarActiveTintColor: "#333",
         tabBarStyle: {

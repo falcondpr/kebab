@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import Toast from "react-native-toast-message";
-import { Keyboard, View } from "react-native";
 import * as yup from "yup";
+import { Keyboard, View } from "react-native";
 import { Formik } from "formik";
 
 import { BackButton } from "../components";
 import { Heading, Input, Text, Button } from "../ui";
-// import { registerUser } from "../services";
+import { registerUser } from "../services";
 import { useAuthStore } from "../store";
+import { IRegisterUser } from "../interfaces";
 
 const registerValidationSchema = yup.object().shape({
   fullname: yup.string().required("El nombre es requerido"),
@@ -34,18 +35,17 @@ export default function Register({ navigation }: any) {
   const _login = useAuthStore((state) => state.login);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const handleRegister = async (values: any) => {
-    console.log(values);
-
+  const handleRegister = async (values: IRegisterUser) => {
+    delete values.confirmPassword;
+    const response = await registerUser(values);
+    const token = await response?.data.token;
+    _login(token);
     Toast.show({
       type: "success",
       text1: "Cuenta creada",
       text2: "Acabas de iniciar sesion 👋",
     });
-    // const response = await registerUser(infoUser);
-    // const token = response?.data.token;
-    // _login(token);
-    // navigation.navigate("HomeScreen");
+    navigation.navigate("HomeScreen");
   };
 
   useEffect(() => {
@@ -53,35 +53,36 @@ export default function Register({ navigation }: any) {
   }, [stepValue]);
 
   return (
-    <RegisterContainer>
-      <View>
-        <BackButton
-          onPress={() =>
-            stepValue
-              ? setStepValue((v) => v - 1)
-              : navigation.navigate("Auth")
-          }
-        />
+    <Formik
+      validationSchema={registerValidationSchema}
+      initialValues={{
+        fullname: "",
+        username: "",
+        password: "",
+        confirmPassword: "",
+        email: "",
+      }}
+      onSubmit={handleRegister}
+    >
+      {({
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        values,
+        errors,
+      }) => (
+        <RegisterContainer>
+          {/* <Text>{JSON.stringify(response)}</Text> */}
 
-        <Formik
-          validationSchema={registerValidationSchema}
-          initialValues={{
-            fullname: "",
-            username: "",
-            password: "",
-            confirmPassword: "",
-            email: "",
-          }}
-          onSubmit={handleRegister}
-        >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            errors,
-            isValid,
-          }) => (
+          <View>
+            <BackButton
+              onPress={() =>
+                stepValue
+                  ? setStepValue((v) => v - 1)
+                  : navigation.navigate("Auth")
+              }
+            />
+
             <RegisterForm>
               <Heading textAlign="center">Bienvenido!</Heading>
               <Text textAlign="center">Si aun no tienes</Text>
@@ -173,15 +174,6 @@ export default function Register({ navigation }: any) {
                     height="55px"
                     marginTop="10px"
                     onPress={() => {
-                      if (
-                        isSubmitting &&
-                        !errors.confirmPassword &&
-                        !errors.password &&
-                        !errors.username &&
-                        !errors.fullname &&
-                        !errors.email
-                      )
-                        setStepValue(3);
                       setStepValue((v) => v + 1);
                     }}
                   >
@@ -209,39 +201,54 @@ export default function Register({ navigation }: any) {
                 )}
               </RegisterContainerForm>
             </RegisterForm>
-          )}
-        </Formik>
-      </View>
+          </View>
 
-      <View>
-        <RegisterFooter>
-          <Text color="#999" textAlign="center">
-            Ya tienes una cuenta?
-          </Text>
-          <Button
-            color="#333"
-            onPress={() => navigation.navigate("Login")}
-          >
-            Inicia sesion
-          </Button>
-        </RegisterFooter>
+          <View>
+            <RegisterFooter>
+              <Text color="#999" textAlign="center">
+                Ya tienes una cuenta?
+              </Text>
+              <Button
+                color="#333"
+                onPress={() => navigation.navigate("Login")}
+              >
+                Inicia sesion
+              </Button>
+            </RegisterFooter>
 
-        <View
-          style={{
-            flexDirection: "row",
-            marginTop: 15,
-            marginBottom: 20,
-            justifyContent: "center",
-          }}
-        >
-          <DotStep active={stepValue === 0} />
-          <DotStep active={stepValue === 1} />
-          <DotStep active={stepValue === 2} />
-          <DotStep active={stepValue === 3} />
-          <DotStep active={stepValue === 4} />
-        </View>
-      </View>
-    </RegisterContainer>
+            <View
+              style={{
+                flexDirection: "row",
+                marginTop: 15,
+                marginBottom: 20,
+                justifyContent: "center",
+              }}
+            >
+              <DotStep
+                error={!!errors.fullname && isSubmitting}
+                active={stepValue === 0}
+              />
+              <DotStep
+                error={!!errors.email && isSubmitting}
+                active={stepValue === 1}
+              />
+              <DotStep
+                error={!!errors.username && isSubmitting}
+                active={stepValue === 2}
+              />
+              <DotStep
+                error={!!errors.password && isSubmitting}
+                active={stepValue === 3}
+              />
+              <DotStep
+                error={!!errors.confirmPassword && isSubmitting}
+                active={stepValue === 4}
+              />
+            </View>
+          </View>
+        </RegisterContainer>
+      )}
+    </Formik>
   );
 }
 
@@ -268,13 +275,18 @@ const RegisterFooter = styled.View`
   margin-top: 16px;
 `;
 
-const DotStep = styled.View<{ active?: boolean }>`
+const DotStep = styled.View<{ active?: boolean; error?: boolean }>`
   width: 10px
   height: 10px;
-  background-color: ${(props) => (props.active ? "#333" : "#fff")};
+  background-color: ${(props) =>
+    props.active && props.error
+      ? "#ff0000"
+      : props.active
+      ? "#333"
+      : "#fff"};
   border-width: 1px;
   border-style: solid;
-  border-color: #333;
+  border-color: ${(props) => (props.error ? "#ff0000" : "#333")};
   margin: 0 4px;
   border-radius: 20px;
 `;

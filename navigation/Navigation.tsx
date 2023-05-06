@@ -6,12 +6,16 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { Login, Register, Auth } from "../screens";
 import Navigator from "./Navigator";
+import { useAuthStore } from "../store";
 
 const SafeAreaView = styled.SafeAreaView``;
 
 const Stack = createNativeStackNavigator();
 
 export default function Navigation() {
+  const user = useAuthStore((state) => state.user);
+  console.log(user);
+
   return (
     <NavigationContainer>
       <SafeAreaView style={{ flex: 1 }}>

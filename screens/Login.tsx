@@ -1,10 +1,22 @@
+import { Formik } from "formik";
 import React, { useState } from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
+import * as yup from "yup";
+import Toast from "react-native-toast-message";
 
 import { BackButton } from "../components";
 
 import { Heading, Input, Text, Button } from "../ui";
+import { loginUser } from "../services";
+
+const loginValidationSchema = yup.object().shape({
+  emailOrUsername: yup
+    .string()
+    .email("El email no es valido")
+    .required("El nombre de usuario es requerido"),
+  password: yup.string().required("La contrasena es requerida"),
+});
 
 export default function Login({ navigation }: any) {
   const [infoUser, setInfoUser] = useState<{
@@ -15,58 +27,90 @@ export default function Login({ navigation }: any) {
     password: "",
   });
 
+  const handleLogin = async (values: any) => {
+    console.log(values);
+    const response = await loginUser(values);
+    console.log(response);
+
+    // Toast.show({
+    //   type: "success",
+    //   text1: "Cuenta creada",
+    //   text2: "Acabas de iniciar sesion 👋",
+    // });
+    // const token = response?.data.token;
+    // _login(token);
+    // navigation.navigate("HomeScreen");
+  };
+
   return (
-    <LoginContainer>
-      <View>
-        <BackButton onPress={() => navigation.navigate("Auth")} />
+    <Formik
+      validationSchema={loginValidationSchema}
+      initialValues={{
+        emailOrUsername: "",
+        password: "",
+      }}
+      onSubmit={handleLogin}
+    >
+      {({
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        values,
+        errors,
+        isValid,
+      }) => (
+        <LoginContainer>
+          <View>
+            <BackButton onPress={() => navigation.navigate("Auth")} />
 
-        <LoginForm>
-          <Heading textAlign="center">Hola de nuevo!</Heading>
-          <Text textAlign="center">Si ya tienes</Text>
-          <Text textAlign="center">una cuenta ahora ingresa</Text>
+            <LoginForm>
+              <Heading textAlign="center">Hola de nuevo!</Heading>
+              <Text textAlign="center">Si ya tienes</Text>
+              <Text textAlign="center">una cuenta ahora ingresa</Text>
 
-          <LoginContainerForm>
-            <Input
-              value={infoUser.usernameOrEmail}
-              onChangeText={(text) =>
-                setInfoUser({ ...infoUser, usernameOrEmail: text })
-              }
-              label="username o email"
-              marginBottom="20px"
-            />
-            <Input
-              value={infoUser.password}
-              onChangeText={(text) =>
-                setInfoUser({ ...infoUser, password: text })
-              }
-              label="contrasena"
-              marginBottom="20px"
-            />
+              <LoginContainerForm>
+                <Input
+                  onBlur={handleBlur("emailOrUsername")}
+                  value={values.emailOrUsername}
+                  onChangeText={handleChange("emailOrUsername")}
+                  label="username o email"
+                  marginBottom="20px"
+                />
+                <Input
+                  onBlur={handleBlur("password")}
+                  value={values.password}
+                  onChangeText={handleChange("password")}
+                  label="contrasena"
+                  marginBottom="20px"
+                />
 
+                <Button
+                  color="#fff"
+                  bgColor="#333"
+                  marginTop="20px"
+                  height="55px"
+                  onPress={handleSubmit}
+                >
+                  Ingresar
+                </Button>
+              </LoginContainerForm>
+            </LoginForm>
+          </View>
+
+          <LoginFooter>
+            <Text color="#999" textAlign="center">
+              Aun no tienes una cuenta?
+            </Text>
             <Button
-              color="#fff"
-              bgColor="#333"
-              marginTop="20px"
-              height="55px"
+              onPress={() => navigation.navigate("Register")}
+              color="#333"
             >
-              Crear cuenta
+              Registrate
             </Button>
-          </LoginContainerForm>
-        </LoginForm>
-      </View>
-
-      <LoginFooter>
-        <Text color="#999" textAlign="center">
-          Aun no tienes una cuenta?
-        </Text>
-        <Button
-          onPress={() => navigation.navigate("Register")}
-          color="#333"
-        >
-          Registrate
-        </Button>
-      </LoginFooter>
-    </LoginContainer>
+          </LoginFooter>
+        </LoginContainer>
+      )}
+    </Formik>
   );
 }
 
