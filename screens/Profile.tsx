@@ -3,10 +3,13 @@ import styled from "styled-components/native";
 
 import LogoutIcon from "../assets/icons/logout-icon.svg";
 import VerifiedIcon from "../assets/icons/verified-icon.svg";
+import { useAuthStore } from "../store";
 import { colors } from "../styles/theme";
 import { Heading, Text } from "../ui";
 
-export default function Profile() {
+export default function Profile({ navigation }: any) {
+  const _logout = useAuthStore((state) => state.logout);
+  
   return (
     <ProfileContainer>
       <ProfileBanner
@@ -15,7 +18,10 @@ export default function Profile() {
         <ProfileAvatar
           source={require("../assets/images/profile-avatar.png")}
         />
-        <ProfileButtonLogout>
+        <ProfileButtonLogout onPress={() => {
+          _logout();
+          navigation.navigate("Auth");
+        }}>
           <LogoutIcon />
         </ProfileButtonLogout>
       </ProfileBanner>
