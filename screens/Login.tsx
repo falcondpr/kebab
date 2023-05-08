@@ -9,6 +9,7 @@ import { BackButton } from "../components";
 
 import { Heading, Input, Text, Button } from "../ui";
 import { loginUser } from "../services";
+import { useAuthStore } from "../store";
 
 const loginValidationSchema = yup.object().shape({
   emailOrUsername: yup
@@ -19,6 +20,8 @@ const loginValidationSchema = yup.object().shape({
 });
 
 export default function Login({ navigation }: any) {
+  const _login = useAuthStore((state) => state.login)
+  
   const [infoUser, setInfoUser] = useState<{
     usernameOrEmail: string;
     password: string;
@@ -31,6 +34,13 @@ export default function Login({ navigation }: any) {
     console.log(values);
     const response = await loginUser(values);
     console.log(response);
+    _login(response?.data.token);
+    Toast.show({
+      type: "success",
+      text1: "Cuenta creada",
+      text2: "Acabas de iniciar sesion 👋",
+    });
+    navigation.navigate('HomeScreen')
 
     // Toast.show({
     //   type: "success",
