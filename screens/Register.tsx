@@ -10,6 +10,7 @@ import { Heading, Input, Text, Button } from "../ui";
 import { registerUser } from "../services";
 import { useAuthStore } from "../store";
 import { IRegisterUser } from "../interfaces";
+import { z } from "zod";
 
 const registerValidationSchema = yup.object().shape({
   fullname: yup.string().required("El nombre es requerido"),
@@ -35,7 +36,9 @@ export default function Register({ navigation }: any) {
   const _login = useAuthStore((state) => state.login);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const handleRegister = async (values: IRegisterUser) => {
+  const handleRegister = async (
+    values: z.infer<typeof IRegisterUser>
+  ) => {
     delete values.confirmPassword;
     const response = await registerUser(values);
     console.log(response);
