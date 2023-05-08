@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { TabBarIcon } from "../components";
 import { routes } from "../data/routes";
+import { colors } from "../styles/theme";
 
 const Tab = createBottomTabNavigator();
 
@@ -10,7 +11,7 @@ export default function TabNavigator() {
     <Tab.Navigator
       initialRouteName="AuthScreen"
       screenOptions={{
-        tabBarActiveTintColor: "#333",
+        tabBarActiveTintColor: colors.primary,
         tabBarStyle: {
           backgroundColor: "#fff",
           height: 60,
@@ -24,7 +25,7 @@ export default function TabNavigator() {
           component={route.component}
           options={{
             headerShown: false,
-            tabBarInactiveTintColor: "#c2c2c2",
+            tabBarInactiveTintColor: colors.lightPrimary,
             tabBarIcon: ({ color }) => (
               <TabBarIcon color={color} path={route.path} />
             ),
