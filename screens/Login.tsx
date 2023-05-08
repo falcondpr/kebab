@@ -1,5 +1,5 @@
 import { Formik } from "formik";
-import React, { useState } from "react";
+import React from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
 import * as yup from "yup";
@@ -20,15 +20,7 @@ const loginValidationSchema = yup.object().shape({
 });
 
 export default function Login({ navigation }: any) {
-  const _login = useAuthStore((state) => state.login)
-  
-  const [infoUser, setInfoUser] = useState<{
-    usernameOrEmail: string;
-    password: string;
-  }>({
-    usernameOrEmail: "",
-    password: "",
-  });
+  const _login = useAuthStore((state) => state.login);
 
   const handleLogin = async (values: any) => {
     console.log(values);
@@ -37,19 +29,10 @@ export default function Login({ navigation }: any) {
     _login(response?.data.token);
     Toast.show({
       type: "success",
-      text1: "Cuenta creada",
+      text1: "Sesion iniciada!",
       text2: "Acabas de iniciar sesion 👋",
     });
-    navigation.navigate('HomeScreen')
-
-    // Toast.show({
-    //   type: "success",
-    //   text1: "Cuenta creada",
-    //   text2: "Acabas de iniciar sesion 👋",
-    // });
-    // const token = response?.data.token;
-    // _login(token);
-    // navigation.navigate("HomeScreen");
+    navigation.navigate('HomeScreen');
   };
 
   return (
@@ -92,6 +75,7 @@ export default function Login({ navigation }: any) {
                   onChangeText={handleChange("password")}
                   label="contrasena"
                   marginBottom="20px"
+                  secureTextEntry={true}
                 />
 
                 <Button
