@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components/native";
 
-import LogoutIcon from "../assets/icons/logout-icon.svg";
-import VerifiedIcon from "../assets/icons/verified-icon.svg";
+import { getUser } from "../services/user";
 import { useAuthStore } from "../store";
 import { colors } from "../styles/theme";
 import { Heading, Text } from "../ui";
 
+import LogoutIcon from "../assets/icons/logout-icon.svg";
+import VerifiedIcon from "../assets/icons/verified-icon.svg";
+
 export default function Profile({ navigation }: any) {
   const _logout = useAuthStore((state) => state.logout);
-  
+  const userStorage = useAuthStore((state) => state.user);
+
+  const { data: userInfo } = useQuery<any>(["getUser"], () =>
+    getUser(userStorage?._j.id), {
+      enabled: !!userStorage
+    }
+  );
+
   return (
     <ProfileContainer>
       <ProfileBanner
@@ -18,10 +28,12 @@ export default function Profile({ navigation }: any) {
         <ProfileAvatar
           source={require("../assets/images/profile-avatar.png")}
         />
-        <ProfileButtonLogout onPress={() => {
-          _logout();
-          navigation.navigate("Auth");
-        }}>
+        <ProfileButtonLogout
+          onPress={() => {
+            _logout();
+            navigation.navigate("Auth");
+          }}
+        >
           <LogoutIcon />
         </ProfileButtonLogout>
       </ProfileBanner>
@@ -34,11 +46,11 @@ export default function Profile({ navigation }: any) {
             fontSize="16px"
             textTransform="capitalize"
           >
-            Mia Ramirez
+            {userInfo?.data.fullname}
           </Heading>
           <VerifiedIcon />
         </ProfileNameContainer>
-        <Text fontSize="14px">@miaramirez</Text>
+        <Text fontSize="14px">@{userInfo?.data.fullname}</Text>
       </ProfileInfoContainer>
     </ProfileContainer>
   );

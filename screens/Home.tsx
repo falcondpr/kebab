@@ -31,7 +31,7 @@ export default function Home({ navigation }: any) {
         />
       </HeroImageContainer>
 
-      <Button>
+      {/* <Button>
         <ButtonText
           style={{
             height: 50,
@@ -49,7 +49,7 @@ export default function Home({ navigation }: any) {
         >
           obtener usuario logueado
         </ButtonText>
-      </Button>
+      </Button> */}
     </View>
   );
 }
