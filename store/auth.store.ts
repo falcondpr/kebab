@@ -13,7 +13,7 @@ type Actions = {
 };
 
 export const useAuthStore = create<State & Actions>((set) => ({
-  user: null,
+  user: "",
   login: async (token: string) => {
     await AsyncStorage.setItem(
       "@auth/sura",
@@ -28,5 +28,5 @@ export const useAuthStore = create<State & Actions>((set) => ({
 }));
 
 AsyncStorage.getItem("@auth/sura").then((res) =>
-  useAuthStore.setState({ user: tokenToUser(res as string) })
+  res ? useAuthStore.setState({ user: "" }) : useAuthStore.setState({ user: tokenToUser(res as any) })
 );
