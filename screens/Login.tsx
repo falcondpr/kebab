@@ -62,27 +62,29 @@ export default function Login({ navigation }: any) {
               <Text textAlign="center">una cuenta ahora ingresa</Text>
 
               <LoginContainerForm>
-                <Input
-                  onBlur={handleBlur("emailOrUsername")}
-                  value={values.emailOrUsername}
-                  onChangeText={handleChange("emailOrUsername")}
-                  label="username o email"
-                  marginBottom="20px"
-                />
-                {isSubmitting && errors.emailOrUsername && (
-                  <Text color="#f11">{errors.emailOrUsername}</Text>
-                )}
-                <Input
-                  onBlur={handleBlur("password")}
-                  value={values.password}
-                  onChangeText={handleChange("password")}
-                  label="contrasena"
-                  marginBottom="20px"
-                  secureTextEntry={true}
-                />
-                {isSubmitting && errors.password && (
-                  <Text color="#f11">{errors.password}</Text>
-                )}
+                <View style={{ marginBottom: 20 }}>
+                  <Input
+                    onBlur={handleBlur("emailOrUsername")}
+                    value={values.emailOrUsername}
+                    onChangeText={handleChange("emailOrUsername")}
+                    label="email"
+                  />
+                  {isSubmitting && errors.emailOrUsername && (
+                    <Text marginTop="7px" color="#f11">{errors.emailOrUsername}</Text>
+                  )}
+                </View>
+                <View style={{ marginBottom: 0 }}>
+                  <Input
+                    onBlur={handleBlur("password")}
+                    value={values.password}
+                    onChangeText={handleChange("password")}
+                    label="contrasena"
+                    secureTextEntry={true}
+                  />
+                  {isSubmitting && errors.password && (
+                    <Text marginTop="7px" color="#f11">{errors.password}</Text>
+                  )}
+                </View>
 
                 <Button
                   color="#fff"
