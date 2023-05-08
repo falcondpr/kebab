@@ -31,7 +31,7 @@ export default function Home({ navigation }: any) {
         />
       </HeroImageContainer>
 
-      {/* <Button>
+      <Button>
         <ButtonText
           style={{
             height: 50,
@@ -45,11 +45,11 @@ export default function Home({ navigation }: any) {
 
         <ButtonText
           style={{ margin: 20, padding: 20, backgroundColor: "#3fd" }}
-          onPress={() => console.log(user)}
+          onPress={() => user ? console.log(user) : null}
         >
           obtener usuario logueado
         </ButtonText>
-      </Button> */}
+      </Button>
     </View>
   );
 }

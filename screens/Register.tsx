@@ -38,6 +38,7 @@ export default function Register({ navigation }: any) {
   const handleRegister = async (values: IRegisterUser) => {
     delete values.confirmPassword;
     const response = await registerUser(values);
+    console.log(response);
     const token = await response?.data.token;
     _login(token);
     Toast.show({

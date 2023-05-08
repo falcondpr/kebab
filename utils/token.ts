@@ -3,8 +3,9 @@ import { IUserStorage } from "../interfaces/user";
 
 export const tokenToUser = async (
   token: string
-): Promise<IUserStorage | null> => {
-  if (!token) return null;
+): Promise<IUserStorage | string> => {
+  if (!token) return "";
   const user: IUserStorage = await jwtDecode(token);
+  console.log("typeof user", typeof user);
   return user;
 };
