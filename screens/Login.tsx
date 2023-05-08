@@ -1,5 +1,5 @@
-import { Formik } from "formik";
 import React, { useState } from "react";
+import { Formik } from "formik";
 import { View } from "react-native";
 import styled from "styled-components/native";
 import * as yup from "yup";
@@ -20,36 +20,19 @@ const loginValidationSchema = yup.object().shape({
 });
 
 export default function Login({ navigation }: any) {
-  const _login = useAuthStore((state) => state.login)
-  
-  const [infoUser, setInfoUser] = useState<{
-    usernameOrEmail: string;
-    password: string;
-  }>({
-    usernameOrEmail: "",
-    password: "",
-  });
+  const _login = useAuthStore((state) => state.login);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleLogin = async (values: any) => {
-    console.log(values);
     const response = await loginUser(values);
     console.log(response);
     _login(response?.data.token);
     Toast.show({
       type: "success",
-      text1: "Cuenta creada",
+      text1: "Sesion iniciada!",
       text2: "Acabas de iniciar sesion 👋",
     });
-    navigation.navigate('HomeScreen')
-
-    // Toast.show({
-    //   type: "success",
-    //   text1: "Cuenta creada",
-    //   text2: "Acabas de iniciar sesion 👋",
-    // });
-    // const token = response?.data.token;
-    // _login(token);
-    // navigation.navigate("HomeScreen");
+    navigation.navigate('HomeScreen');
   };
 
   return (
@@ -79,27 +62,39 @@ export default function Login({ navigation }: any) {
               <Text textAlign="center">una cuenta ahora ingresa</Text>
 
               <LoginContainerForm>
-                <Input
-                  onBlur={handleBlur("emailOrUsername")}
-                  value={values.emailOrUsername}
-                  onChangeText={handleChange("emailOrUsername")}
-                  label="username o email"
-                  marginBottom="20px"
-                />
-                <Input
-                  onBlur={handleBlur("password")}
-                  value={values.password}
-                  onChangeText={handleChange("password")}
-                  label="contrasena"
-                  marginBottom="20px"
-                />
+                <View style={{ marginBottom: 20 }}>
+                  <Input
+                    onBlur={handleBlur("emailOrUsername")}
+                    value={values.emailOrUsername}
+                    onChangeText={handleChange("emailOrUsername")}
+                    label="email"
+                  />
+                  {isSubmitting && errors.emailOrUsername && (
+                    <Text marginTop="7px" color="#f11">{errors.emailOrUsername}</Text>
+                  )}
+                </View>
+                <View style={{ marginBottom: 0 }}>
+                  <Input
+                    onBlur={handleBlur("password")}
+                    value={values.password}
+                    onChangeText={handleChange("password")}
+                    label="contrasena"
+                    secureTextEntry={true}
+                  />
+                  {isSubmitting && errors.password && (
+                    <Text marginTop="7px" color="#f11">{errors.password}</Text>
+                  )}
+                </View>
 
                 <Button
                   color="#fff"
                   bgColor="#333"
                   marginTop="20px"
                   height="55px"
-                  onPress={handleSubmit}
+                  onPress={() => {
+                    handleSubmit();
+                    setIsSubmitting(true);
+                  }}
                 >
                   Ingresar
                 </Button>

@@ -8,7 +8,6 @@ import {
 } from "@tanstack/react-query";
 import Toast, {
   BaseToast,
-  ToastConfigParams,
 } from "react-native-toast-message";
 
 import { Navigation } from "./navigation";
