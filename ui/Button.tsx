@@ -12,6 +12,7 @@ interface IButton {
   textDecoration?: string;
   flex?: string;
   onPress?: () => void;
+  border?: string;
 }
 
 export default function Button({

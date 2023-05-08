@@ -23,7 +23,7 @@ const HeadingUI = styled.Text<IHeading>`
   font-family: "Poppins-Semibold";
   text-align: ${(props) => props.textAlign || "left"};
   color: ${(props) => props.color || colors.primary};
-  text-transform: ${(props) => props.textTransform || "lowercase"};
+  ${(props) => props.textTransform && `text-transform: ${props.textTransform}`}
   margin-top: ${(props) => props.marginTop || "0px"};
   margin-bottom: ${(props) => props.marginBottom || "0px"};
   margin-left: ${(props) => props.marginLeft || "0px"};

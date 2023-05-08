@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import { Formik } from "formik";
-import React from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
 import * as yup from "yup";
@@ -21,9 +21,9 @@ const loginValidationSchema = yup.object().shape({
 
 export default function Login({ navigation }: any) {
   const _login = useAuthStore((state) => state.login);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleLogin = async (values: any) => {
-    console.log(values);
     const response = await loginUser(values);
     console.log(response);
     _login(response?.data.token);
@@ -69,6 +69,9 @@ export default function Login({ navigation }: any) {
                   label="username o email"
                   marginBottom="20px"
                 />
+                {isSubmitting && errors.emailOrUsername && (
+                  <Text color="#f11">{errors.emailOrUsername}</Text>
+                )}
                 <Input
                   onBlur={handleBlur("password")}
                   value={values.password}
@@ -77,13 +80,19 @@ export default function Login({ navigation }: any) {
                   marginBottom="20px"
                   secureTextEntry={true}
                 />
+                {isSubmitting && errors.password && (
+                  <Text color="#f11">{errors.password}</Text>
+                )}
 
                 <Button
                   color="#fff"
                   bgColor="#333"
                   marginTop="20px"
                   height="55px"
-                  onPress={handleSubmit}
+                  onPress={() => {
+                    handleSubmit();
+                    setIsSubmitting(true);
+                  }}
                 >
                   Ingresar
                 </Button>
