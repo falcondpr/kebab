@@ -9,50 +9,55 @@ import { Heading, Text } from "../ui";
 
 import LogoutIcon from "../assets/icons/logout-icon.svg";
 import VerifiedIcon from "../assets/icons/verified-icon.svg";
+import MainLayout from "../layout/Main";
 
 export default function Profile({ navigation }: any) {
   const _logout = useAuthStore((state) => state.logout);
   const userStorage = useAuthStore((state) => state.user);
 
-  const { data: userInfo } = useQuery<any>(["getUser"], () =>
-    getUser(userStorage?._j.id), {
-      enabled: !!userStorage
+  const { data: userInfo } = useQuery<any>(
+    ["getUser"],
+    () => getUser(userStorage?._j.id),
+    {
+      enabled: !!userStorage,
     }
   );
 
   return (
-    <ProfileContainer>
-      <ProfileBanner
-        source={require("../assets/images/banner-profile.png")}
-      >
-        <ProfileAvatar
-          source={require("../assets/images/profile-avatar.png")}
-        />
-        <ProfileButtonLogout
-          onPress={() => {
-            _logout();
-            navigation.navigate("Auth");
-          }}
+    <MainLayout navigation={navigation}>
+      <ProfileContainer>
+        <ProfileBanner
+          source={require("../assets/images/banner-profile.png")}
         >
-          <LogoutIcon />
-        </ProfileButtonLogout>
-      </ProfileBanner>
-
-      <ProfileInfoContainer>
-        <ProfileNameContainer>
-          <Heading
-            marginRight="5px"
-            marginBottom="-3px"
-            fontSize="16px"
-            textTransform="capitalize"
+          <ProfileAvatar
+            source={require("../assets/images/profile-avatar.png")}
+          />
+          <ProfileButtonLogout
+            onPress={() => {
+              _logout();
+              navigation.navigate("Auth");
+            }}
           >
-            {userInfo?.data.fullname}
-          </Heading>
-          <VerifiedIcon />
-        </ProfileNameContainer>
-        <Text fontSize="14px">@{userInfo?.data.fullname}</Text>
-      </ProfileInfoContainer>
-    </ProfileContainer>
+            <LogoutIcon />
+          </ProfileButtonLogout>
+        </ProfileBanner>
+
+        <ProfileInfoContainer>
+          <ProfileNameContainer>
+            <Heading
+              marginRight="5px"
+              marginBottom="-3px"
+              fontSize="16px"
+              textTransform="capitalize"
+            >
+              {userInfo?.data.fullname}
+            </Heading>
+            <VerifiedIcon />
+          </ProfileNameContainer>
+          <Text fontSize="14px">@{userInfo?.data.fullname}</Text>
+        </ProfileInfoContainer>
+      </ProfileContainer>
+    </MainLayout>
   );
 }
 

@@ -2,19 +2,23 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { TabBarIcon } from "../components";
 import { routes } from "../data/routes";
+import { useAuthStore } from "../store";
 import { colors } from "../styles/theme";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
+  const user = useAuthStore((state) => state.user);
+
   return (
     <Tab.Navigator
-      initialRouteName="AuthScreen"
+      initialRouteName={!user ? "AuthScreen" : "HomeScreen"}
       screenOptions={{
         tabBarActiveTintColor: colors.primary,
         tabBarStyle: {
           backgroundColor: "#fff",
           height: 60,
+          display: !user ? "none" : "flex",
         },
       }}
     >
