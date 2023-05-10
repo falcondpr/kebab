@@ -6,9 +6,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import Toast, {
-  BaseToast,
-} from "react-native-toast-message";
+import Toast, { BaseToast } from "react-native-toast-message";
 
 import { Navigation } from "./navigation";
 
@@ -38,7 +36,7 @@ const toastConfig = {
   ),
 };
 
-export default function App() {
+export default function App({ navigation }: any) {
   const queryClient = new QueryClient();
 
   const [fontsLoaded] = useFonts({
@@ -63,7 +61,9 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <View
-        style={{ flex: 1, backgroundColor: "#fff" }}
+        style={{
+          flex: 1,
+        }}
         onLayout={onLayoutRootView}
       >
         <Navigation />

@@ -1,10 +1,12 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 
-export default function Search() {
+import MainLayout from "../layout/Main";
+
+export default function Search({ navigation }: any) {
   return (
-    <View>
+    <MainLayout navigation={navigation}>
       <Text>Search</Text>
-    </View>
+    </MainLayout>
   );
 }

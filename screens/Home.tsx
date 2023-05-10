@@ -3,15 +3,13 @@ import { View } from "react-native";
 import styled from "styled-components/native";
 
 import BellIcon from "../assets/icons/bell-icon.svg";
-import { useAuthStore } from "../store/auth.store";
+import MainLayout from "../layout/Main";
 import { colors } from "../styles/theme";
 import { Heading } from "../ui";
 
 export default function Home({ navigation }: any) {
-  const user = useAuthStore((state) => state.user);
-
   return (
-    <View>
+    <MainLayout navigation={navigation}>
       <HeaderContainer>
         <Heading
           color={colors.primary}
@@ -50,7 +48,7 @@ export default function Home({ navigation }: any) {
           obtener usuario logueado
         </ButtonText>
       </Button> */}
-    </View>
+    </MainLayout>
   );
 }
 
