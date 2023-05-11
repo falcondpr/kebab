@@ -12,10 +12,11 @@ export default function MainLayout({
   navigation: any;
 }) {
   const user = useAuthStore((state) => state.user);
+  console.log(user);
 
   return (
     <View style={{ flex: 1 }}>
-      {!user ? (
+      {!user && !user?._j ? (
         <ModalError
           routeName="Auth"
           title="Error!"

@@ -1,6 +1,7 @@
 import React from "react";
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
+import { colors } from "../styles/theme";
 
 import { Button, Heading, Text } from "../ui";
 
@@ -30,9 +31,12 @@ export default function Auth({ navigation }: any) {
           </Button>
           <Button
             onPress={() => navigation.navigate("Login")}
-            color="#333"
+            color={colors.primary}
             height="55px"
             bgColor="#fff"
+            borderColor={colors.primary}
+            borderWidth="1px"
+            borderStyle="solid"
           >
             Inicia sesion
           </Button>

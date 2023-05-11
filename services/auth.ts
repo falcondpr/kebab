@@ -24,6 +24,7 @@ export const loginUser = async (data: z.infer<typeof ILoginUser>) => {
     const response = await axios.post(`${apiUrl}/user/login`, {
       ...data,
     });
+    console.log("r", response);
     return response;
   } catch (error) {
     console.log(error);

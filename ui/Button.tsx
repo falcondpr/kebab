@@ -12,7 +12,9 @@ interface IButton {
   textDecoration?: string;
   flex?: string;
   onPress?: () => void;
-  border?: string;
+  borderWidth?: string;
+  borderStyle?: string;
+  borderColor?: string;
 }
 
 export default function Button({
@@ -37,4 +39,9 @@ const ButtonUI = styled.TouchableOpacity<IButton>`
   align-items: center;
   justify-content: center;
   margin-top: ${(props) => props.marginTop || "0px"};
+  ${(props) =>
+    props.borderWidth &&
+    props.borderStyle &&
+    props.borderColor &&
+    `border: ${props.borderWidth} ${props.borderStyle} ${props.borderColor}`}
 `;

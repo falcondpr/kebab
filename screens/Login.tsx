@@ -24,6 +24,7 @@ export default function Login({ navigation }: any) {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleLogin = async (values: any) => {
+    console.log("login");
     const response = await loginUser(values);
     console.log(response);
     _login(response?.data.token);
@@ -32,7 +33,7 @@ export default function Login({ navigation }: any) {
       text1: "Sesion iniciada!",
       text2: "Acabas de iniciar sesion 👋",
     });
-    navigation.navigate('HomeScreen');
+    navigation.navigate("HomeScreen");
   };
 
   return (
@@ -70,7 +71,9 @@ export default function Login({ navigation }: any) {
                     label="email"
                   />
                   {isSubmitting && errors.emailOrUsername && (
-                    <Text marginTop="7px" color="#f11">{errors.emailOrUsername}</Text>
+                    <Text marginTop="7px" color="#f11">
+                      {errors.emailOrUsername}
+                    </Text>
                   )}
                 </View>
                 <View style={{ marginBottom: 0 }}>
@@ -82,7 +85,9 @@ export default function Login({ navigation }: any) {
                     secureTextEntry={true}
                   />
                   {isSubmitting && errors.password && (
-                    <Text marginTop="7px" color="#f11">{errors.password}</Text>
+                    <Text marginTop="7px" color="#f11">
+                      {errors.password}
+                    </Text>
                   )}
                 </View>
 
