@@ -8,17 +8,29 @@ import { colors } from "../../styles/theme";
 const widthSize = Dimensions.get("window").width;
 const heightSize = Dimensions.get("window").height;
 
-export default function ModalError({ navigation }: any) {
+interface IModalError {
+  title?: string;
+  message?: string;
+  routeName?: string;
+  navigation: any;
+}
+
+export default function ModalError({
+  navigation,
+  title,
+  message,
+  routeName,
+}: IModalError) {
   return (
     <ModalErrorContainer>
       <ModalErrorInfo>
         <Heading textAlign="center" marginBottom="-5px">
-          Error!
+          {title}
         </Heading>
-        <Text textAlign="center">Debes iniciar sesion!</Text>
+        <Text textAlign="center">{message}</Text>
         <ModalErrorFooter>
           <Button
-            onPress={() => navigation.navigate("Auth")}
+            onPress={() => navigation.navigate(routeName)}
             color="white"
             bgColor={colors.primary}
             height="56px"

@@ -12,13 +12,15 @@ export default function TabNavigator() {
 
   return (
     <Tab.Navigator
-      initialRouteName={!user ? "AuthScreen" : "HomeScreen"}
+      initialRouteName={
+        !user && !user?._j ? "AuthScreen" : "HomeScreen"
+      }
       screenOptions={{
         tabBarActiveTintColor: colors.primary,
         tabBarStyle: {
           backgroundColor: "#fff",
           height: 60,
-          display: !user ? "none" : "flex",
+          display: !user && !user?._j ? "none" : "flex",
         },
       }}
     >

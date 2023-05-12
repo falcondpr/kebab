@@ -1,16 +1,26 @@
 import React from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import styled from "styled-components/native";
+import PagerView from "react-native-pager-view";
 
 import BellIcon from "../assets/icons/bell-icon.svg";
 import MainLayout from "../layout/Main";
 import { colors } from "../styles/theme";
-import { Heading } from "../ui";
+import { Heading, Text } from "../ui";
 
 export default function Home({ navigation }: any) {
   return (
     <MainLayout navigation={navigation}>
-      <HeaderContainer>
+      <PagerView style={styles.pagerView} initialPage={0} orientation="vertical">
+        <View style={{ backgroundColor: "lightblue", flex: 1 }} key="1">
+          <Text>First page</Text>
+        </View>
+        <View style={{ backgroundColor: "pink", flex: 1 }} key="2">
+          <Text>Second page</Text>
+        </View>
+      </PagerView>
+
+      {/* <HeaderContainer>
         <Heading
           color={colors.primary}
           fontSize="24px"
@@ -27,7 +37,7 @@ export default function Home({ navigation }: any) {
         <HeroImage
           source={require("../assets/images/header-home.png")}
         />
-      </HeroImageContainer>
+      </HeroImageContainer> */}
 
       {/* <Button>
         <ButtonText
@@ -76,3 +86,12 @@ const ButtonNotification = styled.TouchableOpacity`
   padding: 8px;
   margin-top: -3px;
 `;
+
+const styles = StyleSheet.create({
+  pagerView: {
+    flex: 1,
+  },
+  page: {
+    flex: 1,
+  },
+});

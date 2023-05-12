@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { View } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components/native";
 
+import MainLayout from "../layout/Main";
 import { getUser } from "../services/user";
 import { useAuthStore } from "../store";
 import { colors } from "../styles/theme";
@@ -9,13 +11,12 @@ import { Heading, Text } from "../ui";
 
 import LogoutIcon from "../assets/icons/logout-icon.svg";
 import VerifiedIcon from "../assets/icons/verified-icon.svg";
-import MainLayout from "../layout/Main";
 
 export default function Profile({ navigation }: any) {
   const _logout = useAuthStore((state) => state.logout);
   const userStorage = useAuthStore((state) => state.user);
 
-  const { data: userInfo } = useQuery<any>(
+  const { data: userInfo, isLoading } = useQuery<any>(
     ["getUser"],
     () => getUser(userStorage?._j.id),
     {
@@ -43,18 +44,41 @@ export default function Profile({ navigation }: any) {
         </ProfileBanner>
 
         <ProfileInfoContainer>
-          <ProfileNameContainer>
-            <Heading
-              marginRight="5px"
-              marginBottom="-3px"
-              fontSize="16px"
-              textTransform="capitalize"
-            >
-              {userInfo?.data.fullname}
-            </Heading>
-            <VerifiedIcon />
-          </ProfileNameContainer>
-          <Text fontSize="14px">@{userInfo?.data.fullname}</Text>
+          {isLoading ? (
+            <View
+              style={{
+                width: 100,
+                height: 10,
+                backgroundColor: colors.lightPrimary,
+              }}
+            ></View>
+          ) : (
+            <ProfileNameContainer>
+              <Heading
+                marginRight="5px"
+                marginBottom="-3px"
+                fontSize="16px"
+                textTransform="capitalize"
+              >
+                {userInfo?.data.fullname}
+              </Heading>
+
+              <VerifiedIcon />
+            </ProfileNameContainer>
+          )}
+
+          {isLoading ? (
+            <View
+              style={{
+                width: 100,
+                height: 10,
+                backgroundColor: colors.lightPrimary,
+                marginTop: 7
+              }}
+            ></View>
+          ) : (
+            <Text fontSize="14px">@{userInfo?.data.username}</Text>
+          )}
         </ProfileInfoContainer>
       </ProfileContainer>
     </MainLayout>
