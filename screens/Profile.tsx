@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components/native";
 
+import MainLayout from "../layout/Main";
 import { getUser } from "../services/user";
 import { useAuthStore } from "../store";
 import { colors } from "../styles/theme";
@@ -10,7 +11,6 @@ import { Heading, Text } from "../ui";
 
 import LogoutIcon from "../assets/icons/logout-icon.svg";
 import VerifiedIcon from "../assets/icons/verified-icon.svg";
-import MainLayout from "../layout/Main";
 
 export default function Profile({ navigation }: any) {
   const _logout = useAuthStore((state) => state.logout);
