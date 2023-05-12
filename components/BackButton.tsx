@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
 
+import { Text } from '../ui';
+import { colors } from "../styles/theme";
 import ArrowLeft from "../assets/icons/arrow-left.svg";
 
 interface IBackButton {
@@ -23,19 +25,13 @@ const Button = styled.TouchableOpacity`
   border-radius: 4px;
 `;
 
-const Text = styled.Text`
-  font-size: 18px;
-  margin-left: 15px;
-  color: #333;
-`;
-
 export default function BackButton({ onPress, title }: IBackButton) {
   return (
     <BackButtonContainer>
       <Button onPress={onPress}>
         <ArrowLeft />
       </Button>
-      <Text>{title || ""}</Text>
+      <Text fontSize="18px" marginLeft="15px" color={colors.primary}>{title || ""}</Text>
     </BackButtonContainer>
   );
 }

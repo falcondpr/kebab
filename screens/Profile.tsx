@@ -73,10 +73,11 @@ export default function Profile({ navigation }: any) {
                 width: 100,
                 height: 10,
                 backgroundColor: colors.lightPrimary,
+                marginTop: 7
               }}
             ></View>
           ) : (
-            <Text fontSize="14px">@{userInfo?.data.fullname}</Text>
+            <Text fontSize="14px">@{userInfo?.data.username}</Text>
           )}
         </ProfileInfoContainer>
       </ProfileContainer>
