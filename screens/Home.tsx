@@ -11,14 +11,14 @@ import { Heading, Text } from "../ui";
 export default function Home({ navigation }: any) {
   return (
     <MainLayout navigation={navigation}>
-      <PagerView style={styles.pagerView} initialPage={0} orientation="vertical">
+      {/* <PagerView style={styles.pagerView} initialPage={0} orientation="vertical">
         <View style={{ backgroundColor: "lightblue", flex: 1 }} key="1">
           <Text>First page</Text>
         </View>
         <View style={{ backgroundColor: "pink", flex: 1 }} key="2">
           <Text>Second page</Text>
         </View>
-      </PagerView>
+      </PagerView> */}
 
       {/* <HeaderContainer>
         <Heading
