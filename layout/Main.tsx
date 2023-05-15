@@ -1,5 +1,6 @@
 import React from "react";
 import { View } from "react-native";
+import BottomBar from "../components/BottomBar";
 
 import ModalError from "../components/Modal/Error";
 import { useAuthStore } from "../store";
@@ -24,7 +25,10 @@ export default function MainLayout({
           navigation={navigation}
         />
       ) : (
-        children
+        <>
+          {children}
+          <BottomBar />
+        </>
       )}
     </View>
   );

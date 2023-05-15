@@ -18,9 +18,10 @@ export default function TabNavigator() {
       screenOptions={{
         tabBarActiveTintColor: colors.primary,
         tabBarStyle: {
+          display: "none",
           backgroundColor: "#fff",
           height: 60,
-          display: !user && !user?._j ? "none" : "flex",
+          // display: !user && !user?._j ? "none" : "flex",
         },
       }}
     >
