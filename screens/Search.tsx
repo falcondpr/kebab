@@ -5,7 +5,7 @@ import MainLayout from "../layout/Main";
 
 export default function Search({ navigation }: any) {
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout routeName="SearchScreen" navigation={navigation}>
       <Text>Search</Text>
     </MainLayout>
   );
