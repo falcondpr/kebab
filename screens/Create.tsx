@@ -18,7 +18,11 @@ export default function Create({ navigation }: any) {
   }, []);
 
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout
+      hideBottomBar
+      routeName="CreateScreen"
+      navigation={navigation}
+    >
       <CreateContainer>
         <BackButton
           title="Crear producto"
@@ -100,5 +104,5 @@ const CreateContainer = styled.View`
 const FormContainer = styled.View`
   margin-top: 20px;
   justify-content: space-between;
-  height: ${heightSize - 140}px;
+  height: ${heightSize - 80}px;
 `;

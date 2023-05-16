@@ -1,36 +1,42 @@
-import { Dimensions, Text } from "react-native";
 import React from "react";
+import { Dimensions } from "react-native";
 import styled from "styled-components/native";
 
-import StoreIcon from "../assets/icons/store-icon.svg";
-import SearchIcon from "../assets/icons/search-icon.svg";
-import PlusIcon from "../assets/icons/plus-icon.svg";
-import MessageIcon from "../assets/icons/message-icon.svg";
-import ProfileIcon from "../assets/icons/profile-icon.svg";
-
-import IconStoreTSX from "../assets/icons/Store";
+import TabBarIcon from "./TabBarIcon";
+import { colors } from "../styles/theme";
+import { routes } from "../data/routes";
 
 const widthSize = Dimensions.get("window").width;
 
-export default function BottomBar({ navigation }: any) {
+export default function BottomBar({
+  hideBottomBar,
+  navigation,
+  routeName,
+}: any) {
   return (
-    <BottomBarContainer>
-      <BottomBarButton>{/* <IconStoreTSX /> */}</BottomBarButton>
-      <BottomBarButton>
-        <SearchIcon />
-      </BottomBarButton>
-      <BottomBarButton>
-        <PlusIcon />
-      </BottomBarButton>
-      <BottomBarButton>
-        <MessageIcon />
-      </BottomBarButton>
-      <BottomBarButton>
-        <ProfileIcon />
-      </BottomBarButton>
+    <BottomBarContainer
+      style={{ display: hideBottomBar ? "none" : "flex" }}
+    >
+      {routes.map((route: any, index: number) => (
+        <BottomBarButton
+          key={index}
+          onPress={() => navigation.navigate(route.name)}
+        >
+          <TabBarIcon
+            color={
+              routeName === route.name
+                ? colors.primary
+                : colors.lightPrimary
+            }
+            path={route.path}
+          />
+        </BottomBarButton>
+      ))}
     </BottomBarContainer>
   );
 }
+
+const BottomBarButton = styled.TouchableOpacity``;
 
 const BottomBarContainer = styled.View`
   position: absolute;
@@ -47,5 +53,3 @@ const BottomBarContainer = styled.View`
   padding: 0 20px;
   justify-content: space-between;
 `;
-
-const BottomBarButton = styled.TouchableOpacity``;

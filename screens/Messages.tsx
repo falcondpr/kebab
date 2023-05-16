@@ -5,7 +5,7 @@ import MainLayout from "../layout/Main";
 
 export default function Messages({ navigation }: any) {
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout routeName="MessagesScreen" navigation={navigation}>
       <Text>Messages</Text>
     </MainLayout>
   );

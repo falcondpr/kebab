@@ -8,12 +8,15 @@ import { useAuthStore } from "../store";
 export default function MainLayout({
   children,
   navigation,
+  routeName,
+  hideBottomBar,
 }: {
   children: React.ReactNode;
   navigation: any;
+  routeName: string;
+  hideBottomBar?: boolean;
 }) {
   const user = useAuthStore((state) => state.user);
-  console.log(user);
 
   return (
     <View style={{ flex: 1 }}>
@@ -27,7 +30,11 @@ export default function MainLayout({
       ) : (
         <>
           {children}
-          <BottomBar />
+          <BottomBar
+            hideBottomBar={hideBottomBar}
+            navigation={navigation}
+            routeName={routeName}
+          />
         </>
       )}
     </View>

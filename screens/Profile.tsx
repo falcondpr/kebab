@@ -25,7 +25,7 @@ export default function Profile({ navigation }: any) {
   );
 
   return (
-    <MainLayout navigation={navigation}>
+    <MainLayout routeName="ProfileScreen" navigation={navigation}>
       <ProfileContainer>
         <ProfileBanner
           source={require("../assets/images/banner-profile.png")}
@@ -73,7 +73,7 @@ export default function Profile({ navigation }: any) {
                 width: 100,
                 height: 10,
                 backgroundColor: colors.lightPrimary,
-                marginTop: 7
+                marginTop: 7,
               }}
             ></View>
           ) : (
