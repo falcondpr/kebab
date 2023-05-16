@@ -21,10 +21,11 @@ const loginValidationSchema = yup.object().shape({
 
 export default function Login({ navigation }: any) {
   const _login = useAuthStore((state) => state.login);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleLogin = async (values: any) => {
-    console.log("login");
+    setIsLoading(true);
     const response = await loginUser(values);
     console.log(response);
     _login(response?.data.token);
@@ -34,6 +35,7 @@ export default function Login({ navigation }: any) {
       text2: "Acabas de iniciar sesion 👋",
     });
     navigation.navigate("HomeScreen");
+    setIsLoading(false);
   };
 
   return (
@@ -96,6 +98,7 @@ export default function Login({ navigation }: any) {
                   bgColor="#333"
                   marginTop="20px"
                   height="55px"
+                  isLoading={isLoading}
                   onPress={() => {
                     handleSubmit();
                     setIsSubmitting(true);
