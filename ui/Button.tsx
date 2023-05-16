@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components/native";
+import { ActivityIndicator } from "react-native";
+
 import Text from "./Text";
+import { colors } from "../styles/theme";
 
 interface IButton {
   children?: React.ReactNode;
@@ -15,16 +18,22 @@ interface IButton {
   borderWidth?: string;
   borderStyle?: string;
   borderColor?: string;
+  isLoading?: boolean;
 }
 
 export default function Button({
   children,
   onPress,
+  isLoading,
   ...rest
 }: IButton) {
   return (
     <ButtonUI {...rest} onPress={onPress}>
-      <Text color={rest.color}>{children}</Text>
+      {isLoading ? (
+        <ActivityIndicator color={colors.lightPrimary} />
+      ) : (
+        <Text color={rest.color}>{children}</Text>
+      )}
     </ButtonUI>
   );
 }
