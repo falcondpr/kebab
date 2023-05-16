@@ -104,5 +104,5 @@ const CreateContainer = styled.View`
 const FormContainer = styled.View`
   margin-top: 20px;
   justify-content: space-between;
-  height: ${heightSize - 80}px;
+  height: ${heightSize - 140}px;
 `;
