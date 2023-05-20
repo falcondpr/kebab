@@ -29,7 +29,7 @@ export default function MainLayout({
           navigation={navigation}
         />
       ) : (
-        <>
+        <View style={{ flex: 1 }}>
           {children}
           <BottomBar
             routes={routes}
@@ -37,7 +37,7 @@ export default function MainLayout({
             navigation={navigation}
             routeName={routeName}
           />
-        </>
+        </View>
       )}
     </View>
   );
