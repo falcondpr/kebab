@@ -4,11 +4,11 @@ import { Formik } from "formik";
 import styled from "styled-components/native";
 import { Text, Input, Button } from "../ui";
 
-import { BackButton } from "../components";
 import MainLayout from "../layout/Main";
+import { BackButton } from "../components";
 import { colors } from "../styles/theme";
 
-const heightSize = Dimensions.get("window").height;
+const heightSize = Dimensions.get("screen").height;
 
 export default function Create({ navigation }: any) {
   const [currentForm, setCurrentForm] = useState<number>(0);
@@ -98,11 +98,12 @@ export default function Create({ navigation }: any) {
 }
 
 const CreateContainer = styled.View`
+  flex: 1;
   padding: 20px;
 `;
 
 const FormContainer = styled.View`
   margin-top: 20px;
   justify-content: space-between;
-  height: ${heightSize - 140}px;
+  height: ${heightSize - 150}px;
 `;

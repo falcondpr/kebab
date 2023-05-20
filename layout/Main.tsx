@@ -1,9 +1,10 @@
 import React from "react";
 import { View } from "react-native";
-import BottomBar from "../components/BottomBar";
 
+import BottomBar from "../components/BottomBar";
 import ModalError from "../components/Modal/Error";
 import { useAuthStore } from "../store";
+import { routes } from "../data/routes";
 
 export default function MainLayout({
   children,
@@ -31,6 +32,7 @@ export default function MainLayout({
         <>
           {children}
           <BottomBar
+            routes={routes}
             hideBottomBar={hideBottomBar}
             navigation={navigation}
             routeName={routeName}

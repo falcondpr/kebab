@@ -4,7 +4,6 @@ import styled from "styled-components/native";
 
 import TabBarIcon from "./TabBarIcon";
 import { colors } from "../styles/theme";
-import { routes } from "../data/routes";
 
 const widthSize = Dimensions.get("window").width;
 
@@ -12,12 +11,13 @@ export default function BottomBar({
   hideBottomBar,
   navigation,
   routeName,
+  routes,
 }: any) {
   return (
     <BottomBarContainer
       style={{ display: hideBottomBar ? "none" : "flex" }}
     >
-      {routes.map((route: any, index: number) => (
+      {routes?.map((route: any, index: number) => (
         <BottomBarButton
           key={index}
           onPress={() => navigation.navigate(route.name)}
