@@ -36,7 +36,7 @@ export default function Profile({ navigation }: any) {
           source={require("../assets/images/banner-profile.png")}
         >
           <ProfileAvatar
-            source={require("../assets/images/profile-avatar.png")}
+            source={{ uri: "https://shorturl.at/uwFL4" }}
           />
           <ProfileButtonLogout
             onPress={() => {
@@ -175,6 +175,10 @@ const ProfileAvatar = styled.Image`
   height: 100px;
   object-fit: cover;
   margin-left: 20px;
+  border-radius: 20px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #d9d9d9;
 `;
 
 const ProfileNameContainer = styled.View`
