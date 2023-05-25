@@ -40,7 +40,7 @@ const BottomBarButton = styled.TouchableOpacity``;
 
 const BottomBarContainer = styled.View`
   position: absolute;
-  bottom: 24px;
+  bottom: 20px;
   left: 20px;
   width: ${widthSize - 40}px;
   border-radius: 16px;
