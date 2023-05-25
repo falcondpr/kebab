@@ -8,6 +8,9 @@ import { colors } from "../styles/theme";
 interface IButton {
   children?: React.ReactNode;
   marginTop?: string;
+  marginRight?: string;
+  marginBottom?: string;
+  marginLeft?: string;
   bgColor?: string;
   height?: string;
   color?: string;
@@ -19,6 +22,7 @@ interface IButton {
   borderStyle?: string;
   borderColor?: string;
   isLoading?: boolean;
+  width?: number;
 }
 
 export default function Button({
@@ -48,6 +52,11 @@ const ButtonUI = styled.TouchableOpacity<IButton>`
   align-items: center;
   justify-content: center;
   margin-top: ${(props) => props.marginTop || "0px"};
+  ${(props) => props.marginTop && `margin-top: ${props.marginTop}`};
+  ${(props) => props.marginBottom && `margin-bottom: ${props.marginBottom}`};
+  ${(props) => props.marginRight && `margin-right: ${props.marginRight}`};
+  ${(props) => props.marginLeft && `margin-left: ${props.marginLeft}`};
+  ${(props) => props.width && `width: ${props.width}px`};
   ${(props) =>
     props.borderWidth &&
     props.borderStyle &&

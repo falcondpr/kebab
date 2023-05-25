@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import { colors } from "../styles/theme";
 
 import Text from "./Text";
 
@@ -25,7 +26,7 @@ export default function Input({
 }: IInput) {
   return (
     <InputContainer>
-      <Text fontSize="14px">{label}</Text>
+      <Text color={colors.primary} fontSize="14px">{label}</Text>
       <InputUI
         onBlur={onBlur}
         autoCapitalize={autoCapitalize ? "none" : "words"}

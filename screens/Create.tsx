@@ -9,6 +9,8 @@ import { BackButton } from "../components";
 import { colors } from "../styles/theme";
 
 const heightSize = Dimensions.get("screen").height;
+const widthSize = Dimensions.get("screen").width;
+const bannerHeightSize = 300;
 
 export default function Create({ navigation }: any) {
   const [currentForm, setCurrentForm] = useState<number>(0);
@@ -24,14 +26,13 @@ export default function Create({ navigation }: any) {
       navigation={navigation}
     >
       <CreateContainer>
-        <BackButton
-          title="Crear producto"
-          onPress={() => {
-            currentForm > 0
-              ? setCurrentForm(currentForm - 1)
-              : navigation.goBack();
-          }}
-        />
+        <View>
+          <CreateBannerImage
+            source={{
+              uri: "https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=1600",
+            }}
+          />
+        </View>
 
         <Formik
           initialValues={{
@@ -79,8 +80,27 @@ export default function Create({ navigation }: any) {
                 <Text>Lista imagenes</Text>
               )}
 
-              <View>
+              <CreateFooter>
                 <Button
+                  width={widthSize / 2}
+                  bgColor="transparent"
+                  borderColor={colors.primary}
+                  borderWidth="1px"
+                  borderStyle="solid"
+                  height="55px"
+                  color={colors.primary}
+                  onPress={() => {
+                    if (currentForm === 0) {
+                      navigation.goBack()
+                    }
+                  }}
+                  marginRight="10px"
+                  >
+                  Volver
+                </Button>
+                <Button
+                  marginLeft="10px"
+                  width={widthSize / 2}
                   bgColor={colors.primary}
                   height="55px"
                   color="#fff"
@@ -88,7 +108,7 @@ export default function Create({ navigation }: any) {
                 >
                   Siguiente
                 </Button>
-              </View>
+              </CreateFooter>
             </FormContainer>
           )}
         </Formik>
@@ -99,11 +119,19 @@ export default function Create({ navigation }: any) {
 
 const CreateContainer = styled.View`
   flex: 1;
-  padding: 20px;
 `;
 
 const FormContainer = styled.View`
-  margin-top: 20px;
   justify-content: space-between;
-  height: ${heightSize - 150}px;
+  height: ${heightSize - bannerHeightSize - 55}px;
+  padding: 20px;
+`;
+
+const CreateBannerImage = styled.Image`
+  width: 100%;
+  height: ${bannerHeightSize}px;
+`
+const CreateFooter = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
 `;
