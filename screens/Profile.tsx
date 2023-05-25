@@ -33,11 +33,15 @@ export default function Profile({ navigation }: any) {
     <MainLayout routeName="ProfileScreen" navigation={navigation}>
       <ProfileContainer showsVerticalScrollIndicator={false}>
         <ProfileBanner
-          source={require("../assets/images/banner-profile.png")}
+          source={{
+            uri: "https://images.pexels.com/photos/1000366/pexels-photo-1000366.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          }}
         >
-          <ProfileAvatar
-            source={{ uri: "https://shorturl.at/uwFL4" }}
-          />
+          <ProfileAvatarContainer>
+            <ProfileAvatar
+              source={{ uri: "https://shorturl.at/uwFL4" }}
+            />
+          </ProfileAvatarContainer>
           <ProfileButtonLogout
             onPress={() => {
               _logout();
@@ -168,17 +172,21 @@ const ProfileBanner = styled.ImageBackground`
   position: relative;
 `;
 
-const ProfileAvatar = styled.Image`
-  position: absolute;
-  bottom: -50px;
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  margin-left: 20px;
+const ProfileAvatarContainer = styled.View`
   border-radius: 20px;
   border-width: 2px;
   border-style: solid;
   border-color: #d9d9d9;
+  position: absolute;
+  bottom: -50px;
+  margin-left: 20px;
+`;
+
+const ProfileAvatar = styled.Image`
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 20px;
 `;
 
 const ProfileNameContainer = styled.View`
@@ -187,8 +195,10 @@ const ProfileNameContainer = styled.View`
 `;
 
 const ProfileButtonLogout = styled.TouchableOpacity`
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
+  shadow-color: #fff;
+  elevation: 10;
   background-color: ${colors.primary};
   position: absolute;
   top: 20px;
