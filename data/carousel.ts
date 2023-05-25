@@ -21,6 +21,6 @@ export const carouselData = [
   },
   {
     id: 6,
-    uri: "https://shorturl.at/bcnOP",
+    uri: "https://images.pexels.com/photos/12854383/pexels-photo-12854383.jpeg",
   },
 ];

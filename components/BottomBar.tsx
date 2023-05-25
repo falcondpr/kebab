@@ -43,7 +43,7 @@ const BottomBarContainer = styled.View`
   bottom: 24px;
   left: 20px;
   width: ${widthSize - 40}px;
-  border-radius: 20px;
+  border-radius: 16px;
   height: 60px;
   background-color: #fff;
   shadow-color: #999;
