@@ -19,11 +19,11 @@ export default function Heading({ children, ...rest }: IHeading) {
 
 const HeadingUI = styled.Text<IHeading>`
   font-size: ${(props) => props.fontSize || "32px"};
-  font-weight: semibold;
-  font-family: "Poppins-Semibold";
+  font-family: "Poppins-Bold";
   text-align: ${(props) => props.textAlign || "left"};
   color: ${(props) => props.color || colors.primary};
-  ${(props) => props.textTransform && `text-transform: ${props.textTransform}`}
+  ${(props) =>
+    props.textTransform && `text-transform: ${props.textTransform}`}
   margin-top: ${(props) => props.marginTop || "0px"};
   margin-bottom: ${(props) => props.marginBottom || "0px"};
   margin-left: ${(props) => props.marginLeft || "0px"};

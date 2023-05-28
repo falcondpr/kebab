@@ -5,7 +5,6 @@ import styled from "styled-components/native";
 import { Text, Input, Button } from "../ui";
 
 import MainLayout from "../layout/Main";
-import { BackButton } from "../components";
 import { colors } from "../styles/theme";
 
 const heightSize = Dimensions.get("screen").height;
@@ -91,11 +90,13 @@ export default function Create({ navigation }: any) {
                   color={colors.primary}
                   onPress={() => {
                     if (currentForm === 0) {
-                      navigation.goBack()
+                      return navigation.goBack();
                     }
+
+                    setCurrentForm(currentForm - 1);
                   }}
                   marginRight="10px"
-                  >
+                >
                   Volver
                 </Button>
                 <Button
@@ -130,7 +131,7 @@ const FormContainer = styled.View`
 const CreateBannerImage = styled.Image`
   width: 100%;
   height: ${bannerHeightSize}px;
-`
+`;
 const CreateFooter = styled.View`
   flex-direction: row;
   justify-content: space-between;

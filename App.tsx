@@ -40,7 +40,7 @@ export default function App({ navigation }: any) {
   const queryClient = new QueryClient();
 
   const [fontsLoaded] = useFonts({
-    "Poppins-Semibold": require("./assets/fonts/Poppins-SemiBold.ttf"),
+    "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
     "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"),
   });
 

@@ -54,7 +54,7 @@ export default function Home({ navigation }: any) {
 }
 
 const EmptyBottomSpace = styled.View`
-  height: 60px;
+  height: 50px;
 `;
 
 const MainHome = styled.View`
