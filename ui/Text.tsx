@@ -11,6 +11,7 @@ interface IText {
   marginLeft?: string;
   marginRight?: string;
   fontWeight?: string;
+  textTransform?: string;
 }
 
 export default function Text({ children, ...rest }: IText) {
@@ -18,6 +19,9 @@ export default function Text({ children, ...rest }: IText) {
 }
 
 const TextUI = styled.Text<IText>`
+  ${(props) =>
+    props.textTransform && `text-transform: ${props.textTransform}`};
+
   color: ${(props) => props.color || "#999999"};
   text-align: ${(props) => props.textAlign || "left"};
   font-family: ${(props) =>
