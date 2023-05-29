@@ -11,6 +11,12 @@ interface IButton {
   marginRight?: string;
   marginBottom?: string;
   marginLeft?: string;
+
+  paddingTop?: string;
+  paddingBottom?: string;
+  paddingRight?: string;
+  paddingLeft?: string;
+
   bgColor?: string;
   height?: string;
   color?: string;
@@ -22,13 +28,17 @@ interface IButton {
   borderStyle?: string;
   borderColor?: string;
   isLoading?: boolean;
-  width?: number;
+  width?: string;
+  borderRadius?: string;
+  textTransform?: string;
 }
 
 export default function Button({
   children,
   onPress,
   isLoading,
+  color,
+  textTransform,
   ...rest
 }: IButton) {
   return (
@@ -36,7 +46,9 @@ export default function Button({
       {isLoading ? (
         <ActivityIndicator color={colors.lightPrimary} />
       ) : (
-        <Text color={rest.color}>{children}</Text>
+        <Text textTransform={textTransform} color={color}>
+          {children}
+        </Text>
       )}
     </ButtonUI>
   );
@@ -47,15 +59,21 @@ const ButtonUI = styled.TouchableOpacity<IButton>`
   display: ${(props) => props.display || "block"}
   background-color: ${(props) => props.bgColor || "transparent"};
   height: ${(props) => props.height || "auto"};
-  border-radius: 6px;
+  border-radius: ${(props) => props.borderRadius || "6px"};
   display: flex;
   align-items: center;
   justify-content: center;
+
   margin-top: ${(props) => props.marginTop || "0px"};
-  ${(props) => props.marginTop && `margin-top: ${props.marginTop}`};
-  ${(props) => props.marginBottom && `margin-bottom: ${props.marginBottom}`};
-  ${(props) => props.marginRight && `margin-right: ${props.marginRight}`};
-  ${(props) => props.marginLeft && `margin-left: ${props.marginLeft}`};
+  margin-bottom: ${(props) => props.marginBottom || "0px"};
+  margin-left: ${(props) => props.marginLeft || "0px"};
+  margin-right: ${(props) => props.marginRight || "0px"};
+
+  padding-top: ${(props) => props.paddingTop || "0px"};
+  padding-bottom: ${(props) => props.paddingBottom || "0px"};
+  padding-left: ${(props) => props.paddingLeft || "0px"};
+  padding-right: ${(props) => props.paddingRight || "0px"};
+
   ${(props) => props.width && `width: ${props.width}px`};
   ${(props) =>
     props.borderWidth &&

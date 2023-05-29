@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components/native";
 import { View, Dimensions } from "react-native";
 import { Formik } from "formik";
-import styled from "styled-components/native";
-import { Text, Input, Button } from "../ui";
 
+import { Text, Input, Button } from "../ui";
 import MainLayout from "../layout/Main";
 import { colors } from "../styles/theme";
 
 const heightSize = Dimensions.get("screen").height;
 const widthSize = Dimensions.get("screen").width;
 const bannerHeightSize = 300;
+
+const images: string[] = [
+  "https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=1600",
+  "https://images.pexels.com/photos/6769371/pexels-photo-6769371.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  "https://images.pexels.com/photos/3965557/pexels-photo-3965557.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  "https://images.pexels.com/photos/3965548/pexels-photo-3965548.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+];
 
 export default function Create({ navigation }: any) {
   const [currentForm, setCurrentForm] = useState<number>(0);
@@ -28,7 +35,7 @@ export default function Create({ navigation }: any) {
         <View>
           <CreateBannerImage
             source={{
-              uri: "https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=1600",
+              uri: images[currentForm],
             }}
           />
         </View>
@@ -124,14 +131,16 @@ const CreateContainer = styled.View`
 
 const FormContainer = styled.View`
   justify-content: space-between;
-  height: ${heightSize - bannerHeightSize - 55}px;
+  height: ${heightSize - bannerHeightSize - 50}px;
   padding: 20px;
+  padding-bottom: 0;
 `;
 
 const CreateBannerImage = styled.Image`
   width: 100%;
   height: ${bannerHeightSize}px;
 `;
+
 const CreateFooter = styled.View`
   flex-direction: row;
   justify-content: space-between;
