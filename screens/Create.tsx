@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
-import { View, Dimensions } from "react-native";
+import { View, Dimensions, useWindowDimensions } from "react-native";
 import { Formik } from "formik";
 
 import { Text, Input, Button } from "../ui";
 import MainLayout from "../layout/Main";
 import { colors } from "../styles/theme";
 
+interface IFormContainer {
+  height: number;
+}
+
 const heightSize = Dimensions.get("screen").height;
 const widthSize = Dimensions.get("screen").width;
+
 const bannerHeightSize = 300;
 
 const images: string[] = [
@@ -20,6 +25,9 @@ const images: string[] = [
 
 export default function Create({ navigation }: any) {
   const [currentForm, setCurrentForm] = useState<number>(0);
+
+  const { height } = useWindowDimensions();
+  console.log(height);
 
   useEffect(() => {
     setCurrentForm(0);
@@ -58,7 +66,7 @@ export default function Create({ navigation }: any) {
             values,
             errors,
           }) => (
-            <FormContainer>
+            <FormContainer height={height}>
               {currentForm === 0 ? (
                 <Input
                   onBlur={handleBlur("name")}
@@ -88,7 +96,7 @@ export default function Create({ navigation }: any) {
 
               <CreateFooter>
                 <Button
-                  width={widthSize / 2}
+                  width={(widthSize / 2).toString()}
                   bgColor="transparent"
                   borderColor={colors.primary}
                   borderWidth="1px"
@@ -108,7 +116,7 @@ export default function Create({ navigation }: any) {
                 </Button>
                 <Button
                   marginLeft="10px"
-                  width={widthSize / 2}
+                  width={(widthSize / 2).toString()}
                   bgColor={colors.primary}
                   height="55px"
                   color="#fff"
@@ -129,11 +137,11 @@ const CreateContainer = styled.View`
   flex: 1;
 `;
 
-const FormContainer = styled.View`
+const FormContainer = styled.View<IFormContainer>`
   justify-content: space-between;
-  height: ${heightSize - bannerHeightSize - 50}px;
-  padding: 20px;
-  padding-bottom: 0;
+  height: ${(props) => props.height - bannerHeightSize - 24}px;
+  padding: 0 20px;
+  padding-bottom: 26px;
 `;
 
 const CreateBannerImage = styled.Image`
