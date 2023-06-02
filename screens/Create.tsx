@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
-import { View, Dimensions, useWindowDimensions } from "react-native";
+import { View, Dimensions } from "react-native";
 import { Formik } from "formik";
+import {
+  Radio,
+  Select,
+} from "native-base";
 
-import { Text, Input, Button } from "../ui";
 import MainLayout from "../layout/Main";
+import { Text, Input, Button } from "../ui";
 import { colors } from "../styles/theme";
 
 interface IFormContainer {
   height: number;
 }
 
-const heightSize = Dimensions.get("screen").height;
-const widthSize = Dimensions.get("screen").width;
+const { height: heightSize } = Dimensions.get("screen");
+const { width } = Dimensions.get("screen");
+const height = heightSize - 26;
 
 const bannerHeightSize = 300;
 
@@ -24,10 +29,7 @@ const images: string[] = [
 ];
 
 export default function Create({ navigation }: any) {
-  const [currentForm, setCurrentForm] = useState<number>(0);
-
-  const { height } = useWindowDimensions();
-  console.log(height);
+  const [currentForm, setCurrentForm] = useState<number>(2);
 
   useEffect(() => {
     setCurrentForm(0);
@@ -64,6 +66,7 @@ export default function Create({ navigation }: any) {
             handleBlur,
             handleSubmit,
             values,
+            resetForm,
             errors,
           }) => (
             <FormContainer height={height}>
@@ -75,19 +78,59 @@ export default function Create({ navigation }: any) {
                   onChangeText={(text) => handleChange("name")}
                 />
               ) : currentForm === 1 ? (
-                <Input
-                  onBlur={handleBlur("name")}
-                  label="estado producto"
-                  value="s"
-                  onChangeText={(text) => handleChange("name")}
-                />
+                <View>
+                  <Text fontSize="14px" marginBottom="10px">
+                    Estado del producto
+                  </Text>
+
+                  <StatusProductContainer>
+                    <Radio.Group
+                      name="statusProduct"
+                      value={values.statusProduct}
+                      onChange={handleChange("statusProduct")}
+                    >
+                      <Radio value="nuevo">nuevo</Radio>
+                      <Radio value="usado">usado</Radio>
+                    </Radio.Group>
+
+                    {/* <StatusProductButton>
+                      <Text
+                        fontWeight="bold"
+                        color={colors.primary}
+                        textAlign="center"
+                      >
+                        Nuevo
+                      </Text>
+                    </StatusProductButton>
+                    <StatusProductButton>
+                      <Text
+                        fontWeight="bold"
+                        color={colors.primary}
+                        textAlign="center"
+                      >
+                        Usado
+                      </Text>
+                    </StatusProductButton> */}
+                  </StatusProductContainer>
+                </View>
               ) : currentForm === 2 ? (
-                <Input
-                  onBlur={handleBlur("name")}
-                  label="categoria"
-                  value="s"
-                  onChangeText={(text) => handleChange("name")}
-                />
+                <CategoryProductContainer>
+                  <Select
+                    height="50px"
+                    rounded="6px"
+                    fontSize="16px"
+                    borderColor={colors.primary}
+                    color={colors.primary}
+                    placeholder="Seleccione una categoría"
+                    // defaultValue={values.category}
+                    selectedValue={values.category}
+                    onValueChange={handleChange("category")}
+                  >
+                    <Select.Item label="Prendas" value="clothe" />
+                    <Select.Item label="Tecnologia" value="tech" />
+                    <Select.Item label="Mueblería" value="table" />
+                  </Select>
+                </CategoryProductContainer>
               ) : currentForm === 3 ? (
                 <Text>Detalle producto</Text>
               ) : (
@@ -96,7 +139,7 @@ export default function Create({ navigation }: any) {
 
               <CreateFooter>
                 <Button
-                  width={(widthSize / 2).toString()}
+                  width={(width / 2).toString()}
                   bgColor="transparent"
                   borderColor={colors.primary}
                   borderWidth="1px"
@@ -116,7 +159,7 @@ export default function Create({ navigation }: any) {
                 </Button>
                 <Button
                   marginLeft="10px"
-                  width={(widthSize / 2).toString()}
+                  width={(width / 2).toString()}
                   bgColor={colors.primary}
                   height="55px"
                   color="#fff"
@@ -137,11 +180,26 @@ const CreateContainer = styled.View`
   flex: 1;
 `;
 
+const StatusProductContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const StatusProductButton = styled.TouchableOpacity`
+  border: 1px solid ${colors.primary};
+  padding: 12px;
+  border-radius: 4px;
+  width: ${width / 2 - 30}px;
+`;
+
+const CategoryProductContainer = styled.View``;
+
 const FormContainer = styled.View<IFormContainer>`
   justify-content: space-between;
   height: ${(props) => props.height - bannerHeightSize - 24}px;
   padding: 0 20px;
   padding-bottom: 26px;
+  padding-top: 20px;
 `;
 
 const CreateBannerImage = styled.Image`
