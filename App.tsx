@@ -9,6 +9,7 @@ import {
 import Toast, { BaseToast } from "react-native-toast-message";
 
 import { Navigation } from "./navigation";
+import { NativeBaseProvider } from "native-base";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -60,15 +61,17 @@ export default function App({ navigation }: any) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <View
-        style={{
-          flex: 1,
-        }}
-        onLayout={onLayoutRootView}
-      >
-        <Navigation />
-        <Toast config={toastConfig} />
-      </View>
+      <NativeBaseProvider>
+        <View
+          style={{
+            flex: 1,
+          }}
+          onLayout={onLayoutRootView}
+        >
+          <Navigation />
+          <Toast config={toastConfig} />
+        </View>
+      </NativeBaseProvider>
     </QueryClientProvider>
   );
 }
