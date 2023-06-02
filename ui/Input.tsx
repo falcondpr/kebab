@@ -26,7 +26,7 @@ export default function Input({
 }: IInput) {
   return (
     <InputContainer>
-      <Text color={colors.primary} fontSize="14px">{label}</Text>
+      <Text marginBottom="5px" color={colors.primary} fontSize="14px">{label}</Text>
       <InputUI
         onBlur={onBlur}
         autoCapitalize={autoCapitalize ? "none" : "words"}
@@ -43,7 +43,7 @@ const InputContainer = styled.View``;
 
 const InputUI = styled.TextInput<IInput>`
   border: 1px solid #bebebe;
-  height: 50px;
+  height: 56px;
   padding-left: 16px;
   border-radius: 6px;
   margin-bottom: ${(props) => props.marginBottom || "0"};

@@ -17,6 +17,8 @@ interface IButton {
   paddingRight?: string;
   paddingLeft?: string;
 
+  fontSize?: string;
+  
   bgColor?: string;
   height?: string;
   color?: string;
@@ -39,6 +41,7 @@ export default function Button({
   isLoading,
   color,
   textTransform,
+  fontSize = '16px',
   ...rest
 }: IButton) {
   return (
@@ -46,7 +49,7 @@ export default function Button({
       {isLoading ? (
         <ActivityIndicator color={colors.lightPrimary} />
       ) : (
-        <Text textTransform={textTransform} color={color}>
+        <Text fontSize={fontSize} textTransform={textTransform} color={color}>
           {children}
         </Text>
       )}
@@ -56,11 +59,11 @@ export default function Button({
 
 const ButtonUI = styled.TouchableOpacity<IButton>`
   flex: ${(props) => props.flex || "auto"};
-  display: ${(props) => props.display || "block"}
   background-color: ${(props) => props.bgColor || "transparent"};
   height: ${(props) => props.height || "auto"};
   border-radius: ${(props) => props.borderRadius || "6px"};
-  display: flex;
+
+  display: ${(props) => props.display || "flex"};
   align-items: center;
   justify-content: center;
 

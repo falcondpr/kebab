@@ -3,12 +3,12 @@ import { FlatList, ScrollView } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 
 import MainLayout from "../layout/Main";
-import { carouselData } from "../data/carousel";
 import CarouselItem from "../components/CarouselItem";
 import styled from "styled-components/native";
 import CardProduct from "../components/Home/CardProduct";
 import { CATEGORIES } from "../data/categories";
-import { Button, Text } from "../ui";
+import { carouselData } from "../data/carousel";
+import { Button } from "../ui";
 import { colors } from "../styles/theme";
 
 export default function Home({ navigation }: any) {
@@ -58,6 +58,7 @@ export default function Home({ navigation }: any) {
                 borderWidth="1px"
                 borderStyle="solid"
                 borderColor={colors.primary}
+                fontSize="18px"
                 onPress={() => setCategorySelected(item.id)}
                 paddingTop="10px"
                 textTransform="uppercase"
@@ -71,10 +72,10 @@ export default function Home({ navigation }: any) {
                     ? colors.primary
                     : "transparent"
                 }
-                paddingLeft="24px"
+                paddingLeft="32px"
                 paddingBottom="10px"
-                paddingRight="24px"
-                height="50px"
+                paddingRight="32px"
+                height="56px"
                 marginLeft={index === 0 ? "16px" : "0px"}
                 borderRadius="10px"
                 marginRight={

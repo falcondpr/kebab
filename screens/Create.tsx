@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components/native";
 import { View, Dimensions } from "react-native";
 import { Formik } from "formik";
 import {
   Radio,
   Select,
+  Button as ButtonNativeBase,
+  Flex,
+  Switch,
 } from "native-base";
 
 import MainLayout from "../layout/Main";
@@ -29,10 +32,13 @@ const images: string[] = [
 ];
 
 export default function Create({ navigation }: any) {
-  const [currentForm, setCurrentForm] = useState<number>(2);
+  const [currentForm, setCurrentForm] = useState<number>(0);
+
+  const refNewButton: any = useRef(null);
+  const refOldButton: any = useRef(null);
 
   useEffect(() => {
-    setCurrentForm(0);
+    setCurrentForm(1);
   }, []);
 
   return (
@@ -53,7 +59,7 @@ export default function Create({ navigation }: any) {
         <Formik
           initialValues={{
             name: "",
-            statusProduct: "",
+            statusProduct: false,
             category: "",
             description: "",
             tags: [],
@@ -67,6 +73,7 @@ export default function Create({ navigation }: any) {
             handleSubmit,
             values,
             resetForm,
+            setFormikState,
             errors,
           }) => (
             <FormContainer height={height}>
@@ -79,44 +86,28 @@ export default function Create({ navigation }: any) {
                 />
               ) : currentForm === 1 ? (
                 <View>
-                  <Text fontSize="14px" marginBottom="10px">
-                    Estado del producto
-                  </Text>
+                  <Text fontSize="14px">Estado del producto</Text>
 
-                  <StatusProductContainer>
-                    <Radio.Group
-                      name="statusProduct"
-                      value={values.statusProduct}
-                      onChange={handleChange("statusProduct")}
+                  <Flex flexDir="row" alignItems="center">
+                    <Text
+                      color={colors.primary}
+                      fontSize="18px"
+                      marginRight="5px"
                     >
-                      <Radio value="nuevo">nuevo</Radio>
-                      <Radio value="usado">usado</Radio>
-                    </Radio.Group>
-
-                    {/* <StatusProductButton>
-                      <Text
-                        fontWeight="bold"
-                        color={colors.primary}
-                        textAlign="center"
-                      >
-                        Nuevo
-                      </Text>
-                    </StatusProductButton>
-                    <StatusProductButton>
-                      <Text
-                        fontWeight="bold"
-                        color={colors.primary}
-                        textAlign="center"
-                      >
-                        Usado
-                      </Text>
-                    </StatusProductButton> */}
-                  </StatusProductContainer>
+                      Es nuevo?
+                    </Text>
+                    <Switch
+                      defaultIsChecked={values.statusProduct}
+                      value={values.statusProduct}
+                      // onValueChange={(value) => setState}
+                      size="lg"
+                    ></Switch>
+                  </Flex>
                 </View>
               ) : currentForm === 2 ? (
                 <CategoryProductContainer>
                   <Select
-                    height="50px"
+                    height="56px"
                     rounded="6px"
                     fontSize="16px"
                     borderColor={colors.primary}
@@ -144,7 +135,7 @@ export default function Create({ navigation }: any) {
                   borderColor={colors.primary}
                   borderWidth="1px"
                   borderStyle="solid"
-                  height="55px"
+                  height="60px"
                   color={colors.primary}
                   onPress={() => {
                     if (currentForm === 0) {
@@ -161,7 +152,7 @@ export default function Create({ navigation }: any) {
                   marginLeft="10px"
                   width={(width / 2).toString()}
                   bgColor={colors.primary}
-                  height="55px"
+                  height="60px"
                   color="#fff"
                   onPress={() => setCurrentForm(currentForm + 1)}
                 >
